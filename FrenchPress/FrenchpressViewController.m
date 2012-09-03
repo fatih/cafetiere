@@ -213,29 +213,9 @@
                                                     repeats:YES];
 }
 
--(void)playSoundWithName:(NSString *)fileName type:(NSString *)fileExtension
-{
-    
-	CFStringRef cfFileName = (__bridge CFStringRef) fileName;
-	CFStringRef cfFileExtension = (__bridge CFStringRef) fileExtension;
-    
-	CFBundleRef mainBundle;
-	mainBundle = CFBundleGetMainBundle ();
-    
-	CFURLRef soundURLRef  = CFBundleCopyResourceURL (mainBundle, cfFileName, cfFileExtension, NULL);
-    
-	SystemSoundID soundID;
-    
-	AudioServicesCreateSystemSoundID (soundURLRef, &soundID);
-	AudioServicesPlaySystemSound(soundID);
-    
-	CFRelease(soundURLRef);
-}
-
 -(void)countdownUpdateMethod:(NSTimer*)theTimer {
     self.currentDate = [NSDate date];
-    self.self.elapsedTime = [self.currentDate timeIntervalSinceDate:self.startTime];
-//    difference = countdownSeconds - self.elapsedTime;
+    self.elapsedTime = [self.currentDate timeIntervalSinceDate:self.startTime];
     
     NSDateComponents *conversionInfo = [self.sysCalendar components:self.unitFlags
                                                            fromDate:self.currentDate
@@ -259,7 +239,7 @@
         // Simple hack to prevent calling the same functions, assignments
         // Don't use BOOL for fooState variables...
         if (!self.waterState) {
-            [self.self.infoLabel setText:@"Add preboiled water"];
+            [self.infoLabel setText:@"Add preboiled water"];
             [self.frenchPress setImage:self.french1];
             [self.frenchPress setAnimationImages:self.animationArrayBegin];
             [self.frenchPress setAnimationDuration:[self waterTime]];
@@ -385,6 +365,25 @@
             [self.animationArrayFinish addObject:image];
         }
     }
+}
+
+-(void)playSoundWithName:(NSString *)fileName type:(NSString *)fileExtension
+{
+    
+	CFStringRef cfFileName = (__bridge CFStringRef) fileName;
+	CFStringRef cfFileExtension = (__bridge CFStringRef) fileExtension;
+    
+	CFBundleRef mainBundle;
+	mainBundle = CFBundleGetMainBundle ();
+    
+	CFURLRef soundURLRef  = CFBundleCopyResourceURL (mainBundle, cfFileName, cfFileExtension, NULL);
+    
+	SystemSoundID soundID;
+    
+	AudioServicesCreateSystemSoundID (soundURLRef, &soundID);
+	AudioServicesPlaySystemSound(soundID);
+    
+	CFRelease(soundURLRef);
 }
 
 @end
