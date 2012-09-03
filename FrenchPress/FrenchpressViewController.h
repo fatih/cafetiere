@@ -36,6 +36,8 @@
                                              *animationArraySteep,
                                              *animationArrayFinish;
 
+@property (nonatomic) BOOL backgroundStart;
+
 -(void)startCoffee;
 -(void)cleanForNewStart;
 -(void)stopTimers;

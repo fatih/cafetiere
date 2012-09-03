@@ -38,6 +38,8 @@
 @synthesize animationArrayBegin, animationArrayStir,
             animationArraySteep, animationArrayFinish;
 
+@synthesize backgroundStart;
+
 
 - (void)awakeFromNib {
 }
@@ -165,21 +167,21 @@
     [self setFinishState:0];
     [self.infoLabel setText:@"Starting"];
     [self.timerLabel setText:@"Cafetière"];
+    [self setBackgroundStart:NO];
 }
 
 -(void)startCoffee
 {
     CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
-    crossFade.duration = 1.0f;
+    crossFade.duration = 1.5f;
     crossFade.fromValue = (__bridge id)([self.frenchPress image].CGImage);
     crossFade.toValue = (__bridge id)([UIImage imageNamed:@"fempty_0"].CGImage);
     [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
     [self.frenchPress setImage:[UIImage imageNamed:@"fempty_0"]];
     
-    self.startTime = [NSDate date];
     
     [self playSoundWithName:@"coffeeStarted" type:@"wav"];
-    self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:1.5f
+    self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:2.5f
                                                      target:self
                                                    selector:@selector (startCountdown)
                                                    userInfo:nil
@@ -201,15 +203,18 @@
 -(void)startCountdown
 {
     
+    // Don't override startime if we come from background
+    if (self.backgroundStart == NO) {
+        self.startTime = [NSDate date];
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:self.startTime forKey:@"startTime"];
+        [defaults synchronize];
+        NSLog(@"Data saved");
+    }
+    
     self.startDate = [[NSDate alloc] initWithTimeInterval:countdownSeconds sinceDate:startTime];
     self.waterDate = [[NSDate alloc] initWithTimeInterval:waterTime sinceDate:startTime];
     self.bloomDate = [[NSDate alloc] initWithTimeInterval:(waterTime + bloomTime) sinceDate:startTime];
-    
-    // Store the data
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:self.startTime forKey:@"startTime"];
-    [defaults synchronize];
-    NSLog(@"Data saved");
     
     // Get the system calendar
     self.sysCalendar = [NSCalendar currentCalendar];

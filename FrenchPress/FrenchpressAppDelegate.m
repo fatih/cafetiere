@@ -67,6 +67,8 @@
 //    NSDate *currentD = [defaults objectForKey:@"currentDate"];
 //    [[self viewController] setCurrentDate:currentD];
     
+    // Tell that we come from background
+    [[self viewController] setBackgroundStart:YES];
     
     // Start the timer again
     [[self viewController] startCountdown];
