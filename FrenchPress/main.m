@@ -1,8 +1,8 @@
 //
 //  main.m
-//  FrenchPress
+//  FrenchxPress
 //
-//  Created by Fatih Arslan on 9/2/12.
+//  Created by Fatih Arslan on 8/26/12.
 //  Copyright (c) 2012 Fatih Arslan. All rights reserved.
 //
 
