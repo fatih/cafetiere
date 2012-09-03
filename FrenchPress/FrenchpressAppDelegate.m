@@ -55,6 +55,8 @@
         // This is the main feature of our app
         // Make this editable in the future
         [self.viewController startCoffee];
+        
+        return;
 
     }
     // Get the stored data before the view loads
@@ -69,6 +71,7 @@
     
     // Tell that we come from background
     [[self viewController] setBackgroundStart:YES];
+    
     
     // Start the timer again
     [[self viewController] startCountdown];

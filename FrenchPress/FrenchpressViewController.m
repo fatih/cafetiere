@@ -62,8 +62,8 @@
         // TEST
 //        [self setWaterTime:1];
 //        [self setBloomTime:1];
-//        [self setSteepTime:241];
-//        [self setFinishTime:5];
+//        [self setSteepTime:2];
+//        [self setFinishTime:2];
         [self setCountdownSeconds:[self steepTime] + [self bloomTime] + [self waterTime]];
         
         // Set conversion to seconds and minutes
@@ -181,7 +181,7 @@
     
     
     [self playSoundWithName:@"coffeeStarted" type:@"wav"];
-    self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:2.5f
+    self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f
                                                      target:self
                                                    selector:@selector (startCountdown)
                                                    userInfo:nil
