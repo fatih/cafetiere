@@ -63,12 +63,6 @@
 //        [self setSteepTime:241];
 //        [self setFinishTime:5];
         [self setCountdownSeconds:[self steepTime] + [self bloomTime] + [self waterTime]];
-        [self setFrench1:[UIImage imageNamed:@"fbegin_1"]];
-        [self setFrench2:[UIImage imageNamed:@"fstir_2"]];
-        [self setFrench3:[UIImage imageNamed:@"fsteep_3"]];
-        [self setFrench4:[UIImage imageNamed:@"ffinish_4"]];
-        [self setFrench5:[UIImage imageNamed:@"fpour_5"]];
-        [self setInfoBackgroundImage:[UIImage imageNamed:@"timerBackground"]];
         
         // Set conversion to seconds and minutes
         [self setUnitFlags:NSSecondCalendarUnit | NSMinuteCalendarUnit];
@@ -93,6 +87,14 @@
 		[self.view addSubview:slideToCancel.view];
         [self enableSlider];
 	}
+    [self setFrench1:[UIImage imageNamed:@"fbegin_1"]];
+    [self setFrench2:[UIImage imageNamed:@"fstir_2"]];
+    [self setFrench3:[UIImage imageNamed:@"fsteep_3"]];
+    [self setFrench4:[UIImage imageNamed:@"ffinish_4"]];
+    [self setFrench5:[UIImage imageNamed:@"fpour_5"]];
+    
+    [self setInfoBackgroundImage:[UIImage imageNamed:@"timerBackground"]];
+    
     //add background
     UIImage *backGround = [UIImage imageNamed:@"backgroundPSD"];
     UIImage *trackImage = [UIImage imageWithCGImage:[backGround CGImage]
