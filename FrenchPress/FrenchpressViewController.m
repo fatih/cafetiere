@@ -52,16 +52,16 @@
         self.animationArraySteep = [[NSMutableArray alloc] init];
         self.animationArrayFinish = [[NSMutableArray alloc] init];
         
-//        [self setSteepTime:241];
-//        [self setWaterTime:16];
-//        [self setBloomTime:6];
-//        [self setFinishTime:5];
+        [self setSteepTime:241];
+        [self setWaterTime:16];
+        [self setBloomTime:6];
+        [self setFinishTime:5];
         
         // TEST
-        [self setWaterTime:1];
-        [self setBloomTime:1];
-        [self setSteepTime:241];
-        [self setFinishTime:5];
+//        [self setWaterTime:1];
+//        [self setBloomTime:1];
+//        [self setSteepTime:241];
+//        [self setFinishTime:5];
         [self setCountdownSeconds:[self steepTime] + [self bloomTime] + [self waterTime]];
         [self setFrench1:[UIImage imageNamed:@"fbegin_1"]];
         [self setFrench2:[UIImage imageNamed:@"fstir_2"]];
@@ -171,7 +171,7 @@
     [self setSteepState:0];
     [self setFinishState:0];
     [self.infoLabel setText:@"Starting"];
-    [self.timerLabel setText:@"Cafètiere"];
+    [self.timerLabel setText:@"Cafetière"];
 }
 
 -(void)startCoffee
