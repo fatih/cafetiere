@@ -113,16 +113,6 @@
     self.frenchPress.layer.shadowOpacity = 0.4;
     self.frenchPress.layer.shadowRadius = 2;
     self.frenchPress.clipsToBounds = NO;
-    // Drop shadow below the image
-//    self.frenchPress.layer.shadowColor = [UIColor blackColor].CGColor;
-//    self.frenchPress.layer.shadowOpacity = 0.6f;
-//    self.frenchPress.layer.shadowOffset = CGSizeMake(10.0f, 10.0f);
-//    self.frenchPress.layer.shadowRadius = 1.3f;
-//    self.frenchPress.layer.masksToBounds = NO;
-//    CGSize size = self.frenchPress.bounds.size;
-//    CGRect ovalRect = CGRectMake(28.0f, size.height - 5 , size.width - 100, 10);
-//    UIBezierPath *path = [UIBezierPath bezierPathWithOvalInRect:ovalRect];
-//    self.frenchPress.layer.shadowPath = path.CGPath;
     
     [self loadAnimationImages];
     [self cleanForNewStart];
