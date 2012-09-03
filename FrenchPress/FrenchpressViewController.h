@@ -38,5 +38,6 @@
 
 -(void)startCoffee;
 -(void)cleanForNewStart;
-
+-(void)stopTimers;
+-(void)startCountdown;
 @end

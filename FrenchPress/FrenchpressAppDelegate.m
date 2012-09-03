@@ -21,7 +21,6 @@
 {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
-    NSLog(@"WillResignActive");
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
@@ -29,6 +28,17 @@
     // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
     // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     NSLog(@"DidEnterBackground");
+    // Store the data
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:self.viewController.currentDate forKey:@"currentDate"];
+    [defaults synchronize];
+    NSLog(@"Data saved");
+    
+    // Clean labels that will be refreshed next time
+    [[[self viewController] timerLabel ] setText:@""];
+    
+    // Clean all timers
+    [[self viewController] stopTimers];
     
 }
 
@@ -47,7 +57,19 @@
         [self.viewController startCoffee];
 
     }
+    // Get the stored data before the view loads
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDate *startT = [defaults objectForKey:@"startTime"];
+    NSLog(@"Startime: %@", startT);
+    [[self viewController] setStartTime:startT];
     
+    // We could need this in the future
+//    NSDate *currentD = [defaults objectForKey:@"currentDate"];
+//    [[self viewController] setCurrentDate:currentD];
+    
+    
+    // Start the timer again
+    [[self viewController] startCountdown];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application

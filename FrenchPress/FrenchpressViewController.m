@@ -73,6 +73,7 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    NSLog(@"ViewDidLoad");
     
     if (!slideToCancel) {
 		// Create the slider
@@ -175,6 +176,9 @@
     [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
     [self.frenchPress setImage:[UIImage imageNamed:@"fempty_0"]];
     
+    self.startTime = [NSDate date];
+    
+    [self playSoundWithName:@"coffeeStarted" type:@"wav"];
     self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:1.5f
                                                      target:self
                                                    selector:@selector (startCountdown)
@@ -196,16 +200,20 @@
 
 -(void)startCountdown
 {
-    self.startTime = [NSDate date];
     
     self.startDate = [[NSDate alloc] initWithTimeInterval:countdownSeconds sinceDate:startTime];
     self.waterDate = [[NSDate alloc] initWithTimeInterval:waterTime sinceDate:startTime];
     self.bloomDate = [[NSDate alloc] initWithTimeInterval:(waterTime + bloomTime) sinceDate:startTime];
     
+    // Store the data
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    [defaults setObject:self.startTime forKey:@"startTime"];
+    [defaults synchronize];
+    NSLog(@"Data saved");
+    
     // Get the system calendar
     self.sysCalendar = [NSCalendar currentCalendar];
     
-    [self playSoundWithName:@"coffeeStarted" type:@"wav"];
     self.paintingTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f
                                                      target:self
                                                    selector:@selector (countdownUpdateMethod:)
