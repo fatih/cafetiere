@@ -8,7 +8,8 @@
 {
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
-    self.viewController = [[FrenchpressViewController alloc] initWithNibName:@"FrenchpressViewController" bundle:nil];
+    self.viewController = [[FrenchpressViewController alloc] init];
+    
     self.window.rootViewController = self.viewController;
     
     [self.window makeKeyAndVisible];
