@@ -174,14 +174,16 @@
 {
     CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
     crossFade.duration = 1.5f;
-    crossFade.fromValue = (__bridge id)([self.frenchPress image].CGImage);
-    crossFade.toValue = (__bridge id)([UIImage imageNamed:@"fempty_0"].CGImage);
+    
+    crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"fempty_0"].CGImage);
+    crossFade.toValue = (__bridge id)([UIImage imageNamed:@"animBegin25"].CGImage);
+    
     [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
-    [self.frenchPress setImage:[UIImage imageNamed:@"fempty_0"]];
+    [self.frenchPress setImage:[UIImage imageNamed:@"animBegin25"]];
     
     
     [self playSoundWithName:@"coffeeStarted" type:@"wav"];
-    self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:2.0f
+    self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:2.5f
                                                      target:self
                                                    selector:@selector (startCountdown)
                                                    userInfo:nil
