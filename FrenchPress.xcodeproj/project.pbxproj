@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3D055BBA15F7FAEA005FDF55 /* AnimUIImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D055BB915F7FAEA005FDF55 /* AnimUIImageView.m */; };
 		3DD58EF115F3A66200FB9F3F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD58EF015F3A66200FB9F3F /* UIKit.framework */; };
 		3DD58EF315F3A66200FB9F3F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD58EF215F3A66200FB9F3F /* Foundation.framework */; };
 		3DD58EF515F3A66200FB9F3F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD58EF415F3A66200FB9F3F /* CoreGraphics.framework */; };
@@ -128,6 +129,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3D055BB815F7FAEA005FDF55 /* AnimUIImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimUIImageView.h; sourceTree = "<group>"; };
+		3D055BB915F7FAEA005FDF55 /* AnimUIImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimUIImageView.m; sourceTree = "<group>"; };
 		3DD58EEC15F3A66200FB9F3F /* FrenchPress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FrenchPress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD58EF015F3A66200FB9F3F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3DD58EF215F3A66200FB9F3F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -307,6 +310,8 @@
 				3DD58F1615F3A94D00FB9F3F /* SlideToCancelViewController.m */,
 				3DD58EFF15F3A66200FB9F3F /* FrenchpressAppDelegate.h */,
 				3DD58F0015F3A66300FB9F3F /* FrenchpressAppDelegate.m */,
+				3D055BB815F7FAEA005FDF55 /* AnimUIImageView.h */,
+				3D055BB915F7FAEA005FDF55 /* AnimUIImageView.m */,
 				3DD58F0215F3A66300FB9F3F /* FrenchpressViewController.h */,
 				3DD58F0315F3A66300FB9F3F /* FrenchpressViewController.m */,
 				3DD58F0515F3A66300FB9F3F /* FrenchpressViewController.xib */,
@@ -647,6 +652,7 @@
 				3DD58F0115F3A66300FB9F3F /* FrenchpressAppDelegate.m in Sources */,
 				3DD58F0415F3A66300FB9F3F /* FrenchpressViewController.m in Sources */,
 				3DD58F1715F3A94D00FB9F3F /* SlideToCancelViewController.m in Sources */,
+				3D055BBA15F7FAEA005FDF55 /* AnimUIImageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

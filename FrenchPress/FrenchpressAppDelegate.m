@@ -1,6 +1,8 @@
 #import "FrenchpressAppDelegate.h"
 #import "FrenchpressViewController.h"
 #import "SlideToCancelViewController.h"
+#import  <QuartzCore/QuartzCore.h>
+//#import "AnimUIImageView.h"
 
 @implementation FrenchpressAppDelegate
 
@@ -13,41 +15,42 @@
     self.window.rootViewController = self.viewController;
     
     [self.window makeKeyAndVisible];
-    NSLog(@"DidFinishLaunchingWithOptions");
     return YES;
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
 {
-    // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
-    // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
+
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
-    // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later. 
-    // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
     NSLog(@"DidEnterBackground");
+    // Countdown didn't started yet, nothing to save here
+    if (!self.viewController.didCountdownStarted) {
+        [[self viewController] cleanForNewStart];
+        return;
+    }
+    
+    [self.viewController.frenchPress pauseAnim];
+    
     // Store the data
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    [defaults setObject:self.viewController.currentDate forKey:@"currentDate"];
+    [defaults setObject:[NSDate date] forKey:@"currentDate"];
     [defaults synchronize];
-    NSLog(@"Data saved");
     
     // Clean labels that will be refreshed next time
-    [[[self viewController] timerLabel ] setText:@""];
+//    [[[self viewController] timerLabel] setText:@""];
     
     // Clean all timers
     [[self viewController] stopTimers];
-    
 }
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    // Called as part of the transition from the background to the inactive state; here you can undo many of the changes made on entering the background.
-    NSLog(@"WillEnterForeground");
-    if ([self.viewController didEnded]) {
-        NSLog(@"WillEnterForeground DidEnded");
+    // Countdown reached the end, start it from the beginning
+    if (self.viewController.didEnded || (!self.viewController.didCountdownStarted)) {
+        NSLog(@"Beginning from the scratch");
         
         // Make a new start
         [self.viewController cleanForNewStart];
@@ -57,35 +60,36 @@
         [self.viewController startCoffee];
         
         return;
-
     }
-    // Get the stored data before the view loads
-    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    NSDate *startT = [defaults objectForKey:@"startTime"];
-    NSLog(@"Startime: %@", startT);
-    [[self viewController] setStartTime:startT];
+
+    // If the countdown dint started, the skip and start timer
+    // immediately
+    if (self.viewController.didCountdownStarted) {
+        // The timers StartTime should always be the same
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSDate *startT = [defaults objectForKey:@"startTime"];
+        [[self viewController] setStartTime:startT];
+        
+        // Tell that we come from background
+        // Needed to not overide old NSUserDefaults values
+        [[self viewController] setBackgroundStart:YES];
+        
+        // Resume any animation that was paused before
+        [[self viewController] getCurrentCoffeeState];
+        NSTimeInterval elapsedGap = [[NSDate date] timeIntervalSinceDate:self.viewController.stateStartDate];
+        [self.viewController.frenchPress resumeAnim:elapsedGap];
+        [[self viewController] startCountdown:0];
+        
+    }
     
-    // We could need this in the future
-//    NSDate *currentD = [defaults objectForKey:@"currentDate"];
-//    [[self viewController] setCurrentDate:currentD];
-    
-    // Tell that we come from background
-    [[self viewController] setBackgroundStart:YES];
-    
-    
-    // Start the timer again
-    [[self viewController] startCountdown];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
 {
-    // Restart any tasks that were paused (or not yet started) while the application was inactive. If the application was previously in the background, optionally refresh the user interface.
-    NSLog(@"DidBecomActive");
 }
 
 - (void)applicationWillTerminate:(UIApplication *)application
 {
-    // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
 @end

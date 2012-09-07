@@ -2,16 +2,20 @@
 #import <Foundation/Foundation.h>
 #import "FrenchpressViewController.h"
 #import <QuartzCore/QuartzCore.h>
+#import "AnimUIImageView.h"
+
 
 @interface FrenchpressViewController ()
+
 
 @end
 
 @implementation FrenchpressViewController
 
 @synthesize timerLabel, infoLabel, paintingTimer, coffeeTimer;
-@synthesize startTime,  currentDate ;
+@synthesize startTime;
 @synthesize startDate, waterDate, bloomDate;
+@synthesize stateStartDate, currentDate;
 @synthesize sysCalendar;
 @synthesize unitFlags;
 
@@ -26,7 +30,7 @@
 @synthesize infoBackgroundImage;
 
 // Boolean variables for coffee countdown
-@synthesize didEnded;
+@synthesize didEnded, didCountdownStarted, didCoffeeStarted;
 
 // Each step has a different time
 @synthesize waterTime, bloomTime, steepTime, finishTime;
@@ -38,10 +42,22 @@
 @synthesize animationArrayBegin, animationArrayStir,
             animationArraySteep, animationArrayFinish;
 
+// Needed for background mode
+@synthesize startGap;
+
+// Simple boolean if we ever entered background
 @synthesize backgroundStart;
 
+CoffeState coffeeState;
 
-- (void)awakeFromNib {
+
+// Needed because otherwise we can't initialize shadows to our
+// custom AnimUIImageView class.
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    self.frenchPress = [[AnimUIImageView alloc] init];
+    
 }
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
@@ -54,16 +70,16 @@
         self.animationArraySteep = [[NSMutableArray alloc] init];
         self.animationArrayFinish = [[NSMutableArray alloc] init];
         
-        [self setSteepTime:241];
-        [self setWaterTime:16];
-        [self setBloomTime:6];
-        [self setFinishTime:5];
+//        [self setSteepTime:241];
+//        [self setWaterTime:16];
+//        [self setBloomTime:6];
+//        [self setFinishTime:5];
         
         // TEST
-//        [self setWaterTime:1];
-//        [self setBloomTime:1];
-//        [self setSteepTime:2];
-//        [self setFinishTime:2];
+        [self setWaterTime:5];
+        [self setBloomTime:5];
+        [self setSteepTime:5];
+        [self setFinishTime:5];
         [self setCountdownSeconds:[self steepTime] + [self bloomTime] + [self waterTime]];
         
         // Set conversion to seconds and minutes
@@ -75,7 +91,6 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    NSLog(@"ViewDidLoad");
     
     if (!slideToCancel) {
 		// Create the slider
@@ -90,12 +105,6 @@
 		[self.view addSubview:slideToCancel.view];
         [self enableSlider];
 	}
-    [self setFrench1:[UIImage imageNamed:@"fbegin_1"]];
-    [self setFrench2:[UIImage imageNamed:@"fstir_2"]];
-    [self setFrench3:[UIImage imageNamed:@"fsteep_3"]];
-    [self setFrench4:[UIImage imageNamed:@"ffinish_4"]];
-    [self setFrench5:[UIImage imageNamed:@"fpour_5"]];
-    
     [self setInfoBackgroundImage:[UIImage imageNamed:@"timerBackground"]];
     
     //add background
@@ -110,26 +119,9 @@
     // Timer/Info label background
     [self.infoBackground setImage:infoBackgroundImage];
     
-    // Set drop shadow to the main frenchpress images
-    self.frenchPress.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.frenchPress.layer.shadowOffset = CGSizeMake(1, -2);
-    self.frenchPress.layer.shadowOpacity = 0.4;
-    self.frenchPress.layer.shadowRadius = 2;
-    self.frenchPress.clipsToBounds = NO;
-    
     [self loadAnimationImages];
     [self cleanForNewStart];
-}
-
--(void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
     [self startCoffee];
-}
-
-- (void)viewDidUnload
-{
-    [super viewDidUnload];
 }
 
 -(void)enableSlider {
@@ -158,8 +150,14 @@
 -(void)cleanForNewStart
 {
     [self stopTimers];
+    
     [self setDidEnded:0];
-    [self.frenchPress stopAnimating];
+    [self setDidCoffeeStarted:0];
+    [self setDidCountdownStarted:0];
+    [self setBackgroundStart:NO];
+    
+    [self.frenchPress setHasAnim:1];
+    [self.frenchPress stopAnim];
     
     [self setWaterState:0];
     [self setBloomState:0];
@@ -167,28 +165,6 @@
     [self setFinishState:0];
     [self.infoLabel setText:@"Starting"];
     [self.timerLabel setText:@"Cafetière"];
-    [self setBackgroundStart:NO];
-}
-
--(void)startCoffee
-{
-    CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
-    crossFade.duration = 1.5f;
-    
-    crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"fempty_0"].CGImage);
-    crossFade.toValue = (__bridge id)([UIImage imageNamed:@"animBegin25"].CGImage);
-    
-    [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
-    [self.frenchPress setImage:[UIImage imageNamed:@"animBegin25"]];
-    
-    
-    [self playSoundWithName:@"coffeeStarted" type:@"wav"];
-    self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:2.5f
-                                                     target:self
-                                                   selector:@selector (startCountdown)
-                                                   userInfo:nil
-                                                    repeats:NO];
-            
 }
 
 -(void)stopTimers
@@ -202,16 +178,41 @@
     }
 }
 
--(void)startCountdown
+-(void)startCoffee
 {
+    NSLog(@"Cafetiere has Started");
+    self.didCoffeeStarted = 1;
+    
+    CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
+    crossFade.duration = 1.5f;
+    crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"fempty_0"].CGImage);
+    crossFade.toValue = (__bridge id)([UIImage imageNamed:@"animBegin25"].CGImage);
+    
+    [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
+    [self.frenchPress setImage:[UIImage imageNamed:@"animBegin25"]];
+    
+    [self playSoundWithName:@"coffeeStarted" type:@"wav"];
+    self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:2.5f
+                                                     target:self
+                                                      selector:@selector (startCountdown:)
+                                                   userInfo:nil
+                                                    repeats:NO];
+}
+
+-(void)startCountdown:(NSTimeInterval)timeGap
+{
+    NSLog(@"Countdown has started");
     
     // Don't override startime if we come from background
     if (self.backgroundStart == NO) {
+        self.didCountdownStarted = 1;
         self.startTime = [NSDate date];
+        self.stateStartDate = [self.startTime dateByAddingTimeInterval:0];
+        NSLog(@"State Start Date: %@", self.stateStartDate);
+        
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         [defaults setObject:self.startTime forKey:@"startTime"];
         [defaults synchronize];
-        NSLog(@"Data saved");
     }
     
     self.startDate = [[NSDate alloc] initWithTimeInterval:countdownSeconds sinceDate:startTime];
@@ -221,7 +222,7 @@
     // Get the system calendar
     self.sysCalendar = [NSCalendar currentCalendar];
     
-    self.paintingTimer = [NSTimer scheduledTimerWithTimeInterval:0.1f
+    self.paintingTimer = [NSTimer scheduledTimerWithTimeInterval:0.05f
                                                      target:self
                                                    selector:@selector (countdownUpdateMethod:)
                                                    userInfo:nil
@@ -229,111 +230,157 @@
 }
 
 -(void)countdownUpdateMethod:(NSTimer*)theTimer {
-    self.currentDate = [NSDate date];
-    self.elapsedTime = [self.currentDate timeIntervalSinceDate:self.startTime];
     
     NSDateComponents *conversionInfo = [self.sysCalendar components:self.unitFlags
-                                                           fromDate:self.currentDate
+                                                           fromDate:[NSDate date]
                                                              toDate:self.startDate
                                                             options:0];
 
     NSDateComponents *waterInfo = [self.sysCalendar components:self.unitFlags
-                                                      fromDate:self.currentDate
+                                                      fromDate:[NSDate date]
                                                         toDate:self.waterDate
                                                        options:0];
     
     NSDateComponents *bloomInfo = [self.sysCalendar components:self.unitFlags
-                                                      fromDate:self.currentDate
+                                                      fromDate:[NSDate date]
                                                         toDate:self.bloomDate
                                                        options:0];
     
-    // Display FrenchPress states and information steps
+    
+    // Before we continue find our state
+    [self getCurrentCoffeeState];
+    
+    switch (coffeeState) {
+        case BeginState:
+            break;
+        case WaterState:
+            {
+                [self.timerLabel setText:[NSString stringWithFormat:@"%d", [waterInfo second]]];
+                if (!self.waterState) {
+                    NSLog(@"WaterState");
+                    [self setWaterState:1];
+                    [self.infoLabel setText:@"Add preboiled water"];
+                    
+                    [[self frenchPress] animImages:[self animationArrayBegin]];
+                    [[self frenchPress] setAnimDuration:[self waterTime]];
+                    [[self frenchPress] animRepeatCount: 1];
+                    [[self frenchPress] startAnim];
+                }
+            }
+            break;
+        case StirState:
+            {
+                [self.timerLabel setText:[NSString stringWithFormat:@"%d", [bloomInfo second]]];
+                
+                if (!self.bloomState) {
+                    NSLog(@"StirState");
+                    [self setBloomState:1];
+                    [self.infoLabel setText:@"Stir the coffee"];
+                    
+                    [self.frenchPress stopAnim]; // Stop previus begin animation
+                    [[self frenchPress] animImages:[self animationArrayStir]];
+                    [[self frenchPress] setAnimDuration:[self bloomTime]];
+                    [[self frenchPress] animRepeatCount: 1];
+                    [[self frenchPress] startAnim];
+                }
+            }
+            break;
+        case SteepState:
+            {
+                if (!self.steepState) {
+                    NSLog(@"SteepState");
+                    [self setSteepState:1];
+                    [self.infoLabel setText:@"Steeping Time"];
+                    
+                    [self.frenchPress stopAnim]; // Stop previus begin animation
+                    [[self frenchPress] animImages:[self animationArraySteep]];
+                    [[self frenchPress] setAnimDuration:[self steepTime]];
+                    [[self frenchPress] animRepeatCount: 1];
+                    [[self frenchPress] startAnim];
+                }
+                
+                if ([conversionInfo second] <= 9) {
+                    [self.timerLabel setText:[NSString stringWithFormat:@"%d:0%d", [conversionInfo minute], [conversionInfo second]]];
+                }  else {
+                    [self.timerLabel setText:[NSString stringWithFormat:@"%d:%d", [conversionInfo minute], [conversionInfo second]]];
+                }
+            }
+            break;
+        case FinishState:
+            {
+                if (!self.finishState) {
+                    NSLog(@"FinishState");
+                    [self setFinishState:1];
+                    [self.infoLabel setText:@"Push plunger down"];
+                    [self.timerLabel setText:@"Finished"];
+                    [self playSoundWithName:@"coffeeFinished" type:@"wav"];
+                    
+                    [self.frenchPress stopAnim]; // Stop previus begin animation
+                    [[self frenchPress] animImages:[self animationArrayFinish]];
+                    [[self frenchPress] setAnimDuration:[self finishTime]];
+                    [[self frenchPress] animRepeatCount: 1];
+                    [[self frenchPress] startAnim];
+                }
+            }
+            break;
+        case EnjoyState:
+            {
+                NSLog(@"EnjoyState");
+                self.didEnded = YES;
+                [theTimer invalidate]; // Ok end this timer function, never come back
+                
+                [self.frenchPress stopAnim]; // Stop previus begin animation
+                [self.infoLabel setText:@"Hold on the lid and pour"];
+                [self.timerLabel setText:@"Enjoy"];
+                [self.frenchPress setImage:[UIImage imageNamed:@"animFinish25"]];
+                [self setFrench5:[UIImage imageNamed:@"fpour_5"]];
+                
+                CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
+                crossFade.duration = 1.0;
+                crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"animFinish25"].CGImage);
+                crossFade.toValue = (__bridge id)(self.french5.CGImage);
+                [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
+                [self.frenchPress setImage:self.french5];
+            }
+            break;
+        default:
+            break;
+            
+    }
+}
+
+-(void)getCurrentCoffeeState
+{
+    self.elapsedTime = [[NSDate date] timeIntervalSinceDate:self.startTime];
+    // NSLog(@"Elapsed Time:%f", self.elapsedTime);
+    
     if (self.elapsedTime <= [self waterTime]) {
-        [self.timerLabel setText:[NSString stringWithFormat:@"%d", [waterInfo second]]];
-        
-        // Simple hack to prevent calling the same functions, assignments
-        // Don't use BOOL for fooState variables...
-        if (!self.waterState) {
-            [self.infoLabel setText:@"Add preboiled water"];
-            [self.frenchPress setImage:self.french1];
-            [self.frenchPress setAnimationImages:self.animationArrayBegin];
-            [self.frenchPress setAnimationDuration:[self waterTime]];
-            [self.frenchPress setAnimationRepeatCount: 1];
-            [self.frenchPress startAnimating];
-            self.waterState = 1;
-        }
+        coffeeState = WaterState;
+        self.stateStartDate = [self.startTime dateByAddingTimeInterval:0];
         
     } else if (self.elapsedTime >= [self waterTime] &&
-               self.elapsedTime <= [self waterTime] + [self bloomTime]) {
-        // Bloom time
-        [self.timerLabel setText:[NSString stringWithFormat:@"%d", [bloomInfo second]]];
-        
-        if (!self.bloomState) {
-            
-            
-            [self.frenchPress stopAnimating]; // Stop previus begin animation
-            [self.frenchPress setImage:self.french2];
-            [self.infoLabel setText:@"Stir the coffee"];
-            [self.frenchPress setAnimationImages:self.animationArrayStir];
-            [self.frenchPress setAnimationDuration:[self bloomTime] / 2];
-            [self.frenchPress setAnimationRepeatCount: 2];
-            [self.frenchPress startAnimating];
-            self.bloomState = 1;
-        }
+               self.elapsedTime < [self waterTime] + [self bloomTime]) {
+        coffeeState = StirState;
+        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self waterTime]];
         
     } else if (self.elapsedTime >= [self waterTime] + [self bloomTime] &&
-               self.elapsedTime <= [self countdownSeconds]) {
+               self.elapsedTime < [self countdownSeconds]) {
+        coffeeState = SteepState;
+        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self waterTime] + [self bloomTime]];
         
-        if (!self.steepState) {
-            [self.frenchPress stopAnimating];
-            [self.frenchPress setImage:self.french3];
-            [self.infoLabel setText:@"Steeping Time"];
-            [self.frenchPress setAnimationImages:self.animationArraySteep];
-            [self.frenchPress setAnimationDuration:[self steepTime]];
-            [self.frenchPress setAnimationRepeatCount: 1];
-            [self.frenchPress startAnimating];
-            self.steepState = 1;
-        }
-        
-        if ([conversionInfo second] <= 9) {
-            [self.timerLabel setText:[NSString stringWithFormat:@"%d:0%d", [conversionInfo minute], [conversionInfo second]]];
-        }  else {
-            [self.timerLabel setText:[NSString stringWithFormat:@"%d:%d", [conversionInfo minute], [conversionInfo second]]];
-        }
-            
     } else if (self.elapsedTime >= [self countdownSeconds] &&
-               self.elapsedTime <= [self countdownSeconds] + [self finishTime] + 1)
-    {
-        // Plung time
-        if (!self.finishState) {
-            [self.frenchPress setImage:self.french4];
-            [self.infoLabel setText:@"Push plunger down"];
-            [self.timerLabel setText:@"Finished"];
-            [self playSoundWithName:@"coffeeFinished" type:@"wav"];
-            
-            [self.frenchPress setAnimationImages:self.animationArrayFinish];
-            [self.frenchPress setAnimationDuration:[self finishTime]];
-            [self.frenchPress setAnimationRepeatCount: 1];
-            [self.frenchPress startAnimating];
-            self.finishState = 1;
-        }
+               self.elapsedTime < [self countdownSeconds] + [self finishTime]) {
+        coffeeState = FinishState;
+        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self countdownSeconds]];
         
     }  else if (self.elapsedTime >= [self countdownSeconds] + [self finishTime]) {
-        
         self.didEnded = YES;
-        [theTimer invalidate]; // Ok end this timer function, never come back
-        [self.frenchPress stopAnimating];
-        [self.infoLabel setText:@"Hold on the lid and pour"];
-        [self.timerLabel setText:@"Enjoy"];
-        [self.frenchPress setImage:[UIImage imageNamed:@"animFinish25"]];
-        
-        CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
-        crossFade.duration = 1.0;
-        crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"animFinish25"].CGImage);
-        crossFade.toValue = (__bridge id)(self.french5.CGImage);
-        [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
-        [self.frenchPress setImage:self.french5];
+        coffeeState = EnjoyState;
+        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self countdownSeconds] + [self finishTime]];
     }
+    
+    
+    
 }
 
 -(void)loadAnimationImages
@@ -400,5 +447,6 @@
     
 	CFRelease(soundURLRef);
 }
+
 
 @end
