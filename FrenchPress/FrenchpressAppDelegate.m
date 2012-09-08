@@ -48,40 +48,38 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    // Countdown reached the end, start it from the beginning
+    
+    // NEW START restart...
+    // Before we continue get the current state. Otherwise the if clauses below
+    // will not be considered (which is a reason for a crash of the app)
+    [[self viewController] getCurrentCoffeeState];
+    
+    // Restart the app if ended or if it doesn't started automatically.
+    // If the countdown has started already, then we skip this part and the
+    // resumeAnim part below takes the control.
     if (self.viewController.didEnded || (!self.viewController.didCountdownStarted)) {
         NSLog(@"Beginning from the scratch");
         
-        // Make a new start
         [self.viewController cleanForNewStart];
-        
-        // This is the main feature of our app
-        // Make this editable in the future
         [self.viewController startCoffee];
-        
         return;
     }
 
-    // If the countdown dint started, the skip and start timer
-    // immediately
-    if (self.viewController.didCountdownStarted) {
-        // The timers StartTime should always be the same
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSDate *startT = [defaults objectForKey:@"startTime"];
-        [[self viewController] setStartTime:startT];
-        
-        // Tell that we come from background
-        // Needed to not overide old NSUserDefaults values
-        [[self viewController] setBackgroundStart:YES];
-        
-        // Resume any animation that was paused before
-        [[self viewController] getCurrentCoffeeState];
-        NSTimeInterval elapsedGap = [[NSDate date] timeIntervalSinceDate:self.viewController.stateStartDate];
-        [self.viewController.frenchPress resumeAnim:elapsedGap];
-        [[self viewController] startCountdown:0];
-        
-    }
+    // COUNTDOWN resuming...
+    // startTime is set once, at the begin of the app. After that
+    // we do our works with reference to this variable.
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSDate *startT = [defaults objectForKey:@"startTime"];
+    [[self viewController] setStartTime:startT];
     
+    // Tell that we come from background
+    // Needed to not overide old NSUserDefaults values in ViewController
+    [[self viewController] setBackgroundStart:YES];
+    
+    // Resume any animation that was paused before
+    NSTimeInterval elapsedGap = [[NSDate date] timeIntervalSinceDate:self.viewController.stateStartDate];
+    [self.viewController.frenchPress resumeAnim:elapsedGap];
+    [[self viewController] startCountdown:0];
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application
