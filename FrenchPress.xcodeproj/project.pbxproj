@@ -10,7 +10,6 @@
 		3D055BBA15F7FAEA005FDF55 /* AnimUIImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D055BB915F7FAEA005FDF55 /* AnimUIImageView.m */; };
 		3D756B5C15FB9F0900F5EB01 /* settingsTimer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D756B5B15FB9F0900F5EB01 /* settingsTimer@2x.png */; };
 		3D756C6115FBB3CF00F5EB01 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D756C6015FBB3CF00F5EB01 /* MessageUI.framework */; };
-		3D756C6815FBB4F600F5EB01 /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D756C6715FBB4F600F5EB01 /* SettingsViewController.m */; };
 		3D756C8A15FBB72000F5EB01 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D756C6C15FBB72000F5EB01 /* IASKAppSettingsViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3D756C8B15FBB72000F5EB01 /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D756C6E15FBB72000F5EB01 /* IASKAppSettingsWebViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3D756C8C15FBB72000F5EB01 /* IASKSpecifierValuesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D756C7015FBB72000F5EB01 /* IASKSpecifierValuesViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -150,8 +149,6 @@
 		3D055BB915F7FAEA005FDF55 /* AnimUIImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimUIImageView.m; sourceTree = "<group>"; };
 		3D756B5B15FB9F0900F5EB01 /* settingsTimer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingsTimer@2x.png"; sourceTree = "<group>"; };
 		3D756C6015FBB3CF00F5EB01 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
-		3D756C6615FBB4F600F5EB01 /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
-		3D756C6715FBB4F600F5EB01 /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		3D756C6B15FBB72000F5EB01 /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		3D756C6C15FBB72000F5EB01 /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
 		3D756C6D15FBB72000F5EB01 /* IASKAppSettingsWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsWebViewController.h; sourceTree = "<group>"; };
@@ -425,8 +422,6 @@
 				3DD58F0015F3A66300FB9F3F /* FrenchpressAppDelegate.m */,
 				3D055BB815F7FAEA005FDF55 /* AnimUIImageView.h */,
 				3D055BB915F7FAEA005FDF55 /* AnimUIImageView.m */,
-				3D756C6615FBB4F600F5EB01 /* SettingsViewController.h */,
-				3D756C6715FBB4F600F5EB01 /* SettingsViewController.m */,
 				3DD58F0215F3A66300FB9F3F /* FrenchpressViewController.h */,
 				3DD58F0315F3A66300FB9F3F /* FrenchpressViewController.m */,
 				3DD58F0515F3A66300FB9F3F /* FrenchpressViewController.xib */,
@@ -772,7 +767,6 @@
 				3DD58F0415F3A66300FB9F3F /* FrenchpressViewController.m in Sources */,
 				3DD58F1715F3A94D00FB9F3F /* SlideToCancelViewController.m in Sources */,
 				3D055BBA15F7FAEA005FDF55 /* AnimUIImageView.m in Sources */,
-				3D756C6815FBB4F600F5EB01 /* SettingsViewController.m in Sources */,
 				3D756C8A15FBB72000F5EB01 /* IASKAppSettingsViewController.m in Sources */,
 				3D756C8B15FBB72000F5EB01 /* IASKAppSettingsWebViewController.m in Sources */,
 				3D756C8C15FBB72000F5EB01 /* IASKSpecifierValuesViewController.m in Sources */,
