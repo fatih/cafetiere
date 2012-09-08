@@ -2,9 +2,11 @@
 #import "FrenchpressViewController.h"
 #import "SlideToCancelViewController.h"
 #import  <QuartzCore/QuartzCore.h>
-//#import "AnimUIImageView.h"
+//#import "InAppSettingsKit/Controllers/IASKAppSettingsViewController.h"
 
 @implementation FrenchpressAppDelegate
+
+@synthesize navigationController;
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -12,10 +14,25 @@
     // Override point for customization after application launch.
     self.viewController = [[FrenchpressViewController alloc] init];
     
-    self.window.rootViewController = self.viewController;
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+    self.navigationController.delegate = self;
+    
+    [[self window] setRootViewController:self.navigationController];
     
     [self.window makeKeyAndVisible];
     return YES;
+}
+
+// http://www.idev101.com/code/User_Interface/UINavigationController/viewWillAppear.html
+- (void)navigationController:(UINavigationController *)navigationController
+      willShowViewController:(UIViewController *)viewController
+                    animated:(BOOL)animated
+{
+    if ( viewController == self.viewController ) {
+        [self.navigationController setNavigationBarHidden:YES animated:animated];
+    } else if ( [self.navigationController isNavigationBarHidden] ) {
+        [self.navigationController setNavigationBarHidden:NO animated:animated];
+    }
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application

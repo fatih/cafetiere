@@ -15,9 +15,6 @@
 @property (nonatomic) BOOL hasAnim;
 @property (nonatomic) NSTimeInterval animDuration;
 
-
--(id)init;
-
 -(void)animImages:(NSArray *)images;
 -(void)animRepeatCount:(NSInteger)count;
 

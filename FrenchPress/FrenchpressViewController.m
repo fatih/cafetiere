@@ -3,15 +3,16 @@
 #import "FrenchpressViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "AnimUIImageView.h"
+#import "SettingsViewController.h"
 
 
 @interface FrenchpressViewController ()
-
 
 @end
 
 @implementation FrenchpressViewController
 
+CoffeState coffeeState;
 @synthesize timerLabel, infoLabel, paintingTimer, coffeeTimer;
 @synthesize startTime;
 @synthesize startDate, waterDate, bloomDate;
@@ -48,8 +49,26 @@
 // Simple boolean if we ever entered background
 @synthesize backgroundStart;
 
-CoffeState coffeeState;
+// Settings page
 
+@synthesize appSettingsViewController;
+
+
+-(IBAction)showSettingsPush:(id)sender
+{
+    self.appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
+    self.appSettingsViewController.delegate = self;
+    self.appSettingsViewController.showDoneButton = NO;
+    
+    [self.navigationController pushViewController:self.appSettingsViewController animated:YES];
+    
+}
+
+- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {
+    [self dismissModalViewControllerAnimated:YES];
+	
+	// your code here to reconfigure the app for changed settings
+}
 
 // Needed because otherwise we can't initialize shadows to our
 // custom AnimUIImageView class.
@@ -70,16 +89,16 @@ CoffeState coffeeState;
         self.animationArraySteep = [[NSMutableArray alloc] init];
         self.animationArrayFinish = [[NSMutableArray alloc] init];
         
-//        [self setSteepTime:241];
-//        [self setWaterTime:16];
-//        [self setBloomTime:6];
-//        [self setFinishTime:5];
+        [self setSteepTime:241];
+        [self setWaterTime:16];
+        [self setBloomTime:6];
+        [self setFinishTime:5];
         
         // TEST
-        [self setWaterTime:5];
-        [self setBloomTime:5];
-        [self setSteepTime:5];
-        [self setFinishTime:5];
+//        [self setWaterTime:2];
+//        [self setBloomTime:5];
+//        [self setSteepTime:100];
+//        [self setFinishTime:2];
         [self setCountdownSeconds:[self steepTime] + [self bloomTime] + [self waterTime]];
         
         // Set conversion to seconds and minutes
@@ -88,6 +107,19 @@ CoffeState coffeeState;
     return self;
 }
 
+//- (void)viewWillAppear:(BOOL)animated
+//{
+//    NSLog(@"WillAppear");
+//    [super viewWillAppear:animated];
+//    [self.navigationController setNavigationBarHidden:YES animated:animated];
+//}
+//
+//- (void)viewWillDisappear:(BOOL)animated
+//{
+//    NSLog(@"WillDisappear");
+//    [super viewWillDisappear:animated];
+//    [self.navigationController setNavigationBarHidden:NO animated:animated];
+//}
 -(void)viewDidLoad
 {
     [super viewDidLoad];
@@ -279,8 +311,8 @@ CoffeState coffeeState;
                     
                     [self.frenchPress stopAnim]; // Stop previus begin animation
                     [[self frenchPress] animImages:[self animationArrayStir]];
-                    [[self frenchPress] setAnimDuration:[self bloomTime]];
-                    [[self frenchPress] animRepeatCount: 1];
+                    [[self frenchPress] setAnimDuration:[self bloomTime]]; //TODO should /2
+                    [[self frenchPress] animRepeatCount: 1]; // TODO should 2
                     [[self frenchPress] startAnim];
                 }
             }
