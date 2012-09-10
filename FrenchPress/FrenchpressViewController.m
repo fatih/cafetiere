@@ -3,8 +3,9 @@
 #import "FrenchpressViewController.h"
 #import <QuartzCore/QuartzCore.h>
 #import "AnimUIImageView.h"
-#import "SettingsViewController.h"
-
+#import "InAppSettingsKit/Controllers/IASKAppSettingsViewController.h"
+#import "InAppSettingsKit/Models/IASKSpecifier.h"
+#import "InAppSettingsKit/Models/IASKSettingsReader.h"
 
 @interface FrenchpressViewController ()
 
@@ -12,72 +13,8 @@
 
 @implementation FrenchpressViewController
 
+// Enum for each Coffee Step
 CoffeState coffeeState;
-@synthesize timerLabel, infoLabel, paintingTimer, coffeeTimer;
-@synthesize startTime;
-@synthesize startDate, waterDate, bloomDate;
-@synthesize stateStartDate, currentDate;
-@synthesize sysCalendar;
-@synthesize unitFlags;
-
-@synthesize countdownSeconds, elapsedTime;
-
-// Frenchpress view and images
-@synthesize frenchPress;
-@synthesize french1, french2, french3, french4, french5;
-
-// Info and timer label background view and image
-@synthesize infoBackground;
-@synthesize infoBackgroundImage;
-
-// Boolean variables for coffee countdown
-@synthesize didEnded, didCountdownStarted, didCoffeeStarted;
-
-// Each step has a different time
-@synthesize waterTime, bloomTime, steepTime, finishTime;
-
-// Boolean variables for each state
-@synthesize waterState, bloomState, steepState, finishState;
-
-// Image array that contains the images for animation
-@synthesize animationArrayBegin, animationArrayStir,
-            animationArraySteep, animationArrayFinish;
-
-// Needed for background mode
-@synthesize startGap;
-
-// Simple boolean if we ever entered background
-@synthesize backgroundStart;
-
-// Settings page
-
-@synthesize appSettingsViewController;
-
-
--(IBAction)showSettingsPush:(id)sender
-{
-    self.appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
-    self.appSettingsViewController.delegate = self;
-    self.appSettingsViewController.showDoneButton = NO;
-    
-    [self.navigationController pushViewController:self.appSettingsViewController animated:YES];
-    
-}
-
-- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {
-    [self dismissModalViewControllerAnimated:YES];
-	
-	// your code here to reconfigure the app for changed settings
-}
-
-// Needed because otherwise we can't initialize shadows to our
-// custom AnimUIImageView class.
--(void)awakeFromNib
-{
-    [super awakeFromNib];
-    self.frenchPress = [[AnimUIImageView alloc] init];
-    
-}
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -103,26 +40,74 @@ CoffeState coffeeState;
         
         // Set conversion to seconds and minutes
         [self setUnitFlags:NSSecondCalendarUnit | NSMinuteCalendarUnit];
+        
+        // Set the application defaults
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSDictionary *appDefaults = [NSDictionary dictionaryWithObject:@"YES"
+                                                                forKey:@"startAtLaunch"];
+        [defaults registerDefaults:appDefaults];
+        [defaults synchronize];
+        
+        [self loadAnimationImages];
     }
     return self;
 }
 
-//- (void)viewWillAppear:(BOOL)animated
-//{
-//    NSLog(@"WillAppear");
-//    [super viewWillAppear:animated];
-//    [self.navigationController setNavigationBarHidden:YES animated:animated];
-//}
-//
-//- (void)viewWillDisappear:(BOOL)animated
-//{
-//    NSLog(@"WillDisappear");
-//    [super viewWillDisappear:animated];
-//    [self.navigationController setNavigationBarHidden:NO animated:animated];
-//}
+// Needed because otherwise we can't initialize shadows to our
+// custom AnimUIImageView class.
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    self.frenchPress = [[AnimUIImageView alloc] init];
+}
+
+-(IBAction)showSettingsPush:(id)sender
+{
+    self.appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
+    self.appSettingsViewController.delegate = self;
+    self.appSettingsViewController.showDoneButton = NO;
+    self.appSettingsViewController.showCreditsFooter = NO;
+    
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
+    
+    BOOL enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"addWaterStep"];
+    NSLog(@"Add Water Step?: %u", enabled);
+    self.appSettingsViewController.hiddenKeys = enabled ? nil : [NSSet setWithObjects:@"waterTime", nil];
+    
+    BOOL enabled_stir = [[NSUserDefaults standardUserDefaults] boolForKey:@"addStirStep"];
+    NSLog(@"Add Stir Step?: %u", enabled_stir);
+    self.appSettingsViewController.hiddenKeys = enabled_stir ? nil : [NSSet setWithObjects:@"stirTime", nil];
+    
+    [self.navigationController pushViewController:self.appSettingsViewController animated:YES];
+    
+}
+
+- (void)settingDidChange:(NSNotification*)notification {
+	if ([notification.object isEqual:@"addWaterStep"]) {
+        NSLog(@"Add Water Step 2");
+		BOOL enabled = (BOOL)[[notification.userInfo objectForKey:@"addWaterStep"] intValue];
+		[self.appSettingsViewController setHiddenKeys:enabled ? nil : [NSSet setWithObjects:@"waterTime", nil] animated:YES];
+	} else if ([notification.object isEqual:@"addStirStep"]) {
+        NSLog(@"Add Stir Step 2");
+		BOOL enabled_stir = (BOOL)[[notification.userInfo objectForKey:@"addStirStep"] intValue];
+		[self.appSettingsViewController setHiddenKeys:enabled_stir ? nil : [NSSet setWithObjects:@"stirTime", nil] animated:YES];
+        
+    }
+}
+
+
+- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {
+    [self dismissModalViewControllerAnimated:YES];
+	
+	// your code here to reconfigure the app for changed settings
+}
+
+
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    NSLog(@"ViewDidLoad");
     
     if (!slideToCancel) {
 		// Create the slider
@@ -149,11 +134,17 @@ CoffeState coffeeState;
     [self.view sendSubviewToBack:background];
     
     // Timer/Info label background
-    [self.infoBackground setImage:infoBackgroundImage];
+    [self.infoBackground setImage:self.infoBackgroundImage];
     
-    [self loadAnimationImages];
-    [self cleanForNewStart];
-    [self startCoffee];
+    
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL enabled = [defaults boolForKey:@"startAtLaunch"];
+    
+    if (enabled) {
+        [self cleanForNewStart];
+        [self startCoffee];
+    }
+    
 }
 
 -(void)enableSlider {
@@ -247,9 +238,10 @@ CoffeState coffeeState;
         [defaults synchronize];
     }
     
-    self.startDate = [[NSDate alloc] initWithTimeInterval:countdownSeconds sinceDate:startTime];
-    self.waterDate = [[NSDate alloc] initWithTimeInterval:waterTime sinceDate:startTime];
-    self.bloomDate = [[NSDate alloc] initWithTimeInterval:(waterTime + bloomTime) sinceDate:startTime];
+    self.startDate = [[NSDate alloc] initWithTimeInterval:self.countdownSeconds sinceDate:self.startTime];
+    self.waterDate = [[NSDate alloc] initWithTimeInterval:self.waterTime sinceDate:self.startTime];
+    self.bloomDate = [[NSDate alloc] initWithTimeInterval:(self.waterTime + self.bloomTime)
+                                                sinceDate:self.startTime];
     
     // Get the system calendar
     self.sysCalendar = [NSCalendar currentCalendar];
