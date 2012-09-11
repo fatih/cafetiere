@@ -200,7 +200,7 @@ CoffeState coffeeState;
 -(void)cancelled {
     // SlideToCancelDelegate method is called when the slider is slid all the way
     // to the right
-	slideToCancel.enabled = YES;
+	slideToCancel.enabled = NO;
     
     [self startCoffee];
 }
