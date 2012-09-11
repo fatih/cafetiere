@@ -77,7 +77,6 @@
     if (self.viewController.didEnded || (!self.viewController.didCountdownStarted)) {
         NSLog(@"Beginning from the scratch");
         
-        [self.viewController cleanForNewStart];
         [self.viewController startCoffee];
         return;
     }

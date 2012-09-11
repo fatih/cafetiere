@@ -141,7 +141,6 @@ CoffeState coffeeState;
     BOOL enabled = [defaults boolForKey:@"startAtLaunch"];
     
     if (enabled) {
-        [self cleanForNewStart];
         [self startCoffee];
     }
     
@@ -166,7 +165,6 @@ CoffeState coffeeState;
     // to the right
 	slideToCancel.enabled = YES;
     
-    [self cleanForNewStart];
     [self startCoffee];
 }
 
@@ -203,6 +201,8 @@ CoffeState coffeeState;
 
 -(void)startCoffee
 {
+    [self cleanForNewStart];
+    
     NSLog(@"Cafetiere has Started");
     self.didCoffeeStarted = 1;
     
