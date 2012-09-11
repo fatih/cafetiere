@@ -65,7 +65,7 @@ CoffeState coffeeState;
 {
     self.appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
     self.appSettingsViewController.delegate = self;
-    self.appSettingsViewController.showDoneButton = NO;
+    self.appSettingsViewController.showDoneButton = YES;
     self.appSettingsViewController.showCreditsFooter = NO;
     
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
@@ -78,7 +78,13 @@ CoffeState coffeeState;
     NSLog(@"Add Stir Step?: %u", enabled_stir);
     self.appSettingsViewController.hiddenKeys = enabled_stir ? nil : [NSSet setWithObjects:@"stirTime", nil];
     
-    [self.navigationController pushViewController:self.appSettingsViewController animated:YES];
+    
+    UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
+    
+    [self presentModalViewController:aNavController animated:YES];
+    
+    [self setModalModeOn:YES];
+    
     
 }
 
@@ -94,6 +100,38 @@ CoffeState coffeeState;
         
     }
 }
+
+//-(void)viewWillAppear:(BOOL)animated
+//{
+//    [super viewWillAppear:animated];
+//    
+//    if (self.modalModeOn) {
+//        NSLog(@"ViewWillDisappear");
+//        
+//        [self getCurrentCoffeeState];
+//        
+//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+//        NSDate *startT = [defaults objectForKey:@"startTime"];
+//        [self setStartTime:startT];
+//        
+//        NSTimeInterval elapsedGap = [[NSDate date] timeIntervalSinceDate:self.stateStartDate];
+//        [self.frenchPress resumeAnim:elapsedGap];
+//        [self setBackgroundStart:YES];
+//        
+//        [self startCountdown:0];
+//        [self setModalModeOn:NO];
+//    }
+//}
+
+//-(void)viewWillDisappear:(BOOL)animated
+//{
+//    [super viewWillDisappear:animated];
+//    if (self.modalModeOn) {
+//        NSLog(@"ViewWillAppear");
+//        [[self frenchPress] pauseAnim];
+//        [self stopTimers];
+//    }
+//}
 
 
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {

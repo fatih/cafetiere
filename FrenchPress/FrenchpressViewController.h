@@ -51,6 +51,7 @@
                                              *animationArrayFinish;
 // Simple boolean if we ever entered background
 @property (nonatomic) BOOL backgroundStart;
+@property (nonatomic) BOOL modalModeOn;
 
 typedef enum {
     BeginState,
