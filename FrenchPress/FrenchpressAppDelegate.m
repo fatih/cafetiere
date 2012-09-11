@@ -76,8 +76,13 @@
     // resumeAnim part below takes the control.
     if (self.viewController.didEnded || (!self.viewController.didCountdownStarted)) {
         NSLog(@"Beginning from the scratch");
+       
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        BOOL enabled = [defaults boolForKey:@"startAtLaunch"];
         
-        [self.viewController startCoffee];
+        if (enabled) {
+            [self.viewController startCoffee];
+        }
         return;
     }
 
