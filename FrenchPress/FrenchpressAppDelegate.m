@@ -80,9 +80,14 @@
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         BOOL enabled = [defaults boolForKey:@"startAtLaunch"];
         
+        [self.viewController.infoLabel setText:@"Slide to start"];
+        [self.viewController.timerLabel setText:@"Cafetière"];
+        [self.viewController.frenchPress setImage:nil];
+        
         if (enabled) {
             [self.viewController startCoffee];
         }
+        
         return;
     }
 

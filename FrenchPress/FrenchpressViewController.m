@@ -33,8 +33,8 @@ CoffeState coffeeState;
         
         // TEST
 //        [self setWaterTime:2];
-//        [self setBloomTime:5];
-//        [self setSteepTime:100];
+//        [self setBloomTime:2];
+//        [self setSteepTime:2];
 //        [self setFinishTime:2];
         [self setCountdownSeconds:[self steepTime] + [self bloomTime] + [self waterTime]];
         
@@ -136,7 +136,6 @@ CoffeState coffeeState;
     // Timer/Info label background
     [self.infoBackground setImage:self.infoBackgroundImage];
     
-    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL enabled = [defaults boolForKey:@"startAtLaunch"];
     
@@ -184,7 +183,7 @@ CoffeState coffeeState;
     [self setBloomState:0];
     [self setSteepState:0];
     [self setFinishState:0];
-    [self.infoLabel setText:@"Starting"];
+    [self.infoLabel setText:@"Slide to start"];
     [self.timerLabel setText:@"Cafetière"];
 }
 
