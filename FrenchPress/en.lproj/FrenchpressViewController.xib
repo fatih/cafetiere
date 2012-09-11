@@ -64,7 +64,7 @@
 								<int key="IBUIContentMode">4</int>
 								<bool key="IBUIUserInteractionEnabled">NO</bool>
 								<string key="targetRuntimeIdentifier">IBCocoaTouchFramework</string>
-								<string key="IBUIText">Caftière</string>
+								<string key="IBUIText">Cafetière</string>
 								<object class="NSColor" key="IBUITextColor" id="146925583">
 									<int key="NSColorSpace">3</int>
 									<bytes key="NSWhite">MQA</bytes>
