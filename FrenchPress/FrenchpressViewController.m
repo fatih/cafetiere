@@ -26,6 +26,14 @@ CoffeState coffeeState;
         self.animationArraySteep = [[NSMutableArray alloc] init];
         self.animationArrayFinish = [[NSMutableArray alloc] init];
         
+        // Set the application defaults
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSDictionary *appDefaults = @{@"startAtLaunch" : @"YES",
+                                        @"steepTime" : @"4.00" };
+                                     
+        [defaults registerDefaults:appDefaults];
+        [defaults synchronize];
+        
         [self setSteepTime:241];
         [self setWaterTime:16];
         [self setBloomTime:6];
@@ -41,12 +49,6 @@ CoffeState coffeeState;
         // Set conversion to seconds and minutes
         [self setUnitFlags:NSSecondCalendarUnit | NSMinuteCalendarUnit];
         
-        // Set the application defaults
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSDictionary *appDefaults = [NSDictionary dictionaryWithObject:@"YES"
-                                                                forKey:@"startAtLaunch"];
-        [defaults registerDefaults:appDefaults];
-        [defaults synchronize];
         
         [self loadAnimationImages];
     }
@@ -92,8 +94,19 @@ CoffeState coffeeState;
         NSLog(@"Add Stir Step 2");
 		BOOL enabled_stir = (BOOL)[[notification.userInfo objectForKey:@"addStirStep"] intValue];
 		[self.appSettingsViewController setHiddenKeys:enabled_stir ? nil : [NSSet setWithObjects:@"stirTime", nil] animated:YES];
-        
+    }  else if ([notification.object isEqual:@"steepTime"]) {
+		NSString *steeptime = [notification.userInfo objectForKey:@"steepTime"];
+        NSLog(@"Steep time: %@", steeptime);
     }
+}
+
+- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {
+	// your code here to reconfigure the app for changed settings
+    [self dismissModalViewControllerAnimated:YES];
+    NSLog(@"Settings ViewController did end");
+    
+    NSTimeInterval enabled = [[[NSUserDefaults standardUserDefaults] stringForKey:@"steepTime"] floatValue];
+    NSLog(@"Steep time is: %f", enabled);
 }
 
 //-(void)viewWillAppear:(BOOL)animated
@@ -130,11 +143,6 @@ CoffeState coffeeState;
 //}
 
 
-- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {
-    [self dismissModalViewControllerAnimated:YES];
-	
-	// your code here to reconfigure the app for changed settings
-}
 
 
 -(void)viewDidLoad

@@ -34,7 +34,7 @@
 			<key>Title</key>
 			<string>Steep Time</string>
 			<key>Key</key>
-			<string>steep_DecimalPad</string>
+			<string>steepTime</string>
 			<key>DefaultValue</key>
 			<string>4.00</string>
 			<key>IsSecure</key>
