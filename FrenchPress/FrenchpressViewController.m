@@ -1,11 +1,13 @@
 #import <AudioToolbox/AudioToolbox.h>
 #import <Foundation/Foundation.h>
-#import "FrenchpressViewController.h"
 #import <QuartzCore/QuartzCore.h>
+
+#import "FrenchpressViewController.h"
 #import "AnimUIImageView.h"
 #import "InAppSettingsKit/Controllers/IASKAppSettingsViewController.h"
 #import "InAppSettingsKit/Models/IASKSpecifier.h"
 #import "InAppSettingsKit/Models/IASKSettingsReader.h"
+#import "Constants.h"
 
 @interface FrenchpressViewController ()
 
@@ -29,28 +31,20 @@ CoffeState coffeeState;
         // Set the application defaults
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSDictionary *appDefaults = @{@"startAtLaunch" : @"YES",
-                                        @"steepTime" : @"4.00" };
-                                     
+                                        @"waterTime" : kWaterTime,
+                                        @"stirTime" : kStirTime,
+                                        @"steepTime" : kSteepTime,
+                                        @"finishTime" : kFinishTime};
+    
         [defaults registerDefaults:appDefaults];
         [defaults synchronize];
-        
-        [self setSteepTime:241];
-        [self setWaterTime:16];
-        [self setBloomTime:6];
-        [self setFinishTime:5];
-        
-        // TEST
-//        [self setWaterTime:2];
-//        [self setBloomTime:2];
-//        [self setSteepTime:2];
-//        [self setFinishTime:2];
-        [self setCountdownSeconds:[self steepTime] + [self bloomTime] + [self waterTime]];
         
         // Set conversion to seconds and minutes
         [self setUnitFlags:NSSecondCalendarUnit | NSMinuteCalendarUnit];
         
-        
         [self loadAnimationImages];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
+        
     }
     return self;
 }
@@ -63,38 +57,37 @@ CoffeState coffeeState;
     self.frenchPress = [[AnimUIImageView alloc] init];
 }
 
+
+- (IASKAppSettingsViewController*)appSettingsViewController {
+	if (!appSettingsViewController) {
+		appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
+		appSettingsViewController.delegate = self;
+        appSettingsViewController.showCreditsFooter = NO;
+	}
+	return appSettingsViewController;
+}
+
 -(IBAction)showSettingsPush:(id)sender
 {
-    self.appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
-    self.appSettingsViewController.delegate = self;
-    self.appSettingsViewController.showDoneButton = YES;
-    self.appSettingsViewController.showCreditsFooter = NO;
     [self setModalModeOn:YES];
     
-	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
-    
-    BOOL enabled = [[NSUserDefaults standardUserDefaults] boolForKey:@"addWaterStep"];
-    NSLog(@"Add Water Step?: %u", enabled);
-    self.appSettingsViewController.hiddenKeys = enabled ? nil : [NSSet setWithObjects:@"waterTime", nil];
-    
-    BOOL enabled_stir = [[NSUserDefaults standardUserDefaults] boolForKey:@"addStirStep"];
-    NSLog(@"Add Stir Step?: %u", enabled_stir);
-    self.appSettingsViewController.hiddenKeys = enabled_stir ? nil : [NSSet setWithObjects:@"stirTime", nil];
-    
     UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
+    self.appSettingsViewController.showDoneButton = YES;
     [self presentModalViewController:aNavController animated:YES];
 }
 
 - (void)settingDidChange:(NSNotification*)notification {
-	if ([notification.object isEqual:@"addWaterStep"]) {
-        NSLog(@"Add Water Step 2");
-		BOOL enabled = (BOOL)[[notification.userInfo objectForKey:@"addWaterStep"] intValue];
-		[self.appSettingsViewController setHiddenKeys:enabled ? nil : [NSSet setWithObjects:@"waterTime", nil] animated:YES];
-	} else if ([notification.object isEqual:@"addStirStep"]) {
-        NSLog(@"Add Stir Step 2");
-		BOOL enabled_stir = (BOOL)[[notification.userInfo objectForKey:@"addStirStep"] intValue];
-		[self.appSettingsViewController setHiddenKeys:enabled_stir ? nil : [NSSet setWithObjects:@"stirTime", nil] animated:YES];
-    }  else if ([notification.object isEqual:@"steepTime"]) {
+    if ([notification.object isEqual:@"waterTime"]) {
+		NSString *steeptime = [notification.userInfo objectForKey:@"waterTime"];
+        NSLog(@"Water time: %@", steeptime);
+    }
+    
+    if ([notification.object isEqual:@"stirTime"]) {
+		NSString *steeptime = [notification.userInfo objectForKey:@"stirTime"];
+        NSLog(@"Stir time: %@", steeptime);
+    }
+    
+    if ([notification.object isEqual:@"steepTime"]) {
 		NSString *steeptime = [notification.userInfo objectForKey:@"steepTime"];
         NSLog(@"Steep time: %@", steeptime);
     }
@@ -105,45 +98,9 @@ CoffeState coffeeState;
     [self dismissModalViewControllerAnimated:YES];
     NSLog(@"Settings ViewController did end");
     
-    NSTimeInterval enabled = [[[NSUserDefaults standardUserDefaults] stringForKey:@"steepTime"] floatValue];
-    NSLog(@"Steep time is: %f", enabled);
+//    NSTimeInterval enabled = [[[NSUserDefaults standardUserDefaults] stringForKey:@"steepTime"] floatValue];
+//    NSLog(@"Steep time is: %f", enabled);
 }
-
-//-(void)viewWillAppear:(BOOL)animated
-//{
-//    [super viewWillAppear:animated];
-//    
-//    if (self.modalModeOn) {
-//        NSLog(@"ViewWillDisappear");
-//        
-//        [self getCurrentCoffeeState];
-//        
-//        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-//        NSDate *startT = [defaults objectForKey:@"startTime"];
-//        [self setStartTime:startT];
-//        
-//        NSTimeInterval elapsedGap = [[NSDate date] timeIntervalSinceDate:self.stateStartDate];
-//        [self.frenchPress resumeAnim:elapsedGap];
-//        [self setBackgroundStart:YES];
-//        
-//        [self startCountdown:0];
-//        [self setModalModeOn:NO];
-//    }
-//}
-//
-//-(void)viewWillDisappear:(BOOL)animated
-//{
-//    [super viewWillDisappear:animated];
-//    if (self.modalModeOn) {
-//        NSLog(@"ViewWillAppear");
-//        [[self frenchPress] pauseAnim];
-//        [[self frenchPress] setImage:nil];
-//        [self stopTimers];
-//    }
-//}
-
-
-
 
 -(void)viewDidLoad
 {
@@ -179,7 +136,7 @@ CoffeState coffeeState;
     [self.infoBackground setImage:self.infoBackgroundImage];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-    BOOL enabled = [defaults boolForKey:@"startAtLaunch"];
+    BOOL enabled = [defaults boolForKey:kStartAtLaunch];
     
     if (enabled) {
         [self startCoffee];
@@ -227,6 +184,23 @@ CoffeState coffeeState;
     [self setFinishState:0];
     [self.infoLabel setText:@"Slide to start"];
     [self.timerLabel setText:@"Cafetière"];
+    
+    // Get default values from settings
+    NSTimeInterval cWaterTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"waterTime"] floatValue];
+    NSTimeInterval cStirTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"stirTime"] floatValue];
+    NSTimeInterval cSteepTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"steepTime"] floatValue];
+    NSTimeInterval cFinishTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"finishTime"] floatValue];
+    NSLog(@"Watertime: %f", cWaterTime);
+    NSLog(@"Stirtime: %f", cStirTime);
+    NSLog(@"SteepTime: %f", cSteepTime);
+    NSLog(@"FinishTime: %f", cFinishTime);
+    [self setWaterTime:cWaterTime];
+    [self setBloomTime:cStirTime];
+    [self setSteepTime:cSteepTime];
+    [self setFinishTime:cFinishTime];
+    
+    [self setCountdownSeconds:[self steepTime] + [self bloomTime] + [self waterTime]];
+    
 }
 
 -(void)stopTimers

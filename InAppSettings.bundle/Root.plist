@@ -10,13 +10,13 @@
 			<key>Title</key>
 			<string>Launch</string>
 			<key>FooterText</key>
-			<string>If enabled the timer will start immediately everytime you launch the app</string>
+			<string>If enabled the timer will start immediately everytime you launch the app.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSToggleSwitchSpecifier</string>
 			<key>Title</key>
-			<string>Start instantly</string>
+			<string>Start immediately</string>
 			<key>Key</key>
 			<string>startAtLaunch</string>
 			<key>DefaultValue</key>
@@ -27,42 +27,62 @@
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
 			<string>Timer Settings</string>
+			<key>FooterText</key>
+			<string>Time should be in seconds. Setting to zero disables the proper coffe state.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Steep Time</string>
+			<string>Water time</string>
 			<key>Key</key>
-			<string>steepTime</string>
+			<string>waterTime</string>
 			<key>DefaultValue</key>
-			<string>4.00</string>
+			<string>16</string>
 			<key>IsSecure</key>
 			<false/>
 			<key>KeyboardType</key>
 			<string>NumbersAndPunctuation</string>
 			<key>AutocorrectionType</key>
 			<string>Default</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentRight</string>
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
+			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Add water step</string>
+			<string>Stir time</string>
 			<key>Key</key>
-			<string>addWaterStep</string>
+			<string>stirTime</string>
 			<key>DefaultValue</key>
-			<true/>
+			<string>6</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>NumbersAndPunctuation</string>
+			<key>AutocorrectionType</key>
+			<string>Default</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentRight</string>
 		</dict>
 		<dict>
 			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
+			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
-			<string>Add stir step</string>
+			<string>Steep time</string>
 			<key>Key</key>
-			<string>addStirStep</string>
+			<string>steepTime</string>
 			<key>DefaultValue</key>
-			<true/>
+			<string>241</string>
+			<key>IsSecure</key>
+			<false/>
+			<key>KeyboardType</key>
+			<string>NumbersAndPunctuation</string>
+			<key>AutocorrectionType</key>
+			<string>Default</string>
+			<key>IASKTextAlignment</key>
+			<string>IASKUITextAlignmentRight</string>
 		</dict>
 		<dict>
 			<key>Type</key>

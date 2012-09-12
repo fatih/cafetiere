@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		3D055BBA15F7FAEA005FDF55 /* AnimUIImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D055BB915F7FAEA005FDF55 /* AnimUIImageView.m */; };
 		3D2183BF15FD35670072CB98 /* gearSettings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2183BE15FD35670072CB98 /* gearSettings@2x.png */; };
+		3D29E7EB1601440700294250 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D29E7EA1601440700294250 /* Constants.m */; };
 		3D3054A01600DE3F00174167 /* InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3D30549F1600DE3F00174167 /* InAppSettings.bundle */; };
 		3D756B5C15FB9F0900F5EB01 /* settingsTimer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D756B5B15FB9F0900F5EB01 /* settingsTimer@2x.png */; };
 		3D756C6115FBB3CF00F5EB01 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D756C6015FBB3CF00F5EB01 /* MessageUI.framework */; };
@@ -150,6 +151,8 @@
 		3D055BB815F7FAEA005FDF55 /* AnimUIImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimUIImageView.h; sourceTree = "<group>"; };
 		3D055BB915F7FAEA005FDF55 /* AnimUIImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimUIImageView.m; sourceTree = "<group>"; };
 		3D2183BE15FD35670072CB98 /* gearSettings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gearSettings@2x.png"; sourceTree = "<group>"; };
+		3D29E7E91600EC2300294250 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		3D29E7EA1601440700294250 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		3D30549F1600DE3F00174167 /* InAppSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = InAppSettings.bundle; path = ../InAppSettings.bundle; sourceTree = "<group>"; };
 		3D756B5B15FB9F0900F5EB01 /* settingsTimer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingsTimer@2x.png"; sourceTree = "<group>"; };
 		3D756C6015FBB3CF00F5EB01 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
@@ -419,6 +422,8 @@
 		3DD58EF615F3A66200FB9F3F /* FrenchPress */ = {
 			isa = PBXGroup;
 			children = (
+				3D29E7E91600EC2300294250 /* Constants.h */,
+				3D29E7EA1601440700294250 /* Constants.m */,
 				3D756C6915FBB72000F5EB01 /* InAppSettingsKit */,
 				3DD58F1515F3A94D00FB9F3F /* SlideToCancelViewController.h */,
 				3DD58F1615F3A94D00FB9F3F /* SlideToCancelViewController.m */,
@@ -789,6 +794,7 @@
 				3D756C9515FBB72000F5EB01 /* IASKSlider.m in Sources */,
 				3D756C9615FBB72000F5EB01 /* IASKSwitch.m in Sources */,
 				3D756C9715FBB72000F5EB01 /* IASKTextField.m in Sources */,
+				3D29E7EB1601440700294250 /* Constants.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

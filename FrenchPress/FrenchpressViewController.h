@@ -38,10 +38,13 @@
 
 // Each step has a different time
 @property (nonatomic) NSTimeInterval waterTime, bloomTime, steepTime, finishTime;
+
 @property (nonatomic) NSTimeInterval startGap;
 
 @property (nonatomic) int waterState, bloomState, steepState, finishState;
 @property (nonatomic) int didEnded, didCountdownStarted, didCoffeeStarted;
+
+// NSDateComponents  need this
 @property (nonatomic) unsigned int unitFlags;
 
 // Image array that contains the images for animation
@@ -49,9 +52,11 @@
                                              *animationArrayBegin,
                                              *animationArraySteep,
                                              *animationArrayFinish;
+
 // Simple boolean if we ever entered background
 @property (nonatomic) BOOL backgroundStart;
 @property (nonatomic) BOOL modalModeOn;
+
 
 typedef enum {
     BeginState,
