@@ -67,6 +67,7 @@ CoffeState coffeeState;
     self.appSettingsViewController.delegate = self;
     self.appSettingsViewController.showDoneButton = YES;
     self.appSettingsViewController.showCreditsFooter = NO;
+    [self setModalModeOn:YES];
     
 	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
     
@@ -78,14 +79,8 @@ CoffeState coffeeState;
     NSLog(@"Add Stir Step?: %u", enabled_stir);
     self.appSettingsViewController.hiddenKeys = enabled_stir ? nil : [NSSet setWithObjects:@"stirTime", nil];
     
-    
     UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
-    
     [self presentModalViewController:aNavController animated:YES];
-    
-    [self setModalModeOn:YES];
-    
-    
 }
 
 - (void)settingDidChange:(NSNotification*)notification {
@@ -122,13 +117,14 @@ CoffeState coffeeState;
 //        [self setModalModeOn:NO];
 //    }
 //}
-
+//
 //-(void)viewWillDisappear:(BOOL)animated
 //{
 //    [super viewWillDisappear:animated];
 //    if (self.modalModeOn) {
 //        NSLog(@"ViewWillAppear");
 //        [[self frenchPress] pauseAnim];
+//        [[self frenchPress] setImage:nil];
 //        [self stopTimers];
 //    }
 //}
@@ -200,7 +196,7 @@ CoffeState coffeeState;
 -(void)cancelled {
     // SlideToCancelDelegate method is called when the slider is slid all the way
     // to the right
-	slideToCancel.enabled = NO;
+	slideToCancel.enabled = YES;
     
     [self startCoffee];
 }
