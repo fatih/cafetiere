@@ -3,16 +3,6 @@
 
 @interface AnimUIImageView ()
 
-@property NSMutableArray *animationImages;
-
-@property NSInteger animCount;
-@property NSInteger animIndex;
-
-@property NSTimer *animTimer;
-@property UIImage *animImage;
-
-@property NSTimeInterval timeCount;
-@property NSTimeInterval passedTime;
 
 @end
 
@@ -72,7 +62,7 @@
     [self setAnimImage:[[self animationImages] objectAtIndex:[self animIndex]]];
     [self setImage: [self animImage]];
     
-    if (([self.animationImages count] - 1)== self.animIndex) {
+    if (([self.animationImages count] - 1) == self.animIndex) {
 //        NSLog(@"animIndex: END");
         [self.animTimer invalidate];
         self.animIndex = 0;

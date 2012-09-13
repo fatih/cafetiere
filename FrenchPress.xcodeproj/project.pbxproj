@@ -8,10 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		3D055BBA15F7FAEA005FDF55 /* AnimUIImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D055BB915F7FAEA005FDF55 /* AnimUIImageView.m */; };
-		3D2183BF15FD35670072CB98 /* gearSettings@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D2183BE15FD35670072CB98 /* gearSettings@2x.png */; };
 		3D29E7EB1601440700294250 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D29E7EA1601440700294250 /* Constants.m */; };
+		3D29E7EF16021FF800294250 /* settingsGear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D29E7EE16021FF800294250 /* settingsGear@2x.png */; };
 		3D3054A01600DE3F00174167 /* InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3D30549F1600DE3F00174167 /* InAppSettings.bundle */; };
-		3D756B5C15FB9F0900F5EB01 /* settingsTimer@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D756B5B15FB9F0900F5EB01 /* settingsTimer@2x.png */; };
 		3D756C6115FBB3CF00F5EB01 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D756C6015FBB3CF00F5EB01 /* MessageUI.framework */; };
 		3D756C8A15FBB72000F5EB01 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D756C6C15FBB72000F5EB01 /* IASKAppSettingsViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3D756C8B15FBB72000F5EB01 /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D756C6E15FBB72000F5EB01 /* IASKAppSettingsWebViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -150,11 +149,10 @@
 /* Begin PBXFileReference section */
 		3D055BB815F7FAEA005FDF55 /* AnimUIImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimUIImageView.h; sourceTree = "<group>"; };
 		3D055BB915F7FAEA005FDF55 /* AnimUIImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimUIImageView.m; sourceTree = "<group>"; };
-		3D2183BE15FD35670072CB98 /* gearSettings@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "gearSettings@2x.png"; sourceTree = "<group>"; };
 		3D29E7E91600EC2300294250 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		3D29E7EA1601440700294250 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
+		3D29E7EE16021FF800294250 /* settingsGear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingsGear@2x.png"; sourceTree = "<group>"; };
 		3D30549F1600DE3F00174167 /* InAppSettings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = InAppSettings.bundle; path = ../InAppSettings.bundle; sourceTree = "<group>"; };
-		3D756B5B15FB9F0900F5EB01 /* settingsTimer@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingsTimer@2x.png"; sourceTree = "<group>"; };
 		3D756C6015FBB3CF00F5EB01 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		3D756C6B15FBB72000F5EB01 /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		3D756C6C15FBB72000F5EB01 /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
@@ -577,8 +575,7 @@
 				3DD58F5115F3A98C00FB9F3F /* animSteep */,
 				3DD58F6715F3A98C00FB9F3F /* animStir */,
 				3DD58F7715F3A98C00FB9F3F /* backgroundPSD.png */,
-				3D756B5B15FB9F0900F5EB01 /* settingsTimer@2x.png */,
-				3D2183BE15FD35670072CB98 /* gearSettings@2x.png */,
+				3D29E7EE16021FF800294250 /* settingsGear@2x.png */,
 				3DD58F7815F3A98C00FB9F3F /* coffeeFinished.wav */,
 				3DD58F7915F3A98C00FB9F3F /* coffeeStarted.wav */,
 				3DD58F7A15F3A98C00FB9F3F /* Default.png */,
@@ -762,9 +759,8 @@
 				3DD58FEF15F3A98D00FB9F3F /* slideWall.png in Resources */,
 				3DD58FF015F3A98D00FB9F3F /* timerBackground.png in Resources */,
 				3DD58FF315F3B66A00FB9F3F /* fempty_0.png in Resources */,
-				3D756B5C15FB9F0900F5EB01 /* settingsTimer@2x.png in Resources */,
-				3D2183BF15FD35670072CB98 /* gearSettings@2x.png in Resources */,
 				3D3054A01600DE3F00174167 /* InAppSettings.bundle in Resources */,
+				3D29E7EF16021FF800294250 /* settingsGear@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

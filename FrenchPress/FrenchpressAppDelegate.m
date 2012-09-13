@@ -47,12 +47,6 @@
 {
     NSLog(@"DidEnterBackground");
     
-    // Dont do anything, because settingPage is on and we already
-    // saved the current date and proper states.
-    if (self.viewController.modalModeOn) {
-        return;
-    }
-    
     // Countdown didn't started yet, nothing to save here
     if (!self.viewController.didCountdownStarted) {
         [[self viewController] cleanForNewStart];
@@ -75,11 +69,6 @@
 
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
-    
-    // Do not start anything if we settingsPage is enabled
-    if (self.viewController.modalModeOn) {
-        return;
-    }
     
     // NEW START restart...
     // Before we continue get the current state. Otherwise the if clauses below

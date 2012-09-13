@@ -11,6 +11,8 @@
 }
 
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
+@property (nonatomic, retain) UINavigationController *navSettingsViewController;
+
 - (IBAction)showSettingsPush:(id)sender;
 
 @property (nonatomic, strong) IBOutlet UILabel *timerLabel;

@@ -51,120 +51,6 @@ CoffeState coffeeState;
     return self;
 }
 
-// Needed because otherwise we can't initialize shadows to our
-// custom AnimUIImageView class.
--(void)awakeFromNib
-{
-    [super awakeFromNib];
-    self.frenchPress = [[AnimUIImageView alloc] init];
-}
-
-
-- (IASKAppSettingsViewController*)appSettingsViewController {
-	if (!appSettingsViewController) {
-		appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
-		appSettingsViewController.delegate = self;
-        appSettingsViewController.showCreditsFooter = NO;
-	}
-	return appSettingsViewController;
-}
-
--(IBAction)showSettingsPush:(id)sender
-{
-    [self setModalModeOn:YES];
-    
-    UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
-    self.appSettingsViewController.showDoneButton = YES;
-    
-    [self presentModalViewController:aNavController animated:YES];
-}
-
--(void)viewDidDisappear:(BOOL)animated
-{
-    [super viewDidDisappear:animated];
-}
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    NSLog(@"ViewWillDisappear");
-    
-    // Fix for a sluggish animation of settings view (iPhone 4)
-    // Use and ifndef for more powerful iOS devices later
-    if (self.modalModeOn && self.didCountdownStarted) {
-//        [self.animationArrayBegin setArray:nil];
-//        [self.animationArrayStir setArray:nil];
-//        [self.animationArraySteep setArray:nil];
-//        [self.animationArrayFinish setArray:nil];
-        [self.frenchPress pauseAnim];
-        [self.frenchPress setImage:nil];
-        
-        // Clean all timers
-        [self stopTimers];
-        
-        // Store the data
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        [defaults setObject:[NSDate date] forKey:@"currentDate"];
-        [defaults synchronize];
-    }
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    NSLog(@"ViewWillAppear");
-          
-    // Continue where we left the animation. Actually the timer
-    // take care of the image, however some animation states, like the
-    // steepTime has a long gap between two images. If we set frenchPress view
-    // to nil, then after closing the modalView nothing get displayed.
-    // Therefore  we restore from the previous state
-    if (self.modalModeOn && self.didCountdownStarted) {
-        [self getCurrentCoffeeState];
-//        [self loadAnimationImages];
- 
-        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSDate *startT = [defaults objectForKey:@"startTime"];
-        [self setStartTime:startT];
-        
-        // Tell that we come from background
-        // Needed to not overide old NSUserDefaults values in ViewController
-        [self setBackgroundStart:YES];
-        
-        // Resume any animation that was paused before
-        NSTimeInterval elapsedGap = [[NSDate date] timeIntervalSinceDate:self.stateStartDate];
-        [self.frenchPress resumeAnim:elapsedGap];
-        [self startCountdown:0];
-        
-        [self setModalModeOn:NO];
-    }
-}
-
-- (void)settingDidChange:(NSNotification*)notification {
-    if ([notification.object isEqual:@"waterTime"]) {
-		NSString *steeptime = [notification.userInfo objectForKey:@"waterTime"];
-        NSLog(@"Water time: %@", steeptime);
-    }
-    
-    if ([notification.object isEqual:@"stirTime"]) {
-		NSString *steeptime = [notification.userInfo objectForKey:@"stirTime"];
-        NSLog(@"Stir time: %@", steeptime);
-    }
-    
-    if ([notification.object isEqual:@"steepTime"]) {
-		NSString *steeptime = [notification.userInfo objectForKey:@"steepTime"];
-        NSLog(@"Steep time: %@", steeptime);
-    }
-}
-
-- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {
-	// your code here to reconfigure the app for changed settings
-    [self dismissModalViewControllerAnimated:YES];
-    NSLog(@"Settings ViewController did end");
-    
-//    NSTimeInterval enabled = [[[NSUserDefaults standardUserDefaults] stringForKey:@"steepTime"] floatValue];
-//    NSLog(@"Steep time is: %f", enabled);
-}
 
 -(void)viewDidLoad
 {
@@ -202,11 +88,75 @@ CoffeState coffeeState;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL enabled = [defaults boolForKey:kStartAtLaunch];
     
+    // Init setting controllers
+    self.appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
+    self.appSettingsViewController.delegate = self;
+    self.appSettingsViewController.showCreditsFooter = NO;
+    self.appSettingsViewController.showDoneButton = YES;
+    self.navSettingsViewController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
+    
     if (enabled) {
         [self startCoffee];
     }
     
 }
+
+// Needed because otherwise we can't initialize shadows to our
+// custom AnimUIImageView class.
+-(void)awakeFromNib
+{
+    [super awakeFromNib];
+    self.frenchPress = [[AnimUIImageView alloc] init];
+}
+
+-(IBAction)showSettingsPush:(id)sender
+{
+    [self setModalModeOn:YES];
+    [self presentModalViewController:self.navSettingsViewController animated:YES];
+}
+
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    NSLog(@"ViewWillDisappear");
+    [self.frenchPress setImage:nil];
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSLog(@"ViewWillAppear");
+//    [self.frenchPress setAnimImage:[[self.frenchPress animationImages] objectAtIndex:[self.frenchPress self.frenchpress.animIndex]]];
+    [self.frenchPress setImage: [self.frenchPress animImage]];
+}
+
+- (void)settingDidChange:(NSNotification*)notification {
+    if ([notification.object isEqual:@"waterTime"]) {
+		NSString *steeptime = [notification.userInfo objectForKey:@"waterTime"];
+        NSLog(@"Water time: %@", steeptime);
+    }
+    
+    if ([notification.object isEqual:@"stirTime"]) {
+		NSString *steeptime = [notification.userInfo objectForKey:@"stirTime"];
+        NSLog(@"Stir time: %@", steeptime);
+    }
+    
+    if ([notification.object isEqual:@"steepTime"]) {
+		NSString *steeptime = [notification.userInfo objectForKey:@"steepTime"];
+        NSLog(@"Steep time: %@", steeptime);
+    }
+}
+
+- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {
+	// your code here to reconfigure the app for changed settings
+    [self dismissModalViewControllerAnimated:YES];
+    NSLog(@"Settings ViewController did end");
+    
+//    NSTimeInterval enabled = [[[NSUserDefaults standardUserDefaults] stringForKey:@"steepTime"] floatValue];
+//    NSLog(@"Steep time is: %f", enabled);
+}
+
 
 -(void)enableSlider {
 	// Start the slider animation
@@ -268,11 +218,13 @@ CoffeState coffeeState;
 -(void)stopTimers
 {
     if (self.paintingTimer != nil) {
+        NSLog(@"Countdown timer stopped");
         [self.paintingTimer invalidate];
     }
     
     if (self.coffeeTimer != nil) {
         [self.coffeeTimer invalidate];
+        NSLog(@"Coffee timer stopped");
     }
 }
 
