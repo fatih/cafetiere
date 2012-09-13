@@ -43,9 +43,11 @@ CoffeState coffeeState;
         [self setUnitFlags:NSSecondCalendarUnit | NSMinuteCalendarUnit];
         
         [self loadAnimationImages];
+        
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
         
     }
+    
     return self;
 }
 
@@ -73,7 +75,69 @@ CoffeState coffeeState;
     
     UINavigationController *aNavController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
     self.appSettingsViewController.showDoneButton = YES;
+    
     [self presentModalViewController:aNavController animated:YES];
+}
+
+-(void)viewDidDisappear:(BOOL)animated
+{
+    [super viewDidDisappear:animated];
+}
+
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    NSLog(@"ViewWillDisappear");
+    
+    // Fix for a sluggish animation of settings view (iPhone 4)
+    // Use and ifndef for more powerful iOS devices later
+    if (self.modalModeOn && self.didCountdownStarted) {
+//        [self.animationArrayBegin setArray:nil];
+//        [self.animationArrayStir setArray:nil];
+//        [self.animationArraySteep setArray:nil];
+//        [self.animationArrayFinish setArray:nil];
+        [self.frenchPress pauseAnim];
+        [self.frenchPress setImage:nil];
+        
+        // Clean all timers
+        [self stopTimers];
+        
+        // Store the data
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:[NSDate date] forKey:@"currentDate"];
+        [defaults synchronize];
+    }
+}
+
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    NSLog(@"ViewWillAppear");
+          
+    // Continue where we left the animation. Actually the timer
+    // take care of the image, however some animation states, like the
+    // steepTime has a long gap between two images. If we set frenchPress view
+    // to nil, then after closing the modalView nothing get displayed.
+    // Therefore  we restore from the previous state
+    if (self.modalModeOn && self.didCountdownStarted) {
+        [self getCurrentCoffeeState];
+//        [self loadAnimationImages];
+ 
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        NSDate *startT = [defaults objectForKey:@"startTime"];
+        [self setStartTime:startT];
+        
+        // Tell that we come from background
+        // Needed to not overide old NSUserDefaults values in ViewController
+        [self setBackgroundStart:YES];
+        
+        // Resume any animation that was paused before
+        NSTimeInterval elapsedGap = [[NSDate date] timeIntervalSinceDate:self.stateStartDate];
+        [self.frenchPress resumeAnim:elapsedGap];
+        [self startCountdown:0];
+        
+        [self setModalModeOn:NO];
+    }
 }
 
 - (void)settingDidChange:(NSNotification*)notification {
@@ -150,7 +214,7 @@ CoffeState coffeeState;
 	
 	// Slowly move up the slider from the bottom of the screen
 	[UIView beginAnimations:nil context:nil];
-	[UIView setAnimationDuration:1.0f];
+	[UIView setAnimationDuration:1.5f];
     
 	CGPoint sliderCenter = slideToCancel.view.center;
 	sliderCenter.y -= slideToCancel.view.bounds.size.height;
@@ -190,17 +254,15 @@ CoffeState coffeeState;
     NSTimeInterval cStirTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"stirTime"] floatValue];
     NSTimeInterval cSteepTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"steepTime"] floatValue];
     NSTimeInterval cFinishTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"finishTime"] floatValue];
-    NSLog(@"Watertime: %f", cWaterTime);
-    NSLog(@"Stirtime: %f", cStirTime);
-    NSLog(@"SteepTime: %f", cSteepTime);
-    NSLog(@"FinishTime: %f", cFinishTime);
+//    NSLog(@"Watertime: %f", cWaterTime);
+//    NSLog(@"Stirtime: %f", cStirTime);
+//    NSLog(@"SteepTime: %f", cSteepTime);
+//    NSLog(@"FinishTime: %f", cFinishTime);
     [self setWaterTime:cWaterTime];
     [self setBloomTime:cStirTime];
     [self setSteepTime:cSteepTime];
     [self setFinishTime:cFinishTime];
-    
     [self setCountdownSeconds:[self steepTime] + [self bloomTime] + [self waterTime]];
-    
 }
 
 -(void)stopTimers
@@ -222,7 +284,7 @@ CoffeState coffeeState;
     self.didCoffeeStarted = 1;
     
     CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
-    crossFade.duration = 1.5f;
+    crossFade.duration = kStartTime - 1.0f;
     crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"fempty_0"].CGImage);
     crossFade.toValue = (__bridge id)([UIImage imageNamed:@"animBegin25"].CGImage);
     
@@ -230,7 +292,7 @@ CoffeState coffeeState;
     [self.frenchPress setImage:[UIImage imageNamed:@"animBegin25"]];
     
     [self playSoundWithName:@"coffeeStarted" type:@"wav"];
-    self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:2.5f
+    self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:kStartTime
                                                      target:self
                                                       selector:@selector (startCountdown:)
                                                    userInfo:nil
@@ -417,14 +479,10 @@ CoffeState coffeeState;
         coffeeState = EnjoyState;
         self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self countdownSeconds] + [self finishTime]];
     }
-    
-    
-    
 }
 
 -(void)loadAnimationImages
 {
-    
     for (NSUInteger i = 25; i > 0 ; i--) {
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"animBegin%02u", i]];
         if (image) {
@@ -470,7 +528,6 @@ CoffeState coffeeState;
 
 -(void)playSoundWithName:(NSString *)fileName type:(NSString *)fileExtension
 {
-    
 	CFStringRef cfFileName = (__bridge CFStringRef) fileName;
 	CFStringRef cfFileExtension = (__bridge CFStringRef) fileExtension;
     

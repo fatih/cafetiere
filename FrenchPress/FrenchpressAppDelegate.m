@@ -3,6 +3,7 @@
 #import "SlideToCancelViewController.h"
 #import  <QuartzCore/QuartzCore.h>
 //#import "InAppSettingsKit/Controllers/IASKAppSettingsViewController.h"
+#import "Constants.h"
 
 @implementation FrenchpressAppDelegate
 
@@ -45,6 +46,13 @@
 - (void)applicationDidEnterBackground:(UIApplication *)application
 {
     NSLog(@"DidEnterBackground");
+    
+    // Dont do anything, because settingPage is on and we already
+    // saved the current date and proper states.
+    if (self.viewController.modalModeOn) {
+        return;
+    }
+    
     // Countdown didn't started yet, nothing to save here
     if (!self.viewController.didCountdownStarted) {
         [[self viewController] cleanForNewStart];
@@ -68,6 +76,11 @@
 - (void)applicationWillEnterForeground:(UIApplication *)application
 {
     
+    // Do not start anything if we settingsPage is enabled
+    if (self.viewController.modalModeOn) {
+        return;
+    }
+    
     // NEW START restart...
     // Before we continue get the current state. Otherwise the if clauses below
     // will not be considered (which is a reason for a crash of the app)
@@ -80,7 +93,7 @@
         NSLog(@"Beginning from the scratch");
        
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        BOOL enabled = [defaults boolForKey:@"startAtLaunch"];
+        BOOL enabled = [defaults boolForKey:kStartAtLaunch];
         
         [self.viewController.infoLabel setText:@"Slide to start"];
         [self.viewController.timerLabel setText:@"Cafetière"];

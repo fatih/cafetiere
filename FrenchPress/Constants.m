@@ -1,7 +1,7 @@
 //Constants.m
 
 //Duration between app start and countdown
-NSTimeInterval const kStartTime = 2.5f;
+NSTimeInterval const kStartTime = 1.5f;
 
 // Coffee step duration in seconds
 NSString *const kWaterTime = @"21";

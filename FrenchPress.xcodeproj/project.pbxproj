@@ -422,9 +422,9 @@
 		3DD58EF615F3A66200FB9F3F /* FrenchPress */ = {
 			isa = PBXGroup;
 			children = (
+				3D756C6915FBB72000F5EB01 /* InAppSettingsKit */,
 				3D29E7E91600EC2300294250 /* Constants.h */,
 				3D29E7EA1601440700294250 /* Constants.m */,
-				3D756C6915FBB72000F5EB01 /* InAppSettingsKit */,
 				3DD58F1515F3A94D00FB9F3F /* SlideToCancelViewController.h */,
 				3DD58F1615F3A94D00FB9F3F /* SlideToCancelViewController.m */,
 				3DD58EFF15F3A66200FB9F3F /* FrenchpressAppDelegate.h */,
