@@ -66,6 +66,14 @@
 //        NSLog(@"animIndex: END");
         [self.animTimer invalidate];
         self.animIndex = 0;
+        
+//        NSLog(@"Repeat count: %u", self.animCount);
+//        if (self.animCount) {
+//            NSLog(@"start Againnnn");
+//            [self stopAnim];
+//            [self startAnim];
+//            self.animationRepeatCount--;
+//        }
     }
     
 }

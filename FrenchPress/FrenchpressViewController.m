@@ -8,6 +8,7 @@
 #import "InAppSettingsKit/Models/IASKSpecifier.h"
 #import "InAppSettingsKit/Models/IASKSettingsReader.h"
 #import "Constants.h"
+#import "UIDevice+Resolutions.h"
 
 @interface FrenchpressViewController ()
 
@@ -55,8 +56,7 @@ CoffeState coffeeState;
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    NSLog(@"ViewDidLoad");
+//    NSLog(@"ViewDidLoad");
     
     if (!slideToCancel) {
 		// Create the slider
@@ -65,22 +65,34 @@ CoffeState coffeeState;
 		
 		// Position the slider off the bottom of the view, so we can slide it up
 		CGRect sliderFrame = slideToCancel.view.frame;
-		sliderFrame.origin.y = self.view.frame.size.height;
+//        NSLog(@"Frame size height: %f", [UIScreen mainScreen].bounds.size.height);
+//		sliderFrame.origin.y = self.view.frame.size.height;
+		sliderFrame.origin.y = [UIScreen mainScreen].bounds.size.height;
 		slideToCancel.view.frame = sliderFrame;
 		
 		[self.view addSubview:slideToCancel.view];
         [self enableSlider];
 	}
+    
     [self setInfoBackgroundImage:[UIImage imageNamed:@"timerBackground"]];
     
     //add background
-    UIImage *backGround = [UIImage imageNamed:@"backgroundPSD"];
-    UIImage *trackImage = [UIImage imageWithCGImage:[backGround CGImage]
+    if ([UIDevice currentResolution] == UIDevice_iPhoneHiRes || [UIDevice currentResolution] == UIDevice_iPadStandardRes) {
+        NSLog(@"Iphone 3-4");
+        self.defaultBackgroundImage = [UIImage imageNamed:@"Default@2x.png"];
+    } else if ([UIDevice currentResolution] == UIDevice_iPhoneTallerHiRes) {
+        NSLog(@"Iphone 5");
+        self.defaultBackgroundImage = [UIImage imageNamed:@"Default-568h@2x.png"];
+    }
+    
+    UIImage *trackImage = [UIImage imageWithCGImage:[self.defaultBackgroundImage CGImage]
                                      scale:2.0 orientation:UIImageOrientationUp];
+    
     UIImageView *background = [[UIImageView alloc] initWithImage:trackImage];
     [self.view addSubview:background];
     self.view.contentMode = UIViewContentModeScaleAspectFit;
     [self.view sendSubviewToBack:background];
+    
     
     // Timer/Info label background
     [self.infoBackground setImage:self.infoBackgroundImage];
@@ -115,22 +127,6 @@ CoffeState coffeeState;
     [self presentModalViewController:self.navSettingsViewController animated:YES];
 }
 
-
--(void)viewWillDisappear:(BOOL)animated
-{
-    [super viewWillDisappear:animated];
-    NSLog(@"ViewWillDisappear");
-    [self.frenchPress setImage:nil];
-}
-
--(void)viewWillAppear:(BOOL)animated
-{
-    [super viewWillAppear:animated];
-    NSLog(@"ViewWillAppear");
-//    [self.frenchPress setAnimImage:[[self.frenchPress animationImages] objectAtIndex:[self.frenchPress self.frenchpress.animIndex]]];
-    [self.frenchPress setImage: [self.frenchPress animImage]];
-}
-
 - (void)settingDidChange:(NSNotification*)notification {
     if ([notification.object isEqual:@"waterTime"]) {
 		NSString *steeptime = [notification.userInfo objectForKey:@"waterTime"];
@@ -151,7 +147,6 @@ CoffeState coffeeState;
 - (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {
 	// your code here to reconfigure the app for changed settings
     [self dismissModalViewControllerAnimated:YES];
-    NSLog(@"Settings ViewController did end");
     
 //    NSTimeInterval enabled = [[[NSUserDefaults standardUserDefaults] stringForKey:@"steepTime"] floatValue];
 //    NSLog(@"Steep time is: %f", enabled);
@@ -218,13 +213,13 @@ CoffeState coffeeState;
 -(void)stopTimers
 {
     if (self.paintingTimer != nil) {
-        NSLog(@"Countdown timer stopped");
+//        NSLog(@"Countdown timer stopped");
         [self.paintingTimer invalidate];
     }
     
     if (self.coffeeTimer != nil) {
         [self.coffeeTimer invalidate];
-        NSLog(@"Coffee timer stopped");
+//        NSLog(@"Coffee timer stopped");
     }
 }
 
@@ -332,7 +327,7 @@ CoffeState coffeeState;
                     
                     [self.frenchPress stopAnim]; // Stop previus begin animation
                     [[self frenchPress] animImages:[self animationArrayStir]];
-                    [[self frenchPress] setAnimDuration:[self bloomTime]]; //TODO should /2
+                    [[self frenchPress] setAnimDuration:[self bloomTime] / 1]; //TODO should /2
                     [[self frenchPress] animRepeatCount: 1]; // TODO should 2
                     [[self frenchPress] startAnim];
                 }
@@ -442,6 +437,30 @@ CoffeState coffeeState;
         }
     }
     
+    
+    // First stir anim
+    for (NSUInteger i = 7; i < 14; i++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"animStir%02u", i]];
+        if (image) {
+            [self.animationArrayStir addObject:image];
+        }
+    }
+    
+    for (NSUInteger i = 14; i > 0; i--) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"animStir%02u", i]];
+        if (image) {
+            [self.animationArrayStir addObject:image];
+        }
+    }
+    
+    for (NSUInteger i = 0; i <= 7; i++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"animStir%02u", i]];
+        if (image) {
+            [self.animationArrayStir addObject:image];
+        }
+    }
+    
+    // Second stir anim, simple hack to show it as twice as fast
     for (NSUInteger i = 7; i < 14; i++) {
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"animStir%02u", i]];
         if (image) {

@@ -7,7 +7,7 @@
     <SlideToCancelDelegate, IASKSettingsDelegate>
 {
     SlideToCancelViewController *slideToCancel;
-    IASKAppSettingsViewController *appSettingsViewController;
+//    IASKAppSettingsViewController *appSettingsViewController;
 }
 
 @property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
@@ -25,6 +25,7 @@
 // Info and timer label background view and image
 @property (nonatomic, strong) IBOutlet UIImageView *infoBackground;
 @property (nonatomic, strong) UIImage *infoBackgroundImage;
+@property (nonatomic, strong) UIImage *defaultBackgroundImage;
 
 
 @property (nonatomic, strong) NSMutableString *timerString;

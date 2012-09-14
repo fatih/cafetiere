@@ -8,27 +8,9 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string>Launch</string>
-			<key>FooterText</key>
-			<string>If enabled the timer will start immediately everytime you launch the app.</string>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSToggleSwitchSpecifier</string>
-			<key>Title</key>
-			<string>Start immediately</string>
-			<key>Key</key>
-			<string>startAtLaunch</string>
-			<key>DefaultValue</key>
-			<true/>
-		</dict>
-		<dict>
-			<key>Type</key>
-			<string>PSGroupSpecifier</string>
-			<key>Title</key>
 			<string>Timer Settings</string>
 			<key>FooterText</key>
-			<string>Time should be in seconds. Setting to zero disables the proper coffe state.</string>
+			<string>Time should be in seconds. Setting it to zero disables the proper coffe state.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
@@ -88,15 +70,17 @@
 			<key>Type</key>
 			<string>PSGroupSpecifier</string>
 			<key>Title</key>
-			<string></string>
+			<string>About</string>
 		</dict>
 		<dict>
-			<key>File</key>
-			<string>About</string>
-			<key>Title</key>
-			<string>About</string>
 			<key>Type</key>
-			<string>PSChildPaneSpecifier</string>
+			<string>PSTitleValueSpecifier</string>
+			<key>Title</key>
+			<string>Version</string>
+			<key>Key</key>
+			<string>version</string>
+			<key>DefaultValue</key>
+			<string>1.1</string>
 		</dict>
 	</array>
 	<key>StringsTable</key>
