@@ -4,9 +4,9 @@
 NSTimeInterval const kStartTime = 1.5f;
 
 // Coffee step duration in seconds
-NSString *const kWaterTime = @"21";
+NSString *const kWaterTime = @"16";
 NSString *const kStirTime = @"6";
-NSString *const kSteepTime = @"211";
+NSString *const kSteepTime = @"241";
 NSString *const kFinishTime = @"5";
 
 // Coffee step states in boolean
