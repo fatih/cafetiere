@@ -10,7 +10,7 @@
 			<key>Title</key>
 			<string>Timer Settings</string>
 			<key>FooterText</key>
-			<string>Time should be in seconds. Setting it to zero disables the proper coffe state.</string>
+			<string>Time should be in seconds. Setting it to zero disables the proper coffee state.</string>
 		</dict>
 		<dict>
 			<key>Type</key>
