@@ -4,11 +4,10 @@
 
 #import "FrenchpressViewController.h"
 #import "AnimUIImageView.h"
-#import "InAppSettingsKit/Controllers/IASKAppSettingsViewController.h"
-#import "InAppSettingsKit/Models/IASKSpecifier.h"
-#import "InAppSettingsKit/Models/IASKSettingsReader.h"
 #import "Constants.h"
 #import "UIDevice+Resolutions.h"
+#import "PickerViewController.h"
+#import "PickerValueParser.h"
 
 @interface FrenchpressViewController ()
 
@@ -45,10 +44,8 @@ CoffeState coffeeState;
         
         [self loadAnimationImages];
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(settingDidChange:) name:kIASKAppSettingChanged object:nil];
-        
+        NSLog(@"FrenchpressViewController init method");
     }
-    
     return self;
 }
 
@@ -58,6 +55,20 @@ CoffeState coffeeState;
     [super viewDidLoad];
 //    NSLog(@"ViewDidLoad");
     
+    self.title = @"Cafetière"; // NavigationBar title
+//    UIBarButtonItem *settingButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settingsGear@2x.png" ]
+//                                                                      style:UIBarButtonItemStylePlain
+//                                                                     target:self action:@selector(showSettingsPush)];
+//    
+//    
+//    self.navigationItem.rightBarButtonItem = settingButton;
+    
+    UIButton *settingsView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+    [settingsView addTarget:self action:@selector(showSettingsPush) forControlEvents:UIControlEventTouchUpInside];
+    [settingsView setBackgroundImage:[UIImage imageNamed:@"settingsGear@2x.png"] forState:UIControlStateNormal];
+    UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithCustomView:settingsView];
+    [self.navigationItem setRightBarButtonItem:settingsButton];
+    
     if (!slideToCancel) {
 		// Create the slider
 		slideToCancel = [[SlideToCancelViewController alloc] init];
@@ -65,9 +76,15 @@ CoffeState coffeeState;
 		
 		// Position the slider off the bottom of the view, so we can slide it up
 		CGRect sliderFrame = slideToCancel.view.frame;
-//        NSLog(@"Frame size height: %f", [UIScreen mainScreen].bounds.size.height);
-//		sliderFrame.origin.y = self.view.frame.size.height;
-		sliderFrame.origin.y = [UIScreen mainScreen].bounds.size.height;
+        
+        CGSize size = [UIScreen mainScreen].bounds.size;
+        UIApplication *application = [UIApplication sharedApplication];
+        if (application.statusBarHidden == NO)
+        {
+            size.height -= MIN(application.statusBarFrame.size.width, application.statusBarFrame.size.height);
+            size.height -= self.navigationController.navigationBar.frame.size.height;
+        }
+		sliderFrame.origin.y = size.height;
 		slideToCancel.view.frame = sliderFrame;
 		
 		[self.view addSubview:slideToCancel.view];
@@ -93,20 +110,13 @@ CoffeState coffeeState;
     self.view.contentMode = UIViewContentModeScaleAspectFit;
     [self.view sendSubviewToBack:background];
     
-    
     // Timer/Info label background
     [self.infoBackground setImage:self.infoBackgroundImage];
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL enabled = [defaults boolForKey:kStartAtLaunch];
     
-    // Init setting controllers
-    self.appSettingsViewController = [[IASKAppSettingsViewController alloc] init];
-    self.appSettingsViewController.delegate = self;
-    self.appSettingsViewController.showCreditsFooter = NO;
-    self.appSettingsViewController.showDoneButton = YES;
-    self.navSettingsViewController = [[UINavigationController alloc] initWithRootViewController:self.appSettingsViewController];
-    
+    // Init picker
     if (enabled) {
         [self startCoffee];
     }
@@ -121,37 +131,78 @@ CoffeState coffeeState;
     self.frenchPress = [[AnimUIImageView alloc] init];
 }
 
--(IBAction)showSettingsPush:(id)sender
+-(NSString *)secondsToMinAndSecString: (NSTimeInterval)timeIntervalSeconds
 {
+    // Converts 240 sec to 4:00
+    NSCalendar *sysCalendar = [NSCalendar currentCalendar];
+    
+    NSDate *date1 = [[NSDate alloc] init];
+    NSDate *date2 = [[NSDate alloc] initWithTimeInterval:timeIntervalSeconds sinceDate:date1];
+    NSDateComponents *conversionInfo = [sysCalendar components:self.unitFlags fromDate:date1  toDate:date2  options:0];
+    
+    return  [NSString stringWithFormat:@"%d:%d", [conversionInfo minute], [conversionInfo second]];
+}
+
+-(QPickerElement *)timePickerElementWithTitle: (NSString *) title DefaultKeyValue:(NSString *) value
+{
+    NSString *defaultValueString = [[NSUserDefaults standardUserDefaults] objectForKey:value];
+    NSLog(@"Time for %@: %@", value, defaultValueString);
+    NSString *defaultValueInMin = [self secondsToMinAndSecString:[defaultValueString floatValue]];
+ 
+    PickerValueParser *timeParser = [[PickerValueParser alloc] init];
+    QPickerElement *timerPicker =
+    [[QPickerElement alloc] initWithTitle:title
+                                    items:timeParser.timeValues
+                                    value:defaultValueInMin];
+    
+    timerPicker.valueParser = timeParser;
+    timerPicker.onValueChanged = ^{
+        NSTimeInterval min = [timerPicker.selectedIndexes[0] floatValue];
+        NSTimeInterval sec = [timerPicker.selectedIndexes[1] floatValue];
+        NSString *timeInSeconds = [NSString stringWithFormat:@"%f", (60 * min) + sec];
+        
+        NSLog(@"Selected indexes: %@", [timerPicker.selectedIndexes componentsJoinedByString:@":"]);
+        NSLog(@"Time in seconds: %@", timeInSeconds);
+        
+        NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+        [defaults setObject:timeInSeconds forKey:value];
+        [defaults synchronize];
+    };
+    
+    return timerPicker;
+}
+
+-(void)showSettingsPush
+{
+    QRootElement *root = [[QRootElement alloc] init];
+    root.title = @"Settings";
+    root.grouped = YES;
+    
+    // Timer Section
+    QSection *timeSection = [[QSection alloc] initWithTitle:@"Timer Settings"];
+    [timeSection addElement:[self timePickerElementWithTitle:@"Adding water" DefaultKeyValue:@"waterTime"]];
+    [timeSection addElement:[self timePickerElementWithTitle:@"Stir coffee" DefaultKeyValue:@"stirTime"]];
+    [timeSection addElement:[self timePickerElementWithTitle:@"Steeping" DefaultKeyValue:@"steepTime"]];
+    
+//    [timeSection addElement:[self timePickerElementWithTitle:@"Water time" DefaultKeyValue:@"waterTime"]];
+//    [timeSection addElement:[self timePickerElementWithTitle:@"Stir time" DefaultKeyValue:@"stirTime"]];
+//    [timeSection addElement:[self timePickerElementWithTitle:@"Steep time" DefaultKeyValue:@"steepTime"]];
+    
+    // About Section
+    QSection *aboutSection = [[QSection alloc] initWithTitle:@"About"];
+    QLabelElement *labelVersion = [[QLabelElement alloc] initWithTitle:@"Version" Value:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
+    QLabelElement *labelSupport = [[QLabelElement alloc] initWithTitle:@"Support" Value:@"support@arsln.org"];
+    [aboutSection addElement:labelVersion];
+    [aboutSection addElement:labelSupport];
+    
+    [root addSection:timeSection];
+    [root addSection:aboutSection];
+    
     [self setModalModeOn:YES];
-    [self presentModalViewController:self.navSettingsViewController animated:YES];
+    UIViewController *navigation = [QuickDialogController controllerForRoot:root];
+//    [self presentModalViewController:navigation animated:YES];
+    [self.navigationController pushViewController:navigation animated:YES];
 }
-
-- (void)settingDidChange:(NSNotification*)notification {
-    if ([notification.object isEqual:@"waterTime"]) {
-		NSString *steeptime = [notification.userInfo objectForKey:@"waterTime"];
-        NSLog(@"Water time: %@", steeptime);
-    }
-    
-    if ([notification.object isEqual:@"stirTime"]) {
-		NSString *steeptime = [notification.userInfo objectForKey:@"stirTime"];
-        NSLog(@"Stir time: %@", steeptime);
-    }
-    
-    if ([notification.object isEqual:@"steepTime"]) {
-		NSString *steeptime = [notification.userInfo objectForKey:@"steepTime"];
-        NSLog(@"Steep time: %@", steeptime);
-    }
-}
-
-- (void)settingsViewControllerDidEnd:(IASKAppSettingsViewController*)sender {
-	// your code here to reconfigure the app for changed settings
-    [self dismissModalViewControllerAnimated:YES];
-    
-//    NSTimeInterval enabled = [[[NSUserDefaults standardUserDefaults] stringForKey:@"steepTime"] floatValue];
-//    NSLog(@"Steep time is: %f", enabled);
-}
-
 
 -(void)enableSlider {
 	// Start the slider animation
@@ -191,8 +242,8 @@ CoffeState coffeeState;
     [self setBloomState:0];
     [self setSteepState:0];
     [self setFinishState:0];
-    [self.infoLabel setText:@"Slide to start"];
-    [self.timerLabel setText:@"Cafetière"];
+    [self.infoLabel setText:@""];
+    [self.timerLabel setText:@"Start"];
     
     // Get default values from settings
     NSTimeInterval cWaterTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"waterTime"] floatValue];
@@ -360,7 +411,7 @@ CoffeState coffeeState;
                     NSLog(@"FinishState");
                     [self setFinishState:1];
                     [self.infoLabel setText:@"Push plunger down"];
-                    [self.timerLabel setText:@"Finished"];
+                    [self.timerLabel setText:@"Ready"];
                     [self playSoundWithName:@"coffeeFinished" type:@"wav"];
                     
                     [self.frenchPress stopAnim]; // Stop previus begin animation
@@ -378,7 +429,8 @@ CoffeState coffeeState;
                 [theTimer invalidate]; // Ok end this timer function, never come back
                 
                 [self.frenchPress stopAnim]; // Stop previus begin animation
-                [self.infoLabel setText:@"Hold on the lid and pour"];
+//                [self.infoLabel setText:@"Hold on the lid and pour"];
+                [self.infoLabel setText:@""];
                 [self.timerLabel setText:@"Enjoy"];
                 [self.frenchPress setImage:[UIImage imageNamed:@"animFinish25"]];
                 [self setFrench5:[UIImage imageNamed:@"fpour_5"]];
@@ -393,7 +445,6 @@ CoffeState coffeeState;
             break;
         default:
             break;
-            
     }
 }
 

@@ -15,11 +15,18 @@
     // Override point for customization after application launch.
     self.viewController = [[FrenchpressViewController alloc] init];
     
-//    self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
-//    self.navigationController.delegate = self;
-//    [[self window] setRootViewController:self.navigationController];
+    self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
+    self.navigationController.delegate = self;
+//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"timerBackground.png"] forBarMetrics:UIBarMetricsDefault];
+    self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:182.0/255.0
+                                                                        green:23.0/255.0
+                                                                         blue:2.0/255.0
+                                                                        alpha:0];
     
-    [[self window] setRootViewController:self.viewController];
+    
+    [[self window] setRootViewController:self.navigationController];
+    
+//    [[self window] setRootViewController:self.viewController];
     
     [self.window makeKeyAndVisible];
     return YES;

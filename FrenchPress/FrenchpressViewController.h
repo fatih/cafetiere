@@ -2,18 +2,17 @@
 #import "SlideToCancelViewController.h"
 #import "AnimUIImageView.h"
 #import "InAppSettingsKit/Controllers/IASKAppSettingsViewController.h"
+#import "PickerViewController.h"
 
 @interface FrenchpressViewController : UIViewController
-    <SlideToCancelDelegate, IASKSettingsDelegate>
+    <SlideToCancelDelegate>
 {
     SlideToCancelViewController *slideToCancel;
-//    IASKAppSettingsViewController *appSettingsViewController;
 }
 
-@property (nonatomic, retain) IASKAppSettingsViewController *appSettingsViewController;
 @property (nonatomic, retain) UINavigationController *navSettingsViewController;
 
-- (IBAction)showSettingsPush:(id)sender;
+@property (nonatomic, retain) PickerViewController *timerPicker;
 
 @property (nonatomic, strong) IBOutlet UILabel *timerLabel;
 @property (nonatomic, strong) IBOutlet UILabel *infoLabel;

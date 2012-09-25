@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		3D055BBA15F7FAEA005FDF55 /* AnimUIImageView.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D055BB915F7FAEA005FDF55 /* AnimUIImageView.m */; };
+		3D0CB30716091B2A00BD9B98 /* MapKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0CB30616091B2A00BD9B98 /* MapKit.framework */; };
+		3D0CB30916091B3500BD9B98 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0CB30816091B3400BD9B98 /* CoreLocation.framework */; };
+		3D0CB31A16091EDD00BD9B98 /* libQuickDialog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0CB31716091ECB00BD9B98 /* libQuickDialog.a */; };
+		3D10ABBD160FB881002FE218 /* PickerValueParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D10ABBC160FB881002FE218 /* PickerValueParser.m */; };
 		3D29E7EB1601440700294250 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D29E7EA1601440700294250 /* Constants.m */; };
 		3D29E7EF16021FF800294250 /* settingsGear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D29E7EE16021FF800294250 /* settingsGear@2x.png */; };
 		3D3054A01600DE3F00174167 /* InAppSettings.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 3D30549F1600DE3F00174167 /* InAppSettings.bundle */; };
@@ -15,6 +19,7 @@
 		3D515298160391560051F921 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DD58F7A15F3A98C00FB9F3F /* Default.png */; };
 		3D5152991603915B0051F921 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DD58F7B15F3A98C00FB9F3F /* Default@2x.png */; };
 		3D51529B160397370051F921 /* UIDevice+Resolutions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D51529A160397370051F921 /* UIDevice+Resolutions.m */; };
+		3D5152A7160666FD0051F921 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5152A6160666FD0051F921 /* PickerViewController.m */; };
 		3D756C6115FBB3CF00F5EB01 /* MessageUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D756C6015FBB3CF00F5EB01 /* MessageUI.framework */; };
 		3D756C8A15FBB72000F5EB01 /* IASKAppSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D756C6C15FBB72000F5EB01 /* IASKAppSettingsViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		3D756C8B15FBB72000F5EB01 /* IASKAppSettingsWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D756C6E15FBB72000F5EB01 /* IASKAppSettingsWebViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
@@ -148,9 +153,38 @@
 		3DD58FF315F3B66A00FB9F3F /* fempty_0.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DD58FF215F3B66900FB9F3F /* fempty_0.png */; };
 /* End PBXBuildFile section */
 
+/* Begin PBXContainerItemProxy section */
+		3D0CB31416091ECB00BD9B98 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3D0CB30B16091ECB00BD9B98 /* QuickDialog.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = D80B0E3313E052DF00FA85CA;
+			remoteInfo = QuickDialogExample;
+		};
+		3D0CB31616091ECB00BD9B98 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3D0CB30B16091ECB00BD9B98 /* QuickDialog.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 2C542393145ADEBD0026A152;
+			remoteInfo = QuickDialog;
+		};
+		3D0CB31816091ED900BD9B98 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 3D0CB30B16091ECB00BD9B98 /* QuickDialog.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 2C542392145ADEBD0026A152;
+			remoteInfo = QuickDialog;
+		};
+/* End PBXContainerItemProxy section */
+
 /* Begin PBXFileReference section */
 		3D055BB815F7FAEA005FDF55 /* AnimUIImageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AnimUIImageView.h; sourceTree = "<group>"; };
 		3D055BB915F7FAEA005FDF55 /* AnimUIImageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AnimUIImageView.m; sourceTree = "<group>"; };
+		3D0CB30616091B2A00BD9B98 /* MapKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MapKit.framework; path = System/Library/Frameworks/MapKit.framework; sourceTree = SDKROOT; };
+		3D0CB30816091B3400BD9B98 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		3D0CB30B16091ECB00BD9B98 /* QuickDialog.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QuickDialog.xcodeproj; path = QuickDialog/QuickDialog.xcodeproj; sourceTree = "<group>"; };
+		3D10ABBB160FB881002FE218 /* PickerValueParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerValueParser.h; sourceTree = "<group>"; };
+		3D10ABBC160FB881002FE218 /* PickerValueParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerValueParser.m; sourceTree = "<group>"; };
 		3D29E7E91600EC2300294250 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		3D29E7EA1601440700294250 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		3D29E7EE16021FF800294250 /* settingsGear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingsGear@2x.png"; sourceTree = "<group>"; };
@@ -158,6 +192,8 @@
 		3D515294160390C00051F921 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3D51529A160397370051F921 /* UIDevice+Resolutions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Resolutions.m"; sourceTree = "<group>"; };
 		3D51529C1603973D0051F921 /* UIDevice+Resolutions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Resolutions.h"; sourceTree = "<group>"; };
+		3D5152A5160666FD0051F921 /* PickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
+		3D5152A6160666FD0051F921 /* PickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
 		3D756C6015FBB3CF00F5EB01 /* MessageUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MessageUI.framework; path = System/Library/Frameworks/MessageUI.framework; sourceTree = SDKROOT; };
 		3D756C6B15FBB72000F5EB01 /* IASKAppSettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IASKAppSettingsViewController.h; sourceTree = "<group>"; };
 		3D756C6C15FBB72000F5EB01 /* IASKAppSettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IASKAppSettingsViewController.m; sourceTree = "<group>"; };
@@ -319,6 +355,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3D0CB31A16091EDD00BD9B98 /* libQuickDialog.a in Frameworks */,
+				3D0CB30916091B3500BD9B98 /* CoreLocation.framework in Frameworks */,
+				3D0CB30716091B2A00BD9B98 /* MapKit.framework in Frameworks */,
 				3D756C6115FBB3CF00F5EB01 /* MessageUI.framework in Frameworks */,
 				3DD58F1015F3A6FF00FB9F3F /* QuartzCore.framework in Frameworks */,
 				3DD58F0E15F3A6FA00FB9F3F /* AudioToolbox.framework in Frameworks */,
@@ -331,6 +370,15 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		3D0CB30C16091ECB00BD9B98 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				3D0CB31516091ECB00BD9B98 /* QuickDialogExample.app */,
+				3D0CB31716091ECB00BD9B98 /* libQuickDialog.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
 		3D756C6915FBB72000F5EB01 /* InAppSettingsKit */ = {
 			isa = PBXGroup;
 			children = (
@@ -412,6 +460,9 @@
 		3DD58EEF15F3A66200FB9F3F /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				3D0CB30B16091ECB00BD9B98 /* QuickDialog.xcodeproj */,
+				3D0CB30816091B3400BD9B98 /* CoreLocation.framework */,
+				3D0CB30616091B2A00BD9B98 /* MapKit.framework */,
 				3D756C6015FBB3CF00F5EB01 /* MessageUI.framework */,
 				3DD58F0F15F3A6FF00FB9F3F /* QuartzCore.framework */,
 				3DD58F0D15F3A6FA00FB9F3F /* AudioToolbox.framework */,
@@ -436,6 +487,10 @@
 				3DD58F0015F3A66300FB9F3F /* FrenchpressAppDelegate.m */,
 				3D055BB815F7FAEA005FDF55 /* AnimUIImageView.h */,
 				3D055BB915F7FAEA005FDF55 /* AnimUIImageView.m */,
+				3D5152A5160666FD0051F921 /* PickerViewController.h */,
+				3D5152A6160666FD0051F921 /* PickerViewController.m */,
+				3D10ABBB160FB881002FE218 /* PickerValueParser.h */,
+				3D10ABBC160FB881002FE218 /* PickerValueParser.m */,
 				3DD58F0215F3A66300FB9F3F /* FrenchpressViewController.h */,
 				3DD58F0315F3A66300FB9F3F /* FrenchpressViewController.m */,
 				3DD58F0515F3A66300FB9F3F /* FrenchpressViewController.xib */,
@@ -618,6 +673,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				3D0CB31916091ED900BD9B98 /* PBXTargetDependency */,
 			);
 			name = FrenchPress;
 			productName = FrenchPress;
@@ -646,12 +702,35 @@
 			mainGroup = 3DD58EE115F3A66200FB9F3F;
 			productRefGroup = 3DD58EED15F3A66200FB9F3F /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = 3D0CB30C16091ECB00BD9B98 /* Products */;
+					ProjectRef = 3D0CB30B16091ECB00BD9B98 /* QuickDialog.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				3DD58EEB15F3A66200FB9F3F /* FrenchPress */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXReferenceProxy section */
+		3D0CB31516091ECB00BD9B98 /* QuickDialogExample.app */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.application;
+			path = QuickDialogExample.app;
+			remoteRef = 3D0CB31416091ECB00BD9B98 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		3D0CB31716091ECB00BD9B98 /* libQuickDialog.a */ = {
+			isa = PBXReferenceProxy;
+			fileType = archive.ar;
+			path = libQuickDialog.a;
+			remoteRef = 3D0CB31616091ECB00BD9B98 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
 
 /* Begin PBXResourcesBuildPhase section */
 		3DD58EEA15F3A66200FB9F3F /* Resources */ = {
@@ -801,10 +880,20 @@
 				3D756C9715FBB72000F5EB01 /* IASKTextField.m in Sources */,
 				3D29E7EB1601440700294250 /* Constants.m in Sources */,
 				3D51529B160397370051F921 /* UIDevice+Resolutions.m in Sources */,
+				3D5152A7160666FD0051F921 /* PickerViewController.m in Sources */,
+				3D10ABBD160FB881002FE218 /* PickerValueParser.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		3D0CB31916091ED900BD9B98 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = QuickDialog;
+			targetProxy = 3D0CB31816091ED900BD9B98 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
 		3DD58EF915F3A66200FB9F3F /* InfoPlist.strings */ = {
@@ -879,10 +968,13 @@
 		3DD58F0B15F3A66300FB9F3F /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FrenchPress/FrenchPress-Prefix.pch";
 				INFOPLIST_FILE = "FrenchPress/FrenchPress-Info.plist";
+				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_NAME = "${TARGET_NAME}";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/QuickDialog\"";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -890,10 +982,13 @@
 		3DD58F0C15F3A66300FB9F3F /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "FrenchPress/FrenchPress-Prefix.pch";
 				INFOPLIST_FILE = "FrenchPress/FrenchPress-Info.plist";
+				OTHER_LDFLAGS = "-Objc";
 				PRODUCT_NAME = "${TARGET_NAME}";
+				USER_HEADER_SEARCH_PATHS = "\"${PROJECT_DIR}/QuickDialog\"";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

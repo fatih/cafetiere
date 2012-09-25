@@ -31,6 +31,16 @@
 			<string>IASKUITextAlignmentRight</string>
 		</dict>
 		<dict>
+			<key>IASKViewControllerClass</key>
+			<string>PickerViewController</string>
+			<key>IASKViewControllerSelector</key>
+			<string>init</string>
+			<key>Title</key>
+			<string>Water time</string>
+			<key>Type</key>
+			<string>PSChildPaneSpecifier</string>
+		</dict>
+		<dict>
 			<key>Type</key>
 			<string>PSTextFieldSpecifier</string>
 			<key>Title</key>
