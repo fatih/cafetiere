@@ -178,12 +178,13 @@ CoffeState coffeeState;
     root.title = @"Settings";
     root.grouped = YES;
     
-    // Start at launch
+    // Start Section
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL enabled = [defaults boolForKey:kStartAtLaunch];
     
-    QSection *startSection = [[QSection alloc] initWithTitle:@"Start at launch"];
-    QBooleanElement *startAtLaunch = [[QBooleanElement alloc] initWithTitle:@"Start immediately" BoolValue:enabled];
+//    QSection *startSection = [[QSection alloc] initWithTitle:@"Start at launch"];
+    QSection *startSection = [[QSection alloc] init];
+    QBooleanElement *startAtLaunch = [[QBooleanElement alloc] initWithTitle:@"Start timer at launch" BoolValue:enabled];
 	startAtLaunch.key = @"startAtLaunchKey";
     startAtLaunch.onSelected = ^{
         if (startAtLaunch.boolValue) {
