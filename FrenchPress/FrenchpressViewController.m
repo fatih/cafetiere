@@ -178,15 +178,30 @@ CoffeState coffeeState;
     root.title = @"Settings";
     root.grouped = YES;
     
+    // Start at launch
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    BOOL enabled = [defaults boolForKey:kStartAtLaunch];
+    
+    QSection *startSection = [[QSection alloc] initWithTitle:@"Start at launch"];
+    QBooleanElement *startAtLaunch = [[QBooleanElement alloc] initWithTitle:@"Start immediately" BoolValue:enabled];
+	startAtLaunch.key = @"startAtLaunchKey";
+    startAtLaunch.onSelected = ^{
+        if (startAtLaunch.boolValue) {
+            NSLog(@"Boolean Enabled");
+            [defaults setObject:@"YES" forKey:kStartAtLaunch];
+        } else {
+            NSLog(@"Boolean Disabled");
+            [defaults setObject:@"NO" forKey:kStartAtLaunch];
+        }
+        [defaults synchronize];
+    };
+    [startSection addElement:startAtLaunch];
+    
     // Timer Section
     QSection *timeSection = [[QSection alloc] initWithTitle:@"Timer Settings"];
     [timeSection addElement:[self timePickerElementWithTitle:@"Adding water" DefaultKeyValue:@"waterTime"]];
     [timeSection addElement:[self timePickerElementWithTitle:@"Stir coffee" DefaultKeyValue:@"stirTime"]];
     [timeSection addElement:[self timePickerElementWithTitle:@"Steeping" DefaultKeyValue:@"steepTime"]];
-    
-//    [timeSection addElement:[self timePickerElementWithTitle:@"Water time" DefaultKeyValue:@"waterTime"]];
-//    [timeSection addElement:[self timePickerElementWithTitle:@"Stir time" DefaultKeyValue:@"stirTime"]];
-//    [timeSection addElement:[self timePickerElementWithTitle:@"Steep time" DefaultKeyValue:@"steepTime"]];
     
     // About Section
     QSection *aboutSection = [[QSection alloc] initWithTitle:@"About"];
@@ -195,6 +210,7 @@ CoffeState coffeeState;
     [aboutSection addElement:labelVersion];
     [aboutSection addElement:labelSupport];
     
+    [root addSection:startSection];
     [root addSection:timeSection];
     [root addSection:aboutSection];
     
