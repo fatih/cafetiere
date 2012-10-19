@@ -8,6 +8,8 @@
 #import "UIDevice+Resolutions.h"
 #import "PickerViewController.h"
 #import "PickerValueParser.h"
+#import "IIViewDeckController.h"
+#import "LeftViewController.h"
 
 @interface FrenchpressViewController ()
 
@@ -16,7 +18,10 @@
 @implementation FrenchpressViewController
 
 // Enum for each Coffee Step
-CoffeState coffeeState;
+FrenchPressCoffeeState coffeeState;
+AeroPressCoffeeState aeroState;
+
+BrewMethod brewMethod;
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -31,10 +36,10 @@ CoffeState coffeeState;
         // Set the application defaults
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSDictionary *appDefaults = @{@"startAtLaunch" : @"YES",
-                                        @"waterTime" : kWaterTime,
-                                        @"stirTime" : kStirTime,
-                                        @"steepTime" : kSteepTime,
-                                        @"finishTime" : kFinishTime};
+                                        @"waterTime" : kFrenchWaterTime,
+                                        @"stirTime" : kFrenchStirTime,
+                                        @"steepTime" : kFrenchSteepTime,
+                                        @"finishTime" : kFrenchFinishTime};
     
         [defaults registerDefaults:appDefaults];
         [defaults synchronize];
@@ -49,25 +54,39 @@ CoffeState coffeeState;
     return self;
 }
 
+-(void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
+    
+    // Custom hack to re-enable left controller. Because we are disabling it
+    // in the Settings Push controller (via setting it to nil). Therefore assing a
+    // left controller
+    UIViewController* newController = [[LeftViewController alloc] init];
+    self.viewDeckController.leftController = newController;
+}
+
 
 -(void)viewDidLoad
 {
-    [super viewDidLoad];
 //    NSLog(@"ViewDidLoad");
+    [super viewDidLoad];
     
     self.title = @"Cafetière"; // NavigationBar title
-//    UIBarButtonItem *settingButton = [[UIBarButtonItem alloc] initWithImage:[UIImage imageNamed:@"settingsGear@2x.png" ]
-//                                                                      style:UIBarButtonItemStylePlain
-//                                                                     target:self action:@selector(showSettingsPush)];
-//    
-//    
-//    self.navigationItem.rightBarButtonItem = settingButton;
     
-    UIButton *settingsView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 40, 40)];
+//    self.viewDeckController.centerhiddenInteractivity = IIViewDeckCenterHiddenNotUserInteractiveWithTapToClose;
+    
+    UIButton *settingsView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     [settingsView addTarget:self action:@selector(showSettingsPush) forControlEvents:UIControlEventTouchUpInside];
-    [settingsView setBackgroundImage:[UIImage imageNamed:@"settingsGear@2x.png"] forState:UIControlStateNormal];
+    [settingsView setBackgroundImage:[UIImage imageNamed:@"settingsGear_yeni.png"] forState:UIControlStateNormal];
+//    [settingsView setBackgroundImage:[UIImage imageNamed:@"gear48_yeni.png"] forState:UIControlStateNormal];
     UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithCustomView:settingsView];
     [self.navigationItem setRightBarButtonItem:settingsButton];
+    
+    UIButton *coffeeView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 25, 25)];
+    [coffeeView addTarget:self.viewDeckController action:@selector(toggleLeftView) forControlEvents:UIControlEventTouchUpInside];
+    [coffeeView setBackgroundImage:[UIImage imageNamed:@"coffee48.png"] forState:UIControlStateNormal];
+    UIBarButtonItem *coffeeButton = [[UIBarButtonItem alloc] initWithCustomView:coffeeView];
+    [self.navigationItem setLeftBarButtonItem:coffeeButton];
     
     if (!slideToCancel) {
 		// Create the slider
@@ -174,6 +193,8 @@ CoffeState coffeeState;
 
 -(void)showSettingsPush
 {
+    self.viewDeckController.leftController = nil;
+    
     QRootElement *root = [[QRootElement alloc] init];
     root.title = @"Settings";
     root.grouped = YES;

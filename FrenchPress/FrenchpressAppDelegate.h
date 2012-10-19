@@ -9,5 +9,6 @@
 
 @property (strong, nonatomic) FrenchpressViewController *viewController;
 @property (strong, nonatomic) UINavigationController *navigationController;
+@property (retain, nonatomic) UIViewController *leftController;
 
 @end

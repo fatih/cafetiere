@@ -1,7 +1,6 @@
 #import <UIKit/UIKit.h>
 #import "SlideToCancelViewController.h"
 #import "AnimUIImageView.h"
-#import "InAppSettingsKit/Controllers/IASKAppSettingsViewController.h"
 #import "PickerViewController.h"
 
 @interface FrenchpressViewController : UIViewController
@@ -67,8 +66,21 @@ typedef enum {
     SteepState,
     FinishState,
     EnjoyState
-} CoffeState;
+} FrenchPressCoffeeState;
 
+typedef enum {
+    AeroBeginState,
+    AeroWaterState,
+    AeroStirState,
+    AeroSteepState,
+    AeroFinishState,
+    AeroEnjoyState
+} AeroPressCoffeeState;
+
+typedef enum {
+    FrenchPress,
+    AeroPress
+} BrewMethod;
 
 
 -(void)startCoffee;

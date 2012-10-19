@@ -2,8 +2,9 @@
 #import "FrenchpressViewController.h"
 #import "SlideToCancelViewController.h"
 #import  <QuartzCore/QuartzCore.h>
-//#import "InAppSettingsKit/Controllers/IASKAppSettingsViewController.h"
 #import "Constants.h"
+#import "IIViewDeckController.h"
+#import "LeftViewController.h"
 
 @implementation FrenchpressAppDelegate
 
@@ -15,19 +16,24 @@
     // Override point for customization after application launch.
     self.viewController = [[FrenchpressViewController alloc] init];
     
+    self.leftController = [[LeftViewController alloc] initWithNibName:@"LeftViewController" bundle:nil];
+    
     self.navigationController = [[UINavigationController alloc] initWithRootViewController:self.viewController];
     self.navigationController.delegate = self;
-//    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageNamed:@"timerBackground.png"] forBarMetrics:UIBarMetricsDefault];
     self.navigationController.navigationBar.tintColor = [UIColor colorWithRed:182.0/255.0
                                                                         green:23.0/255.0
                                                                          blue:2.0/255.0
                                                                         alpha:0];
     
+    IIViewDeckController* deckController =  [[IIViewDeckController alloc] initWithCenterViewController:self.navigationController
+                                             
+                                                                                    leftViewController:self.leftController
+                                                                                   rightViewController:nil];
+    deckController.leftLedge = 44;
     
-    [[self window] setRootViewController:self.navigationController];
+    self.window.rootViewController = deckController;
     
-//    [[self window] setRootViewController:self.viewController];
-    
+//    [[self window] setRootViewController:self.navigationController];
     [self.window makeKeyAndVisible];
     return YES;
 }
