@@ -85,6 +85,20 @@ BrewMethod brewMethod;
             {
                 self.timerLabel.text = @"French Press";
                 [self.frenchPress setImage:[UIImage imageNamed:@"animSteep20.png"]];
+                // Get default values from settings
+                NSTimeInterval cWaterTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchWaterTime"] floatValue];
+                NSTimeInterval cStirTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchStirTime"] floatValue];
+                NSTimeInterval cSteepTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchSteepTime"] floatValue];
+                NSTimeInterval cFinishTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchFinishTime"] floatValue];
+            //    NSLog(@"Watertime: %f", cWaterTime);
+            //    NSLog(@"Stirtime: %f", cStirTime);
+            //    NSLog(@"SteepTime: %f", cSteepTime);
+            //    NSLog(@"FinishTime: %f", cFinishTime);
+                [self setWaterTime:cWaterTime];
+                [self setBloomTime:cStirTime];
+                [self setSteepTime:cSteepTime];
+                [self setFinishTime:cFinishTime];
+                [self setCountdownSeconds:[self steepTime] + [self bloomTime] + [self waterTime]];
             }
             break;
         case AeroPress:
@@ -161,7 +175,6 @@ BrewMethod brewMethod;
     // Timer/Info label background
     [self.infoBackground setImage:self.infoBackgroundImage];
     
-
     // Initial is set to 'French Press'
     [self setupBrewMethod];
     
@@ -226,6 +239,7 @@ BrewMethod brewMethod;
 
 -(void)showSettingsPush
 {
+    // Otherwise sliding to right opens the ViewDeck
     self.viewDeckController.leftController = nil;
     
     QRootElement *root = [[QRootElement alloc] init];
@@ -236,7 +250,7 @@ BrewMethod brewMethod;
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL enabled = [defaults boolForKey:kStartAtLaunch];
     
-//    QSection *startSection = [[QSection alloc] initWithTitle:@"Start at launch"];
+    // QSection *startSection = [[QSection alloc] initWithTitle:@"Start at launch"];
     QSection *startSection = [[QSection alloc] init];
     QBooleanElement *startAtLaunch = [[QBooleanElement alloc] initWithTitle:@"Start timer at launch" BoolValue:enabled];
 	startAtLaunch.key = @"startAtLaunchKey";
@@ -273,7 +287,8 @@ BrewMethod brewMethod;
     
     // About Section
     QSection *aboutSection = [[QSection alloc] initWithTitle:@"About"];
-    QLabelElement *labelVersion = [[QLabelElement alloc] initWithTitle:@"Version" Value:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
+    QLabelElement *labelVersion = [[QLabelElement alloc] initWithTitle:@"Version"
+                                                                 Value:[[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleVersion"]];
     QLabelElement *labelSupport = [[QLabelElement alloc] initWithTitle:@"Support" Value:@"support@arsln.org"];
     [aboutSection addElement:labelVersion];
     [aboutSection addElement:labelSupport];
@@ -324,25 +339,9 @@ BrewMethod brewMethod;
     [self setFinishState:0];
     [self.frenchPress setImage:nil];
     
-    
     // self.timerLabel and self.frenchpress is set in the method below
     [self setupBrewMethod];
     [self.infoLabel setText:@"Slide to start"];
-    
-    // Get default values from settings
-    NSTimeInterval cWaterTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchWaterTime"] floatValue];
-    NSTimeInterval cStirTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchStirTime"] floatValue];
-    NSTimeInterval cSteepTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchSteepTime"] floatValue];
-    NSTimeInterval cFinishTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchFinishTime"] floatValue];
-//    NSLog(@"Watertime: %f", cWaterTime);
-//    NSLog(@"Stirtime: %f", cStirTime);
-//    NSLog(@"SteepTime: %f", cSteepTime);
-//    NSLog(@"FinishTime: %f", cFinishTime);
-    [self setWaterTime:cWaterTime];
-    [self setBloomTime:cStirTime];
-    [self setSteepTime:cSteepTime];
-    [self setFinishTime:cFinishTime];
-    [self setCountdownSeconds:[self steepTime] + [self bloomTime] + [self waterTime]];
 }
 
 -(void)stopTimers
@@ -358,26 +357,40 @@ BrewMethod brewMethod;
 
 -(void)startCoffee
 {
+    // Clean old variables and set up new variables for the choosen brew method
     [self cleanForNewStart];
-    
     NSLog(@"Cafetiere has Started");
     self.infoLabel.text = @"Starting";
     self.didCoffeeStarted = 1;
     
-    CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
-    crossFade.duration = kStartTime - 1.0f;
-    crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"fempty_0"].CGImage);
-    crossFade.toValue = (__bridge id)([UIImage imageNamed:@"animBegin25"].CGImage);
+    switch (brewMethod) {
+        case FrenchPress:
+            {
+                CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
+                crossFade.duration = kStartTime - 1.0f;
+                crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"fempty_0"].CGImage);
+                crossFade.toValue = (__bridge id)([UIImage imageNamed:@"animBegin25"].CGImage);
+                
+                [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
+                [self.frenchPress setImage:[UIImage imageNamed:@"animBegin25"]];
+                [self playSoundWithName:@"coffeeStarted" type:@"wav"];
+                self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:kStartTime
+                                                                 target:self
+                                                                  selector:@selector (startCountdown:)
+                                                               userInfo:nil
+                                                                repeats:NO];
+            }
+            break;
+        case AeroPress:
+            {
+                self.infoLabel.text = @"No instructions";
+            }
+        default:
+            break;
+    }
     
-    [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
-    [self.frenchPress setImage:[UIImage imageNamed:@"animBegin25"]];
     
-    [self playSoundWithName:@"coffeeStarted" type:@"wav"];
-    self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:kStartTime
-                                                     target:self
-                                                      selector:@selector (startCountdown:)
-                                                   userInfo:nil
-                                                    repeats:NO];
+    
 }
 
 -(void)startCountdown:(NSTimeInterval)timeGap
@@ -570,7 +583,6 @@ BrewMethod brewMethod;
             [self.animationArrayBegin addObject:image];
         }
     }
-    
     
     // First stir anim
     for (NSUInteger i = 7; i < 14; i++) {
