@@ -156,6 +156,7 @@
     cell.accessoryType = UITableViewCellAccessoryNone;
     cell.textLabel.font = [UIFont fontWithName:@"STHeitiTC-Light" size:20];
     cell.textLabel.textColor = [UIColor whiteColor];
+    cell.selectionStyle = UITableViewCellSelectionStyleGray;
 //    cell.imageView.image = [UIImage imageNamed: [NSString stringWithFormat:@"icon%d.png",indexPath.row]];
 
     cell.textLabel.text = [self.methods objectAtIndex:indexPath.row];

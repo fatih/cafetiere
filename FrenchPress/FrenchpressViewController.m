@@ -36,10 +36,10 @@ BrewMethod brewMethod;
         // Set the application defaults
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSDictionary *appDefaults = @{@"startAtLaunch" : @"YES",
-                                        @"waterTime" : kFrenchWaterTime,
-                                        @"stirTime" : kFrenchStirTime,
-                                        @"steepTime" : kFrenchSteepTime,
-                                        @"finishTime" : kFrenchFinishTime};
+                                        @"frenchWaterTime" : kFrenchWaterTime,
+                                        @"frenchStirTime" : kFrenchStirTime,
+                                        @"frenchSteepTime" : kFrenchSteepTime,
+                                        @"frenchFinishTime" : kFrenchFinishTime};
     
         [defaults registerDefaults:appDefaults];
         [defaults synchronize];
@@ -68,7 +68,6 @@ BrewMethod brewMethod;
 
 -(void)selectBrewMethod:(NSString *) method
 {
-    NSLog(@"Method: %@", method);
     if ([method isEqualToString:@"French Press"]) {
         brewMethod = FrenchPress;
         NSLog(@"French Press selected");
@@ -77,8 +76,25 @@ BrewMethod brewMethod;
         NSLog(@"AeroPress selected");
     };
     
-//    [self startCoffee];
-    
+}
+
+-(void)setupBrewMethod
+{
+    switch (brewMethod) {
+        case FrenchPress:
+            {
+                self.timerLabel.text = @"French Press";
+                [self.frenchPress setImage:[UIImage imageNamed:@"animSteep20.png"]];
+            }
+            break;
+        case AeroPress:
+            {
+                self.timerLabel.text = @"AeroPress";
+            }
+            break;
+        default:
+            break;
+    }
 }
 
 -(void)viewDidLoad
@@ -88,12 +104,10 @@ BrewMethod brewMethod;
     
     self.title = @"Cafetière"; // NavigationBar title
     
-//    self.viewDeckController.centerhiddenInteractivity = IIViewDeckCenterHiddenNotUserInteractiveWithTapToClose;
     
     UIButton *settingsView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
     [settingsView addTarget:self action:@selector(showSettingsPush) forControlEvents:UIControlEventTouchUpInside];
     [settingsView setBackgroundImage:[UIImage imageNamed:@"settingsGear_yeni.png"] forState:UIControlStateNormal];
-//    [settingsView setBackgroundImage:[UIImage imageNamed:@"gear48_yeni.png"] forState:UIControlStateNormal];
     UIBarButtonItem *settingsButton = [[UIBarButtonItem alloc] initWithCustomView:settingsView];
     [self.navigationItem setRightBarButtonItem:settingsButton];
     
@@ -147,14 +161,12 @@ BrewMethod brewMethod;
     // Timer/Info label background
     [self.infoBackground setImage:self.infoBackgroundImage];
     
+
+    // Initial is set to 'French Press'
+    [self setupBrewMethod];
+    
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL enabled = [defaults boolForKey:kStartAtLaunch];
-    
-    if (brewMethod == FrenchPress) {
-        self.timerLabel.text = @"FrenchPress";
-    } else if (brewMethod == AeroPress) {
-        self.timerLabel.text = @"AeroPress";
-    }
     
     // Init picker
     if (enabled) {
@@ -247,9 +259,9 @@ BrewMethod brewMethod;
         case FrenchPress:
             {
                 QSection *timeSection = [[QSection alloc] initWithTitle:@"Timer Settings"];
-                [timeSection addElement:[self timePickerElementWithTitle:@"Adding water" DefaultKeyValue:@"waterTime"]];
-                [timeSection addElement:[self timePickerElementWithTitle:@"Stir coffee" DefaultKeyValue:@"stirTime"]];
-                [timeSection addElement:[self timePickerElementWithTitle:@"Steeping" DefaultKeyValue:@"steepTime"]];
+                [timeSection addElement:[self timePickerElementWithTitle:@"Adding water" DefaultKeyValue:@"frenchWaterTime"]];
+                [timeSection addElement:[self timePickerElementWithTitle:@"Stir coffee" DefaultKeyValue:@"frenchStirTime"]];
+                [timeSection addElement:[self timePickerElementWithTitle:@"Steeping" DefaultKeyValue:@"frenchSteepTime"]];
                 [root addSection:timeSection];
             }
             break;
@@ -291,7 +303,6 @@ BrewMethod brewMethod;
     // to the right
 	slideToCancel.enabled = YES;
     
-    NSLog(@"Method %d", brewMethod);
     [self startCoffee];
 }
 
@@ -311,20 +322,18 @@ BrewMethod brewMethod;
     [self setBloomState:0];
     [self setSteepState:0];
     [self setFinishState:0];
-    if (brewMethod == FrenchPress) {
-        self.timerLabel.text = @"FrenchPress";
-    } else if (brewMethod == AeroPress) {
-        self.timerLabel.text = @"AeroPress";
-    }
-    [self.infoLabel setText:@"Slide to start"];
-    
     [self.frenchPress setImage:nil];
     
+    
+    // self.timerLabel and self.frenchpress is set in the method below
+    [self setupBrewMethod];
+    [self.infoLabel setText:@"Slide to start"];
+    
     // Get default values from settings
-    NSTimeInterval cWaterTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"waterTime"] floatValue];
-    NSTimeInterval cStirTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"stirTime"] floatValue];
-    NSTimeInterval cSteepTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"steepTime"] floatValue];
-    NSTimeInterval cFinishTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"finishTime"] floatValue];
+    NSTimeInterval cWaterTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchWaterTime"] floatValue];
+    NSTimeInterval cStirTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchStirTime"] floatValue];
+    NSTimeInterval cSteepTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchSteepTime"] floatValue];
+    NSTimeInterval cFinishTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchFinishTime"] floatValue];
 //    NSLog(@"Watertime: %f", cWaterTime);
 //    NSLog(@"Stirtime: %f", cStirTime);
 //    NSLog(@"SteepTime: %f", cSteepTime);
@@ -339,13 +348,11 @@ BrewMethod brewMethod;
 -(void)stopTimers
 {
     if (self.paintingTimer != nil) {
-//        NSLog(@"Countdown timer stopped");
         [self.paintingTimer invalidate];
     }
     
     if (self.coffeeTimer != nil) {
         [self.coffeeTimer invalidate];
-//        NSLog(@"Coffee timer stopped");
     }
 }
 

@@ -5,9 +5,9 @@ NSTimeInterval const kStartTime = 1.5f;
 
 // Coffee step duration in seconds
 //FrenchPress
-NSString *const kFrenchWaterTime = @"16";
-NSString *const kFrenchStirTime = @"6";
-NSString *const kFrenchSteepTime = @"241";
+NSString *const kFrenchWaterTime = @"15";
+NSString *const kFrenchStirTime = @"5";
+NSString *const kFrenchSteepTime = @"240";
 NSString *const kFrenchFinishTime = @"5";
 
 // AeroPress
