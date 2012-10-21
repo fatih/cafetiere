@@ -239,12 +239,25 @@ BrewMethod brewMethod;
         [defaults synchronize];
     };
     [startSection addElement:startAtLaunch];
+    [root addSection:startSection];
+    
     
     // Timer Section
-    QSection *timeSection = [[QSection alloc] initWithTitle:@"Timer Settings"];
-    [timeSection addElement:[self timePickerElementWithTitle:@"Adding water" DefaultKeyValue:@"waterTime"]];
-    [timeSection addElement:[self timePickerElementWithTitle:@"Stir coffee" DefaultKeyValue:@"stirTime"]];
-    [timeSection addElement:[self timePickerElementWithTitle:@"Steeping" DefaultKeyValue:@"steepTime"]];
+    switch (brewMethod) {
+        case FrenchPress:
+            {
+                QSection *timeSection = [[QSection alloc] initWithTitle:@"Timer Settings"];
+                [timeSection addElement:[self timePickerElementWithTitle:@"Adding water" DefaultKeyValue:@"waterTime"]];
+                [timeSection addElement:[self timePickerElementWithTitle:@"Stir coffee" DefaultKeyValue:@"stirTime"]];
+                [timeSection addElement:[self timePickerElementWithTitle:@"Steeping" DefaultKeyValue:@"steepTime"]];
+                [root addSection:timeSection];
+            }
+            break;
+        case AeroPress:
+            break;
+        default:
+            break;
+    }
     
     // About Section
     QSection *aboutSection = [[QSection alloc] initWithTitle:@"About"];
@@ -252,14 +265,10 @@ BrewMethod brewMethod;
     QLabelElement *labelSupport = [[QLabelElement alloc] initWithTitle:@"Support" Value:@"support@arsln.org"];
     [aboutSection addElement:labelVersion];
     [aboutSection addElement:labelSupport];
-    
-    [root addSection:startSection];
-    [root addSection:timeSection];
     [root addSection:aboutSection];
     
     [self setModalModeOn:YES];
     UIViewController *navigation = [QuickDialogController controllerForRoot:root];
-//    [self presentModalViewController:navigation animated:YES];
     [self.navigationController pushViewController:navigation animated:YES];
 }
 
