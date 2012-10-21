@@ -6,6 +6,9 @@
 
 #import "LeftViewController.h"
 #import "IIViewDeckController.h"
+#import "FrenchpressViewController.h"
+#import "Constants.h"
+
 
 @implementation LeftViewController
 
@@ -206,8 +209,19 @@
     [self.viewDeckController closeLeftViewBouncing:^(IIViewDeckController *controller) {
         if ([controller.centerController isKindOfClass:[UINavigationController class]]) {
             UITableViewController* cc = (UITableViewController*)((UINavigationController*)controller.centerController).topViewController;
+//            cc.navigationItem.title = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
             
-            cc.navigationItem.title = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+            FrenchpressViewController *ff = (FrenchpressViewController *)((UINavigationController*)controller.centerController).topViewController;
+            [ff selectBrewMethod:[tableView cellForRowAtIndexPath:indexPath].textLabel.text];
+            
+            NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+            BOOL enabled = [defaults boolForKey:kStartAtLaunch];
+
+            if (enabled) {
+                [ff startCoffee];
+            } else {
+                [ff cleanForNewStart];
+            }
             
             if ([cc respondsToSelector:@selector(tableView)]) {
                 [cc.tableView deselectRowAtIndexPath:[cc.tableView indexPathForSelectedRow] animated:NO];    

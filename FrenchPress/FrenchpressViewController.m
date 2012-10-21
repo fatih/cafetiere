@@ -66,6 +66,21 @@ BrewMethod brewMethod;
 }
 
 
+-(void)selectBrewMethod:(NSString *) method
+{
+    NSLog(@"Method: %@", method);
+    if ([method isEqualToString:@"French Press"]) {
+        brewMethod = FrenchPress;
+        NSLog(@"French Press selected");
+    } else if ([method isEqualToString:@"AeroPress"]) {
+        brewMethod = AeroPress;
+        NSLog(@"AeroPress selected");
+    };
+    
+//    [self startCoffee];
+    
+}
+
 -(void)viewDidLoad
 {
 //    NSLog(@"ViewDidLoad");
@@ -134,6 +149,12 @@ BrewMethod brewMethod;
     
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
     BOOL enabled = [defaults boolForKey:kStartAtLaunch];
+    
+    if (brewMethod == FrenchPress) {
+        self.timerLabel.text = @"FrenchPress";
+    } else if (brewMethod == AeroPress) {
+        self.timerLabel.text = @"AeroPress";
+    }
     
     // Init picker
     if (enabled) {
@@ -261,6 +282,7 @@ BrewMethod brewMethod;
     // to the right
 	slideToCancel.enabled = YES;
     
+    NSLog(@"Method %d", brewMethod);
     [self startCoffee];
 }
 
@@ -280,8 +302,14 @@ BrewMethod brewMethod;
     [self setBloomState:0];
     [self setSteepState:0];
     [self setFinishState:0];
-    [self.infoLabel setText:@""];
-    [self.timerLabel setText:@"Start"];
+    if (brewMethod == FrenchPress) {
+        self.timerLabel.text = @"FrenchPress";
+    } else if (brewMethod == AeroPress) {
+        self.timerLabel.text = @"AeroPress";
+    }
+    [self.infoLabel setText:@"Slide to start"];
+    
+    [self.frenchPress setImage:nil];
     
     // Get default values from settings
     NSTimeInterval cWaterTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"waterTime"] floatValue];
@@ -317,6 +345,7 @@ BrewMethod brewMethod;
     [self cleanForNewStart];
     
     NSLog(@"Cafetiere has Started");
+    self.infoLabel.text = @"Starting";
     self.didCoffeeStarted = 1;
     
     CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];

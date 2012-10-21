@@ -31,9 +31,11 @@
                                                                                    rightViewController:nil];
     deckController.leftLedge = 44;
     
+//    deckController.navigationControllerBehavior = IIViewDeckNavigationControllerContained;
+    deckController.navigationControllerBehavior = IIViewDeckNavigationControllerIntegrated;
+    
     self.window.rootViewController = deckController;
     
-//    [[self window] setRootViewController:self.navigationController];
     [self.window makeKeyAndVisible];
     return YES;
 }
