@@ -49,10 +49,10 @@
 @property (nonatomic) unsigned int unitFlags;
 
 // Image array that contains the images for animation for FrenchPress
-@property (nonatomic, strong) NSMutableArray *animationArrayStir,
-                                             *animationArrayBegin,
-                                             *animationArraySteep,
-                                             *animationArrayFinish;
+@property (nonatomic, strong) NSMutableArray *frenchPressBegin,
+                                             *frenchPressStir,
+                                             *frenchPressSteep,
+                                             *frenchPressFinish;
 
 // Image array that contains the images for animation for AeroPress
 @property (nonatomic, strong) NSMutableArray *aeroPressBegin,

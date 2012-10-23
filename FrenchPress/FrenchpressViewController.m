@@ -28,10 +28,10 @@ BrewMethod brewMethod;
     self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
     
     if (self) {
-        self.animationArrayBegin = [[NSMutableArray alloc] init];
-        self.animationArrayStir = [[NSMutableArray alloc] init];
-        self.animationArraySteep = [[NSMutableArray alloc] init];
-        self.animationArrayFinish = [[NSMutableArray alloc] init];
+        self.frenchPressBegin = [[NSMutableArray alloc] init];
+        self.frenchPressStir = [[NSMutableArray alloc] init];
+        self.frenchPressSteep = [[NSMutableArray alloc] init];
+        self.frenchPressFinish = [[NSMutableArray alloc] init];
         
         self.aeroPressBegin = [[NSMutableArray alloc] init];
         self.aeroPressStir = [[NSMutableArray alloc] init];
@@ -504,7 +504,7 @@ BrewMethod brewMethod;
                     [self.infoLabel setText:@"Stir the coffee"];
                     
                     [self.frenchPress stopAnim]; // Stop previus begin animation
-                    [[self frenchPress] animImages:[self animationArrayStir]];
+                    [[self frenchPress] animImages:[self frenchPressStir]];
                     [[self frenchPress] setAnimDuration:[self bloomTime] / 1]; //TODO should /2
                     [[self frenchPress] animRepeatCount: 1]; // TODO should 2
                     [[self frenchPress] startAnim];
@@ -519,7 +519,7 @@ BrewMethod brewMethod;
                     [self.infoLabel setText:@"Steeping Time"];
                     
                     [self.frenchPress stopAnim]; // Stop previus begin animation
-                    [[self frenchPress] animImages:[self animationArraySteep]];
+                    [[self frenchPress] animImages:[self frenchPressSteep]];
                     [[self frenchPress] setAnimDuration:[self steepTime]];
                     [[self frenchPress] animRepeatCount: 1];
                     [[self frenchPress] startAnim];
@@ -542,7 +542,7 @@ BrewMethod brewMethod;
                     [self playSoundWithName:@"coffeeFinished" type:@"wav"];
                     
                     [self.frenchPress stopAnim]; // Stop previus begin animation
-                    [[self frenchPress] animImages:[self animationArrayFinish]];
+                    [[self frenchPress] animImages:[self frenchPressFinish]];
                     [[self frenchPress] setAnimDuration:[self finishTime]];
                     [[self frenchPress] animRepeatCount: 1];
                     [[self frenchPress] startAnim];
@@ -598,24 +598,23 @@ BrewMethod brewMethod;
     [self getCurrentCoffeeState];
     
     switch (coffeeState) {
-        case AeroBeginState:
+        case FrenchBeginState:
             break;
-        case AeroWaterState:
+        case FrenchWaterState:
             {
                 [self.timerLabel setText:[NSString stringWithFormat:@"%d", [waterInfo second]]];
                 if (!self.waterState) {
                     NSLog(@"WaterState");
                     [self setWaterState:1];
                     [self.infoLabel setText:@"Add preboiled water"];
-                    
-                    [[self frenchPress] animImages:[self animationArrayBegin]];
+                    [[self frenchPress] animImages:[self frenchPressBegin]];
                     [[self frenchPress] setAnimDuration:[self waterTime]];
                     [[self frenchPress] animRepeatCount: 1];
                     [[self frenchPress] startAnim];
                 }
             }
             break;
-        case AeroStirState:
+        case FrenchStirState:
             {
                 [self.timerLabel setText:[NSString stringWithFormat:@"%d", [bloomInfo second]]];
                 
@@ -625,14 +624,14 @@ BrewMethod brewMethod;
                     [self.infoLabel setText:@"Stir the coffee"];
                     
                     [self.frenchPress stopAnim]; // Stop previus begin animation
-                    [[self frenchPress] animImages:[self animationArrayStir]];
+                    [[self frenchPress] animImages:[self frenchPressStir]];
                     [[self frenchPress] setAnimDuration:[self bloomTime] / 1]; //TODO should /2
                     [[self frenchPress] animRepeatCount: 1]; // TODO should 2
                     [[self frenchPress] startAnim];
                 }
             }
             break;
-        case AeroSteepState:
+        case FrenchSteepState:
             {
                 if (!self.steepState) {
                     NSLog(@"SteepState");
@@ -640,7 +639,7 @@ BrewMethod brewMethod;
                     [self.infoLabel setText:@"Steeping Time"];
                     
                     [self.frenchPress stopAnim]; // Stop previus begin animation
-                    [[self frenchPress] animImages:[self animationArraySteep]];
+                    [[self frenchPress] animImages:[self frenchPressSteep]];
                     [[self frenchPress] setAnimDuration:[self steepTime]];
                     [[self frenchPress] animRepeatCount: 1];
                     [[self frenchPress] startAnim];
@@ -653,7 +652,7 @@ BrewMethod brewMethod;
                 }
             }
             break;
-        case AeroFinishState:
+        case FrenchFinishState:
             {
                 if (!self.finishState) {
                     NSLog(@"FinishState");
@@ -663,14 +662,14 @@ BrewMethod brewMethod;
                     [self playSoundWithName:@"coffeeFinished" type:@"wav"];
                     
                     [self.frenchPress stopAnim]; // Stop previus begin animation
-                    [[self frenchPress] animImages:[self animationArrayFinish]];
+                    [[self frenchPress] animImages:[self frenchPressFinish]];
                     [[self frenchPress] setAnimDuration:[self finishTime]];
                     [[self frenchPress] animRepeatCount: 1];
                     [[self frenchPress] startAnim];
                 }
             }
             break;
-        case AeroEnjoyState:
+        case FrenchEnjoyState:
             {
                 NSLog(@"EnjoyState");
                 self.didEnded = YES;
@@ -742,7 +741,7 @@ BrewMethod brewMethod;
     for (NSUInteger i = 25; i > 0 ; i--) {
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"animBegin%02u", i]];
         if (image) {
-            [self.animationArrayBegin addObject:image];
+            [self.frenchPressBegin addObject:image];
         }
     }
     
@@ -750,21 +749,21 @@ BrewMethod brewMethod;
     for (NSUInteger i = 7; i < 14; i++) {
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"animStir%02u", i]];
         if (image) {
-            [self.animationArrayStir addObject:image];
+            [self.frenchPressStir addObject:image];
         }
     }
     
     for (NSUInteger i = 14; i > 0; i--) {
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"animStir%02u", i]];
         if (image) {
-            [self.animationArrayStir addObject:image];
+            [self.frenchPressStir addObject:image];
         }
     }
     
     for (NSUInteger i = 0; i <= 7; i++) {
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"animStir%02u", i]];
         if (image) {
-            [self.animationArrayStir addObject:image];
+            [self.frenchPressStir addObject:image];
         }
     }
     
@@ -772,35 +771,35 @@ BrewMethod brewMethod;
     for (NSUInteger i = 7; i < 14; i++) {
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"animStir%02u", i]];
         if (image) {
-            [self.animationArrayStir addObject:image];
+            [self.frenchPressStir addObject:image];
         }
     }
     
     for (NSUInteger i = 14; i > 0; i--) {
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"animStir%02u", i]];
         if (image) {
-            [self.animationArrayStir addObject:image];
+            [self.frenchPressStir addObject:image];
         }
     }
     
     for (NSUInteger i = 0; i <= 7; i++) {
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"animStir%02u", i]];
         if (image) {
-            [self.animationArrayStir addObject:image];
+            [self.frenchPressStir addObject:image];
         }
     }
     
     for (NSUInteger i = 0; i <= 20; i++) {
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"animSteep%02u", i]];
         if (image) {
-            [self.animationArraySteep addObject:image];
+            [self.frenchPressSteep addObject:image];
         }
     }
     
     for (NSUInteger i = 0; i <= 25; i++) {
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"animFinish%02u", i]];
         if (image) {
-            [self.animationArrayFinish addObject:image];
+            [self.frenchPressFinish addObject:image];
         }
     }
 }
