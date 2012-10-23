@@ -48,11 +48,17 @@
 // NSDateComponents  need this
 @property (nonatomic) unsigned int unitFlags;
 
-// Image array that contains the images for animation
+// Image array that contains the images for animation for FrenchPress
 @property (nonatomic, strong) NSMutableArray *animationArrayStir,
                                              *animationArrayBegin,
                                              *animationArraySteep,
                                              *animationArrayFinish;
+
+// Image array that contains the images for animation for AeroPress
+@property (nonatomic, strong) NSMutableArray *aeroPressBegin,
+                                             *aeroPressStir,
+                                             *aeroPressSteep,
+                                             *aeroPressFinish;
 
 // Simple boolean if we ever entered background
 @property (nonatomic) BOOL backgroundStart;

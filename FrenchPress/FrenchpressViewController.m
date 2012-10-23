@@ -33,6 +33,11 @@ BrewMethod brewMethod;
         self.animationArraySteep = [[NSMutableArray alloc] init];
         self.animationArrayFinish = [[NSMutableArray alloc] init];
         
+        self.aeroPressBegin = [[NSMutableArray alloc] init];
+        self.aeroPressStir = [[NSMutableArray alloc] init];
+        self.aeroPressSteep = [[NSMutableArray alloc] init];
+        self.aeroPressFinish = [[NSMutableArray alloc] init];
+        
         // Set the application defaults
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
         NSDictionary *appDefaults = @{@"startAtLaunch" : @"YES",
@@ -48,6 +53,7 @@ BrewMethod brewMethod;
         [self setUnitFlags:NSSecondCalendarUnit | NSMinuteCalendarUnit];
         
         [self loadAnimationImages];
+        [self loadAeroPressAnimationImages];
         
         NSLog(@"FrenchpressViewController init method");
     }
@@ -104,6 +110,7 @@ BrewMethod brewMethod;
         case AeroPress:
             {
                 self.timerLabel.text = @"AeroPress";
+                [self.frenchPress setImage:[UIImage imageNamed:@"aeropress.png"]];
             }
             break;
         default:
@@ -370,9 +377,9 @@ BrewMethod brewMethod;
                 crossFade.duration = kStartTime - 1.0f;
                 crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"fempty_0"].CGImage);
                 crossFade.toValue = (__bridge id)([UIImage imageNamed:@"animBegin25"].CGImage);
-                
                 [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
                 [self.frenchPress setImage:[UIImage imageNamed:@"animBegin25"]];
+                
                 [self playSoundWithName:@"coffeeStarted" type:@"wav"];
                 self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:kStartTime
                                                                  target:self
@@ -383,7 +390,19 @@ BrewMethod brewMethod;
             break;
         case AeroPress:
             {
-                self.infoLabel.text = @"No instructions";
+                CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
+                crossFade.duration = kStartTime - 1.0f;
+                crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"fempty_0"].CGImage);
+                crossFade.toValue = (__bridge id)([UIImage imageNamed:@"aeroPressBegin18"].CGImage);
+                [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
+                [self.frenchPress setImage:[UIImage imageNamed:@"aeroPressBegin18"]];
+                [self playSoundWithName:@"coffeeStarted" type:@"wav"];
+                
+                self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:kStartTime
+                                                                 target:self
+                                                                  selector:@selector (startCountdown:)
+                                                               userInfo:nil
+                                                                repeats:NO];
             }
         default:
             break;
@@ -417,11 +436,148 @@ BrewMethod brewMethod;
     // Get the system calendar
     self.sysCalendar = [NSCalendar currentCalendar];
     
-    self.paintingTimer = [NSTimer scheduledTimerWithTimeInterval:0.05f
+    switch (brewMethod) {
+        case FrenchPress:
+            {
+                self.paintingTimer = [NSTimer scheduledTimerWithTimeInterval:0.05f
                                                      target:self
                                                    selector:@selector (countdownUpdateMethod:)
                                                    userInfo:nil
                                                     repeats:YES];
+            }
+            break;
+        case AeroPress:
+            {
+                self.paintingTimer = [NSTimer scheduledTimerWithTimeInterval:0.05f
+                                                     target:self
+                                                   selector:@selector (beginAeroPress:)
+                                                   userInfo:nil
+                                                    repeats:YES];
+                
+            }
+            break;
+        default:
+            break;
+    }
+}
+
+-(void)beginAeroPress:(NSTimer*)theTimer {
+    NSDateComponents *conversionInfo = [self.sysCalendar components:self.unitFlags
+                                                           fromDate:[NSDate date]
+                                                             toDate:self.startDate
+                                                            options:0];
+
+    NSDateComponents *waterInfo = [self.sysCalendar components:self.unitFlags
+                                                      fromDate:[NSDate date]
+                                                        toDate:self.waterDate
+                                                       options:0];
+    
+    NSDateComponents *bloomInfo = [self.sysCalendar components:self.unitFlags
+                                                      fromDate:[NSDate date]
+                                                        toDate:self.bloomDate
+                                                       options:0];
+    
+    // Before we continue find our state
+    [self getCurrentCoffeeState];
+    
+    switch (coffeeState) {
+        case BeginState:
+            break;
+        case WaterState:
+            {
+                [self.timerLabel setText:[NSString stringWithFormat:@"%d", [waterInfo second]]];
+                if (!self.waterState) {
+                    NSLog(@"WaterState");
+                    [self setWaterState:1];
+                    [self.infoLabel setText:@"Add preboiled water"];
+                    
+                    [[self frenchPress] animImages:[self aeroPressBegin]];
+                    [[self frenchPress] setAnimDuration:[self waterTime]];
+                    [[self frenchPress] animRepeatCount: 1];
+                    [[self frenchPress] startAnim];
+                }
+            }
+            break;
+        case StirState:
+            {
+                [self.timerLabel setText:[NSString stringWithFormat:@"%d", [bloomInfo second]]];
+                
+                if (!self.bloomState) {
+                    NSLog(@"StirState");
+                    [self setBloomState:1];
+                    [self.infoLabel setText:@"Stir the coffee"];
+                    
+                    [self.frenchPress stopAnim]; // Stop previus begin animation
+                    [[self frenchPress] animImages:[self animationArrayStir]];
+                    [[self frenchPress] setAnimDuration:[self bloomTime] / 1]; //TODO should /2
+                    [[self frenchPress] animRepeatCount: 1]; // TODO should 2
+                    [[self frenchPress] startAnim];
+                }
+            }
+            break;
+        case SteepState:
+            {
+                if (!self.steepState) {
+                    NSLog(@"SteepState");
+                    [self setSteepState:1];
+                    [self.infoLabel setText:@"Steeping Time"];
+                    
+                    [self.frenchPress stopAnim]; // Stop previus begin animation
+                    [[self frenchPress] animImages:[self animationArraySteep]];
+                    [[self frenchPress] setAnimDuration:[self steepTime]];
+                    [[self frenchPress] animRepeatCount: 1];
+                    [[self frenchPress] startAnim];
+                }
+                
+                if ([conversionInfo second] <= 9) {
+                    [self.timerLabel setText:[NSString stringWithFormat:@"%d:0%d", [conversionInfo minute], [conversionInfo second]]];
+                }  else {
+                    [self.timerLabel setText:[NSString stringWithFormat:@"%d:%d", [conversionInfo minute], [conversionInfo second]]];
+                }
+            }
+            break;
+        case FinishState:
+            {
+                if (!self.finishState) {
+                    NSLog(@"FinishState");
+                    [self setFinishState:1];
+                    [self.infoLabel setText:@"Push plunger down"];
+                    [self.timerLabel setText:@"Ready"];
+                    [self playSoundWithName:@"coffeeFinished" type:@"wav"];
+                    
+                    [self.frenchPress stopAnim]; // Stop previus begin animation
+                    [[self frenchPress] animImages:[self animationArrayFinish]];
+                    [[self frenchPress] setAnimDuration:[self finishTime]];
+                    [[self frenchPress] animRepeatCount: 1];
+                    [[self frenchPress] startAnim];
+                }
+            }
+            break;
+        case EnjoyState:
+            {
+                NSLog(@"EnjoyState");
+                self.didEnded = YES;
+                [theTimer invalidate]; // Ok end this timer function, never come back
+                
+                [self.frenchPress stopAnim]; // Stop previus begin animation
+//                [self.infoLabel setText:@"Hold on the lid and pour"];
+                [self.infoLabel setText:@""];
+                [self.timerLabel setText:@"Enjoy"];
+                [self.frenchPress setImage:[UIImage imageNamed:@"animFinish25"]];
+                [self setFrench5:[UIImage imageNamed:@"fpour_5"]];
+                
+                CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
+                crossFade.duration = 1.0;
+                crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"animFinish25"].CGImage);
+                crossFade.toValue = (__bridge id)(self.french5.CGImage);
+                [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
+                [self.frenchPress setImage:self.french5];
+            }
+            break;
+        default:
+            break;
+    }
+    
 }
 
 -(void)countdownUpdateMethod:(NSTimer*)theTimer {
@@ -572,6 +728,16 @@ BrewMethod brewMethod;
         self.didEnded = YES;
         coffeeState = EnjoyState;
         self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self countdownSeconds] + [self finishTime]];
+    }
+}
+
+-(void)loadAeroPressAnimationImages
+{
+    for (NSUInteger i = 18; i > 0 ; i--) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"aeroPressBegin%02u", i]];
+        if (image) {
+            [self.aeroPressBegin addObject:image];
+        }
     }
 }
 
