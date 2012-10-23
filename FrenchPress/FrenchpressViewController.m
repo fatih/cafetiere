@@ -6,7 +6,6 @@
 #import "AnimUIImageView.h"
 #import "Constants.h"
 #import "UIDevice+Resolutions.h"
-#import "PickerViewController.h"
 #import "PickerValueParser.h"
 #import "IIViewDeckController.h"
 #import "LeftViewController.h"
@@ -17,10 +16,9 @@
 
 @implementation FrenchpressViewController
 
-// Enum for each Coffee Step
+// Typedefs ...
 FrenchPressCoffeeState coffeeState;
 AeroPressCoffeeState aeroPressState;
-
 BrewMethod brewMethod;
 
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil

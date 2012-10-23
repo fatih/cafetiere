@@ -1,7 +1,6 @@
 #import <UIKit/UIKit.h>
 #import "SlideToCancelViewController.h"
 #import "AnimUIImageView.h"
-#import "PickerViewController.h"
 
 @interface FrenchpressViewController : UIViewController
     <SlideToCancelDelegate>
@@ -10,7 +9,6 @@
 }
 
 @property (nonatomic, retain) UINavigationController *navSettingsViewController;
-@property (nonatomic, retain) PickerViewController *timerPicker;
 
 @property (nonatomic, strong) IBOutlet UILabel *timerLabel;
 @property (nonatomic, strong) IBOutlet UILabel *infoLabel;

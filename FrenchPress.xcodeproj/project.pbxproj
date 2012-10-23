@@ -399,6 +399,26 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		3D44C2751636B94900ACF31B /* Helper */ = {
+			isa = PBXGroup;
+			children = (
+				3D29E7E91600EC2300294250 /* Constants.h */,
+				3D29E7EA1601440700294250 /* Constants.m */,
+				3D51529A160397370051F921 /* UIDevice+Resolutions.m */,
+				3D51529C1603973D0051F921 /* UIDevice+Resolutions.h */,
+			);
+			name = Helper;
+			sourceTree = "<group>";
+		};
+		3D44C2761636B96100ACF31B /* Unused */ = {
+			isa = PBXGroup;
+			children = (
+				3D5152A5160666FD0051F921 /* PickerViewController.h */,
+				3D5152A6160666FD0051F921 /* PickerViewController.m */,
+			);
+			name = Unused;
+			sourceTree = "<group>";
+		};
 		3D586340163691C70000B157 /* FrenchPressAnimations */ = {
 			isa = PBXGroup;
 			children = (
@@ -493,23 +513,19 @@
 			isa = PBXGroup;
 			children = (
 				3D637E89162C6F7900F04E58 /* ViewDeck */,
-				3D29E7E91600EC2300294250 /* Constants.h */,
-				3D29E7EA1601440700294250 /* Constants.m */,
+				3D44C2751636B94900ACF31B /* Helper */,
+				3D44C2761636B96100ACF31B /* Unused */,
+				3DD58F1515F3A94D00FB9F3F /* SlideToCancelViewController.h */,
+				3DD58F1615F3A94D00FB9F3F /* SlideToCancelViewController.m */,
+				3D055BB815F7FAEA005FDF55 /* AnimUIImageView.h */,
+				3D055BB915F7FAEA005FDF55 /* AnimUIImageView.m */,
+				3D10ABBB160FB881002FE218 /* PickerValueParser.h */,
+				3D10ABBC160FB881002FE218 /* PickerValueParser.m */,
 				3D637E81162C6DC500F04E58 /* LeftViewController.h */,
 				3D637E82162C6DC500F04E58 /* LeftViewController.m */,
 				3D637E87162C6E9B00F04E58 /* LeftViewController.xib */,
-				3D51529A160397370051F921 /* UIDevice+Resolutions.m */,
-				3D51529C1603973D0051F921 /* UIDevice+Resolutions.h */,
-				3DD58F1515F3A94D00FB9F3F /* SlideToCancelViewController.h */,
-				3DD58F1615F3A94D00FB9F3F /* SlideToCancelViewController.m */,
 				3DD58EFF15F3A66200FB9F3F /* FrenchpressAppDelegate.h */,
 				3DD58F0015F3A66300FB9F3F /* FrenchpressAppDelegate.m */,
-				3D055BB815F7FAEA005FDF55 /* AnimUIImageView.h */,
-				3D055BB915F7FAEA005FDF55 /* AnimUIImageView.m */,
-				3D5152A5160666FD0051F921 /* PickerViewController.h */,
-				3D5152A6160666FD0051F921 /* PickerViewController.m */,
-				3D10ABBB160FB881002FE218 /* PickerValueParser.h */,
-				3D10ABBC160FB881002FE218 /* PickerValueParser.m */,
 				3DD58F0215F3A66300FB9F3F /* FrenchpressViewController.h */,
 				3DD58F0315F3A66300FB9F3F /* FrenchpressViewController.m */,
 				3DD58F0515F3A66300FB9F3F /* FrenchpressViewController.xib */,

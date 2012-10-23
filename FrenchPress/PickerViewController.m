@@ -1,3 +1,5 @@
+// NOTE: This viewController is once created but abandoded because of the use of Quickdialog.
+
 #import "PickerViewController.h"
 
 @interface PickerViewController ()
