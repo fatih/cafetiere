@@ -554,20 +554,10 @@ BrewMethod brewMethod;
                 NSLog(@"EnjoyState");
                 self.didEnded = YES;
                 [theTimer invalidate]; // Ok end this timer function, never come back
-                
                 [self.frenchPress stopAnim]; // Stop previus begin animation
-//                [self.infoLabel setText:@"Hold on the lid and pour"];
                 [self.infoLabel setText:@""];
                 [self.timerLabel setText:@"Enjoy"];
-                [self.frenchPress setImage:[UIImage imageNamed:@"animFinish25"]];
-                [self setFrench5:[UIImage imageNamed:@"fpour_5"]];
-                
-                CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
-                crossFade.duration = 1.0;
-                crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"animFinish25"].CGImage);
-                crossFade.toValue = (__bridge id)(self.french5.CGImage);
-                [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
-                [self.frenchPress setImage:self.french5];
+                [self.frenchPress setImage:[UIImage imageNamed:@"fpour_5"]];
             }
             break;
         default:
@@ -680,14 +670,14 @@ BrewMethod brewMethod;
                 [self.infoLabel setText:@""];
                 [self.timerLabel setText:@"Enjoy"];
                 [self.frenchPress setImage:[UIImage imageNamed:@"animFinish25"]];
-                [self setFrench5:[UIImage imageNamed:@"fpour_5"]];
                 
                 CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
                 crossFade.duration = 1.0;
                 crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"animFinish25"].CGImage);
-                crossFade.toValue = (__bridge id)(self.french5.CGImage);
+                crossFade.toValue = (__bridge id)([UIImage imageNamed:@"fpour_5"].CGImage);
                 [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
-                [self.frenchPress setImage:self.french5];
+                [self.frenchPress setImage:[UIImage imageNamed:@"fpour_5"]];
+                
             }
             break;
         default:

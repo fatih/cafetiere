@@ -10,7 +10,6 @@
 }
 
 @property (nonatomic, retain) UINavigationController *navSettingsViewController;
-
 @property (nonatomic, retain) PickerViewController *timerPicker;
 
 @property (nonatomic, strong) IBOutlet UILabel *timerLabel;
@@ -18,7 +17,6 @@
 
 // Frenchpress UIImageview and images for each state
 @property (nonatomic, strong) IBOutlet AnimUIImageView *frenchPress;
-@property (nonatomic, strong) UIImage *french1, *french2, *french3, *french4, *french5;
 
 // Info and timer label background view and image
 @property (nonatomic, strong) IBOutlet UIImageView *infoBackground;
