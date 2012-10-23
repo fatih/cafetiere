@@ -42,7 +42,6 @@
 						<string key="NSFrame">{{81, 174}, {180, 180}}</string>
 						<reference key="NSSuperview" ref="774585933"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<bool key="IBUIOpaque">NO</bool>
 						<bool key="IBUIUserInteractionEnabled">NO</bool>
@@ -179,11 +178,11 @@
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">frenchPress</string>
+						<string key="label">coffeeImageView</string>
 						<reference key="source" ref="372490531"/>
 						<reference key="destination" ref="310176872"/>
 					</object>
-					<int key="connectionID">45</int>
+					<int key="connectionID">54</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -257,7 +256,7 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">53</int>
+			<int key="maxID">54</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
@@ -273,14 +272,14 @@
 					<string key="className">FrenchpressViewController</string>
 					<string key="superclassName">UIViewController</string>
 					<dictionary class="NSMutableDictionary" key="outlets">
-						<string key="frenchPress">AnimUIImageView</string>
+						<string key="coffeeImageView">AnimUIImageView</string>
 						<string key="infoBackground">UIImageView</string>
 						<string key="infoLabel">UILabel</string>
 						<string key="timerLabel">UILabel</string>
 					</dictionary>
 					<dictionary class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<object class="IBToOneOutletInfo" key="frenchPress">
-							<string key="name">frenchPress</string>
+						<object class="IBToOneOutletInfo" key="coffeeImageView">
+							<string key="name">coffeeImageView</string>
 							<string key="candidateClassName">AnimUIImageView</string>
 						</object>
 						<object class="IBToOneOutletInfo" key="infoBackground">

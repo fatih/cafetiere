@@ -68,7 +68,7 @@
         return;
     }
     
-    [self.viewController.frenchPress pauseAnim];
+    [self.viewController.coffeeImageView pauseAnim];
     
     // Store the data
     NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
@@ -101,7 +101,7 @@
         
         [self.viewController.infoLabel setText:@"Slide to start"];
         [self.viewController.timerLabel setText:@"Cafetière"];
-        [self.viewController.frenchPress setImage:nil];
+        [self.viewController.coffeeImageView setImage:nil];
         
         if (enabled) {
             [self.viewController startCoffee];
@@ -123,7 +123,7 @@
     
     // Resume any animation that was paused before
     NSTimeInterval elapsedGap = [[NSDate date] timeIntervalSinceDate:self.viewController.stateStartDate];
-    [self.viewController.frenchPress resumeAnim:elapsedGap];
+    [self.viewController.coffeeImageView resumeAnim:elapsedGap];
     [[self viewController] startCountdown:0];
 }
 

@@ -94,7 +94,7 @@ BrewMethod brewMethod;
         case FrenchPress:
             {
                 self.timerLabel.text = @"French Press";
-                [self.frenchPress setImage:[UIImage imageNamed:@"animSteep20.png"]];
+                [self.coffeeImageView setImage:[UIImage imageNamed:@"animSteep20.png"]];
                 // Get default values from settings
                 NSTimeInterval cWaterTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchWaterTime"] floatValue];
                 NSTimeInterval cStirTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchStirTime"] floatValue];
@@ -114,7 +114,7 @@ BrewMethod brewMethod;
         case AeroPress:
             {
                 self.timerLabel.text = @"AeroPress";
-                [self.frenchPress setImage:[UIImage imageNamed:@"aeropress.png"]];
+                [self.coffeeImageView setImage:[UIImage imageNamed:@"aeropress.png"]];
             }
             break;
         default:
@@ -204,7 +204,7 @@ BrewMethod brewMethod;
 -(void)awakeFromNib
 {
     [super awakeFromNib];
-    self.frenchPress = [[AnimUIImageView alloc] init];
+    self.coffeeImageView = [[AnimUIImageView alloc] init];
 }
 
 -(NSString *)secondsToMinAndSecString: (NSTimeInterval)timeIntervalSeconds
@@ -341,14 +341,14 @@ BrewMethod brewMethod;
     [self setDidCountdownStarted:0];
     [self setBackgroundStart:NO];
     
-    [self.frenchPress setHasAnim:1];
-    [self.frenchPress stopAnim];
+    [self.coffeeImageView setHasAnim:1];
+    [self.coffeeImageView stopAnim];
     
     [self setWaterState:0];
     [self setBloomState:0];
     [self setSteepState:0];
     [self setFinishState:0];
-    [self.frenchPress setImage:nil];
+    [self.coffeeImageView setImage:nil];
     
     // self.timerLabel and self.frenchpress is set in the method below
     [self setupBrewMethod];
@@ -383,15 +383,15 @@ BrewMethod brewMethod;
         case FrenchPress:
             {
                 crossFade.toValue = (__bridge id)([UIImage imageNamed:@"animBegin25"].CGImage);
-                [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
-                [self.frenchPress setImage:[UIImage imageNamed:@"animBegin25"]];
+                [self.coffeeImageView.layer addAnimation:crossFade forKey:@"animateContents"];
+                [self.coffeeImageView setImage:[UIImage imageNamed:@"animBegin25"]];
             }
             break;
         case AeroPress:
             {
                 crossFade.toValue = (__bridge id)([UIImage imageNamed:@"aeroPressBegin18"].CGImage);
-                [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
-                [self.frenchPress setImage:[UIImage imageNamed:@"aeroPressBegin18"]];
+                [self.coffeeImageView.layer addAnimation:crossFade forKey:@"animateContents"];
+                [self.coffeeImageView setImage:[UIImage imageNamed:@"aeroPressBegin18"]];
             }
         default:
             break;
@@ -487,10 +487,10 @@ BrewMethod brewMethod;
                     [self setWaterState:1];
                     [self.infoLabel setText:@"Add preboiled water"];
                     
-                    [[self frenchPress] animImages:[self aeroPressBegin]];
-                    [[self frenchPress] setAnimDuration:[self waterTime]];
-                    [[self frenchPress] animRepeatCount: 1];
-                    [[self frenchPress] startAnim];
+                    [[self coffeeImageView] animImages:[self aeroPressBegin]];
+                    [[self coffeeImageView] setAnimDuration:[self waterTime]];
+                    [[self coffeeImageView] animRepeatCount: 1];
+                    [[self coffeeImageView] startAnim];
                 }
             }
             break;
@@ -503,11 +503,11 @@ BrewMethod brewMethod;
                     [self setBloomState:1];
                     [self.infoLabel setText:@"Stir the coffee"];
                     
-                    [self.frenchPress stopAnim]; // Stop previus begin animation
-                    [[self frenchPress] animImages:[self frenchPressStir]];
-                    [[self frenchPress] setAnimDuration:[self bloomTime] / 1]; //TODO should /2
-                    [[self frenchPress] animRepeatCount: 1]; // TODO should 2
-                    [[self frenchPress] startAnim];
+                    [self.coffeeImageView stopAnim]; // Stop previus begin animation
+                    [[self coffeeImageView] animImages:[self frenchPressStir]];
+                    [[self coffeeImageView] setAnimDuration:[self bloomTime] / 1]; //TODO should /2
+                    [[self coffeeImageView] animRepeatCount: 1]; // TODO should 2
+                    [[self coffeeImageView] startAnim];
                 }
             }
             break;
@@ -518,11 +518,11 @@ BrewMethod brewMethod;
                     [self setSteepState:1];
                     [self.infoLabel setText:@"Steeping Time"];
                     
-                    [self.frenchPress stopAnim]; // Stop previus begin animation
-                    [[self frenchPress] animImages:[self frenchPressSteep]];
-                    [[self frenchPress] setAnimDuration:[self steepTime]];
-                    [[self frenchPress] animRepeatCount: 1];
-                    [[self frenchPress] startAnim];
+                    [self.coffeeImageView stopAnim]; // Stop previus begin animation
+                    [[self coffeeImageView] animImages:[self frenchPressSteep]];
+                    [[self coffeeImageView] setAnimDuration:[self steepTime]];
+                    [[self coffeeImageView] animRepeatCount: 1];
+                    [[self coffeeImageView] startAnim];
                 }
                 
                 if ([conversionInfo second] <= 9) {
@@ -541,11 +541,11 @@ BrewMethod brewMethod;
                     [self.timerLabel setText:@"Ready"];
                     [self playSoundWithName:@"coffeeFinished" type:@"wav"];
                     
-                    [self.frenchPress stopAnim]; // Stop previus begin animation
-                    [[self frenchPress] animImages:[self frenchPressFinish]];
-                    [[self frenchPress] setAnimDuration:[self finishTime]];
-                    [[self frenchPress] animRepeatCount: 1];
-                    [[self frenchPress] startAnim];
+                    [self.coffeeImageView stopAnim]; // Stop previus begin animation
+                    [[self coffeeImageView] animImages:[self frenchPressFinish]];
+                    [[self coffeeImageView] setAnimDuration:[self finishTime]];
+                    [[self coffeeImageView] animRepeatCount: 1];
+                    [[self coffeeImageView] startAnim];
                 }
             }
             break;
@@ -554,10 +554,10 @@ BrewMethod brewMethod;
                 NSLog(@"EnjoyState");
                 self.didEnded = YES;
                 [theTimer invalidate]; // Ok end this timer function, never come back
-                [self.frenchPress stopAnim]; // Stop previus begin animation
+                [self.coffeeImageView stopAnim]; // Stop previus begin animation
                 [self.infoLabel setText:@""];
                 [self.timerLabel setText:@"Enjoy"];
-                [self.frenchPress setImage:[UIImage imageNamed:@"fpour_5"]];
+                [self.coffeeImageView setImage:[UIImage imageNamed:@"fpour_5"]];
             }
             break;
         default:
@@ -597,10 +597,10 @@ BrewMethod brewMethod;
                     NSLog(@"WaterState");
                     [self setWaterState:1];
                     [self.infoLabel setText:@"Add preboiled water"];
-                    [[self frenchPress] animImages:[self frenchPressBegin]];
-                    [[self frenchPress] setAnimDuration:[self waterTime]];
-                    [[self frenchPress] animRepeatCount: 1];
-                    [[self frenchPress] startAnim];
+                    [[self coffeeImageView] animImages:[self frenchPressBegin]];
+                    [[self coffeeImageView] setAnimDuration:[self waterTime]];
+                    [[self coffeeImageView] animRepeatCount: 1];
+                    [[self coffeeImageView] startAnim];
                 }
             }
             break;
@@ -613,11 +613,11 @@ BrewMethod brewMethod;
                     [self setBloomState:1];
                     [self.infoLabel setText:@"Stir the coffee"];
                     
-                    [self.frenchPress stopAnim]; // Stop previus begin animation
-                    [[self frenchPress] animImages:[self frenchPressStir]];
-                    [[self frenchPress] setAnimDuration:[self bloomTime] / 1]; //TODO should /2
-                    [[self frenchPress] animRepeatCount: 1]; // TODO should 2
-                    [[self frenchPress] startAnim];
+                    [self.coffeeImageView stopAnim]; // Stop previus begin animation
+                    [[self coffeeImageView] animImages:[self frenchPressStir]];
+                    [[self coffeeImageView] setAnimDuration:[self bloomTime] / 1]; //TODO should /2
+                    [[self coffeeImageView] animRepeatCount: 1]; // TODO should 2
+                    [[self coffeeImageView] startAnim];
                 }
             }
             break;
@@ -628,11 +628,11 @@ BrewMethod brewMethod;
                     [self setSteepState:1];
                     [self.infoLabel setText:@"Steeping Time"];
                     
-                    [self.frenchPress stopAnim]; // Stop previus begin animation
-                    [[self frenchPress] animImages:[self frenchPressSteep]];
-                    [[self frenchPress] setAnimDuration:[self steepTime]];
-                    [[self frenchPress] animRepeatCount: 1];
-                    [[self frenchPress] startAnim];
+                    [self.coffeeImageView stopAnim]; // Stop previus begin animation
+                    [[self coffeeImageView] animImages:[self frenchPressSteep]];
+                    [[self coffeeImageView] setAnimDuration:[self steepTime]];
+                    [[self coffeeImageView] animRepeatCount: 1];
+                    [[self coffeeImageView] startAnim];
                 }
                 
                 if ([conversionInfo second] <= 9) {
@@ -651,11 +651,11 @@ BrewMethod brewMethod;
                     [self.timerLabel setText:@"Ready"];
                     [self playSoundWithName:@"coffeeFinished" type:@"wav"];
                     
-                    [self.frenchPress stopAnim]; // Stop previus begin animation
-                    [[self frenchPress] animImages:[self frenchPressFinish]];
-                    [[self frenchPress] setAnimDuration:[self finishTime]];
-                    [[self frenchPress] animRepeatCount: 1];
-                    [[self frenchPress] startAnim];
+                    [self.coffeeImageView stopAnim]; // Stop previus begin animation
+                    [[self coffeeImageView] animImages:[self frenchPressFinish]];
+                    [[self coffeeImageView] setAnimDuration:[self finishTime]];
+                    [[self coffeeImageView] animRepeatCount: 1];
+                    [[self coffeeImageView] startAnim];
                 }
             }
             break;
@@ -665,18 +665,18 @@ BrewMethod brewMethod;
                 self.didEnded = YES;
                 [theTimer invalidate]; // Ok end this timer function, never come back
                 
-                [self.frenchPress stopAnim]; // Stop previus begin animation
+                [self.coffeeImageView stopAnim]; // Stop previus begin animation
 //                [self.infoLabel setText:@"Hold on the lid and pour"];
                 [self.infoLabel setText:@""];
                 [self.timerLabel setText:@"Enjoy"];
-                [self.frenchPress setImage:[UIImage imageNamed:@"animFinish25"]];
+                [self.coffeeImageView setImage:[UIImage imageNamed:@"animFinish25"]];
                 
                 CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
                 crossFade.duration = 1.0;
                 crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"animFinish25"].CGImage);
                 crossFade.toValue = (__bridge id)([UIImage imageNamed:@"fpour_5"].CGImage);
-                [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
-                [self.frenchPress setImage:[UIImage imageNamed:@"fpour_5"]];
+                [self.coffeeImageView.layer addAnimation:crossFade forKey:@"animateContents"];
+                [self.coffeeImageView setImage:[UIImage imageNamed:@"fpour_5"]];
                 
             }
             break;

@@ -16,7 +16,7 @@
 @property (nonatomic, strong) IBOutlet UILabel *infoLabel;
 
 // Frenchpress UIImageview and images for each state
-@property (nonatomic, strong) IBOutlet AnimUIImageView *frenchPress;
+@property (nonatomic, strong) IBOutlet AnimUIImageView *coffeeImageView;
 
 // Info and timer label background view and image
 @property (nonatomic, strong) IBOutlet UIImageView *infoBackground;
