@@ -366,48 +366,40 @@ BrewMethod brewMethod;
 {
     // Clean old variables and set up new variables for the choosen brew method
     [self cleanForNewStart];
+    
     NSLog(@"Cafetiere has Started");
     self.infoLabel.text = @"Starting";
     self.didCoffeeStarted = 1;
     
+    CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
+    crossFade.duration = kStartTime - 1.0f;
+    crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"fempty_0"].CGImage);
+    
     switch (brewMethod) {
         case FrenchPress:
             {
-                CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
-                crossFade.duration = kStartTime - 1.0f;
-                crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"fempty_0"].CGImage);
                 crossFade.toValue = (__bridge id)([UIImage imageNamed:@"animBegin25"].CGImage);
                 [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
                 [self.frenchPress setImage:[UIImage imageNamed:@"animBegin25"]];
-                
-                [self playSoundWithName:@"coffeeStarted" type:@"wav"];
-                self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:kStartTime
-                                                                 target:self
-                                                                  selector:@selector (startCountdown:)
-                                                               userInfo:nil
-                                                                repeats:NO];
             }
             break;
         case AeroPress:
             {
-                CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
-                crossFade.duration = kStartTime - 1.0f;
-                crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"fempty_0"].CGImage);
                 crossFade.toValue = (__bridge id)([UIImage imageNamed:@"aeroPressBegin18"].CGImage);
                 [self.frenchPress.layer addAnimation:crossFade forKey:@"animateContents"];
                 [self.frenchPress setImage:[UIImage imageNamed:@"aeroPressBegin18"]];
-                [self playSoundWithName:@"coffeeStarted" type:@"wav"];
-                
-                self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:kStartTime
-                                                                 target:self
-                                                                  selector:@selector (startCountdown:)
-                                                               userInfo:nil
-                                                                repeats:NO];
             }
         default:
             break;
     }
     
+    [self playSoundWithName:@"coffeeStarted" type:@"wav"];
+    self.coffeeTimer = [NSTimer scheduledTimerWithTimeInterval:kStartTime
+                                                     target:self
+                                                      selector:@selector (startCountdown:)
+                                                   userInfo:nil
+                                                    repeats:NO];
+
     
     
 }
