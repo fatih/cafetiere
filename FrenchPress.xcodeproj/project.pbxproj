@@ -19,6 +19,25 @@
 		3D5152991603915B0051F921 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DD58F7B15F3A98C00FB9F3F /* Default@2x.png */; };
 		3D51529B160397370051F921 /* UIDevice+Resolutions.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D51529A160397370051F921 /* UIDevice+Resolutions.m */; };
 		3D5152A7160666FD0051F921 /* PickerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D5152A6160666FD0051F921 /* PickerViewController.m */; };
+		3D58637D16369DC10000B157 /* aeroPressBegin00.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58636A16369DC10000B157 /* aeroPressBegin00.png */; };
+		3D58637E16369DC10000B157 /* aeroPressBegin01.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58636B16369DC10000B157 /* aeroPressBegin01.png */; };
+		3D58637F16369DC10000B157 /* aeroPressBegin02.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58636C16369DC10000B157 /* aeroPressBegin02.png */; };
+		3D58638016369DC10000B157 /* aeroPressBegin03.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58636D16369DC10000B157 /* aeroPressBegin03.png */; };
+		3D58638116369DC10000B157 /* aeroPressBegin04.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58636E16369DC10000B157 /* aeroPressBegin04.png */; };
+		3D58638216369DC10000B157 /* aeroPressBegin05.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58636F16369DC10000B157 /* aeroPressBegin05.png */; };
+		3D58638316369DC10000B157 /* aeroPressBegin06.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58637016369DC10000B157 /* aeroPressBegin06.png */; };
+		3D58638416369DC10000B157 /* aeroPressBegin07.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58637116369DC10000B157 /* aeroPressBegin07.png */; };
+		3D58638516369DC10000B157 /* aeroPressBegin08.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58637216369DC10000B157 /* aeroPressBegin08.png */; };
+		3D58638616369DC10000B157 /* aeroPressBegin09.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58637316369DC10000B157 /* aeroPressBegin09.png */; };
+		3D58638716369DC10000B157 /* aeroPressBegin10.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58637416369DC10000B157 /* aeroPressBegin10.png */; };
+		3D58638816369DC10000B157 /* aeroPressBegin11.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58637516369DC10000B157 /* aeroPressBegin11.png */; };
+		3D58638916369DC10000B157 /* aeroPressBegin12.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58637616369DC10000B157 /* aeroPressBegin12.png */; };
+		3D58638A16369DC10000B157 /* aeroPressBegin13.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58637716369DC10000B157 /* aeroPressBegin13.png */; };
+		3D58638B16369DC10000B157 /* aeroPressBegin14.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58637816369DC10000B157 /* aeroPressBegin14.png */; };
+		3D58638C16369DC10000B157 /* aeroPressBegin15.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58637916369DC10000B157 /* aeroPressBegin15.png */; };
+		3D58638D16369DC10000B157 /* aeroPressBegin16.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58637A16369DC10000B157 /* aeroPressBegin16.png */; };
+		3D58638E16369DC10000B157 /* aeroPressBegin17.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58637B16369DC10000B157 /* aeroPressBegin17.png */; };
+		3D58638F16369DC10000B157 /* aeroPressBegin18.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D58637C16369DC10000B157 /* aeroPressBegin18.png */; };
 		3D637E80162C677400F04E58 /* IIViewDeckController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D637E7F162C677400F04E58 /* IIViewDeckController.m */; };
 		3D637E83162C6DC500F04E58 /* LeftViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D637E82162C6DC500F04E58 /* LeftViewController.m */; };
 		3D637E86162C6E2F00F04E58 /* WrapController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D637E85162C6E2F00F04E58 /* WrapController.m */; };
@@ -190,6 +209,25 @@
 		3D51529C1603973D0051F921 /* UIDevice+Resolutions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Resolutions.h"; sourceTree = "<group>"; };
 		3D5152A5160666FD0051F921 /* PickerViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerViewController.h; sourceTree = "<group>"; };
 		3D5152A6160666FD0051F921 /* PickerViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerViewController.m; sourceTree = "<group>"; };
+		3D58636A16369DC10000B157 /* aeroPressBegin00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin00.png; sourceTree = "<group>"; };
+		3D58636B16369DC10000B157 /* aeroPressBegin01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin01.png; sourceTree = "<group>"; };
+		3D58636C16369DC10000B157 /* aeroPressBegin02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin02.png; sourceTree = "<group>"; };
+		3D58636D16369DC10000B157 /* aeroPressBegin03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin03.png; sourceTree = "<group>"; };
+		3D58636E16369DC10000B157 /* aeroPressBegin04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin04.png; sourceTree = "<group>"; };
+		3D58636F16369DC10000B157 /* aeroPressBegin05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin05.png; sourceTree = "<group>"; };
+		3D58637016369DC10000B157 /* aeroPressBegin06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin06.png; sourceTree = "<group>"; };
+		3D58637116369DC10000B157 /* aeroPressBegin07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin07.png; sourceTree = "<group>"; };
+		3D58637216369DC10000B157 /* aeroPressBegin08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin08.png; sourceTree = "<group>"; };
+		3D58637316369DC10000B157 /* aeroPressBegin09.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin09.png; sourceTree = "<group>"; };
+		3D58637416369DC10000B157 /* aeroPressBegin10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin10.png; sourceTree = "<group>"; };
+		3D58637516369DC10000B157 /* aeroPressBegin11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin11.png; sourceTree = "<group>"; };
+		3D58637616369DC10000B157 /* aeroPressBegin12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin12.png; sourceTree = "<group>"; };
+		3D58637716369DC10000B157 /* aeroPressBegin13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin13.png; sourceTree = "<group>"; };
+		3D58637816369DC10000B157 /* aeroPressBegin14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin14.png; sourceTree = "<group>"; };
+		3D58637916369DC10000B157 /* aeroPressBegin15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin15.png; sourceTree = "<group>"; };
+		3D58637A16369DC10000B157 /* aeroPressBegin16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin16.png; sourceTree = "<group>"; };
+		3D58637B16369DC10000B157 /* aeroPressBegin17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin17.png; sourceTree = "<group>"; };
+		3D58637C16369DC10000B157 /* aeroPressBegin18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressBegin18.png; sourceTree = "<group>"; };
 		3D637E7E162C677400F04E58 /* IIViewDeckController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IIViewDeckController.h; sourceTree = "<group>"; };
 		3D637E7F162C677400F04E58 /* IIViewDeckController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IIViewDeckController.m; sourceTree = "<group>"; };
 		3D637E81162C6DC500F04E58 /* LeftViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LeftViewController.h; sourceTree = "<group>"; };
@@ -375,8 +413,35 @@
 		3D586341163697720000B157 /* AeroPressAnimations */ = {
 			isa = PBXGroup;
 			children = (
+				3D58636916369DC10000B157 /* aeroPressBegin */,
 			);
 			name = AeroPressAnimations;
+			sourceTree = "<group>";
+		};
+		3D58636916369DC10000B157 /* aeroPressBegin */ = {
+			isa = PBXGroup;
+			children = (
+				3D58636A16369DC10000B157 /* aeroPressBegin00.png */,
+				3D58636B16369DC10000B157 /* aeroPressBegin01.png */,
+				3D58636C16369DC10000B157 /* aeroPressBegin02.png */,
+				3D58636D16369DC10000B157 /* aeroPressBegin03.png */,
+				3D58636E16369DC10000B157 /* aeroPressBegin04.png */,
+				3D58636F16369DC10000B157 /* aeroPressBegin05.png */,
+				3D58637016369DC10000B157 /* aeroPressBegin06.png */,
+				3D58637116369DC10000B157 /* aeroPressBegin07.png */,
+				3D58637216369DC10000B157 /* aeroPressBegin08.png */,
+				3D58637316369DC10000B157 /* aeroPressBegin09.png */,
+				3D58637416369DC10000B157 /* aeroPressBegin10.png */,
+				3D58637516369DC10000B157 /* aeroPressBegin11.png */,
+				3D58637616369DC10000B157 /* aeroPressBegin12.png */,
+				3D58637716369DC10000B157 /* aeroPressBegin13.png */,
+				3D58637816369DC10000B157 /* aeroPressBegin14.png */,
+				3D58637916369DC10000B157 /* aeroPressBegin15.png */,
+				3D58637A16369DC10000B157 /* aeroPressBegin16.png */,
+				3D58637B16369DC10000B157 /* aeroPressBegin17.png */,
+				3D58637C16369DC10000B157 /* aeroPressBegin18.png */,
+			);
+			path = aeroPressBegin;
 			sourceTree = "<group>";
 		};
 		3D637E89162C6F7900F04E58 /* ViewDeck */ = {
@@ -816,6 +881,25 @@
 				3D79BD3E162CB75A0012A051 /* gear48_yeni.png in Resources */,
 				3D79BD40162CB81A0012A051 /* settingsGear_yeni.png in Resources */,
 				3DE213281635A00000CFE047 /* aeropress.png in Resources */,
+				3D58637D16369DC10000B157 /* aeroPressBegin00.png in Resources */,
+				3D58637E16369DC10000B157 /* aeroPressBegin01.png in Resources */,
+				3D58637F16369DC10000B157 /* aeroPressBegin02.png in Resources */,
+				3D58638016369DC10000B157 /* aeroPressBegin03.png in Resources */,
+				3D58638116369DC10000B157 /* aeroPressBegin04.png in Resources */,
+				3D58638216369DC10000B157 /* aeroPressBegin05.png in Resources */,
+				3D58638316369DC10000B157 /* aeroPressBegin06.png in Resources */,
+				3D58638416369DC10000B157 /* aeroPressBegin07.png in Resources */,
+				3D58638516369DC10000B157 /* aeroPressBegin08.png in Resources */,
+				3D58638616369DC10000B157 /* aeroPressBegin09.png in Resources */,
+				3D58638716369DC10000B157 /* aeroPressBegin10.png in Resources */,
+				3D58638816369DC10000B157 /* aeroPressBegin11.png in Resources */,
+				3D58638916369DC10000B157 /* aeroPressBegin12.png in Resources */,
+				3D58638A16369DC10000B157 /* aeroPressBegin13.png in Resources */,
+				3D58638B16369DC10000B157 /* aeroPressBegin14.png in Resources */,
+				3D58638C16369DC10000B157 /* aeroPressBegin15.png in Resources */,
+				3D58638D16369DC10000B157 /* aeroPressBegin16.png in Resources */,
+				3D58638E16369DC10000B157 /* aeroPressBegin17.png in Resources */,
+				3D58638F16369DC10000B157 /* aeroPressBegin18.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
