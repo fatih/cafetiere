@@ -33,9 +33,8 @@
 
 @property (nonatomic) NSTimeInterval countdownSeconds, elapsedTime;
 
-// Each step has a different time
-@property (nonatomic) NSTimeInterval waterTime, bloomTime, steepTime, finishTime;
-
+// Each step has a different time , FrenchPress
+@property (nonatomic) NSTimeInterval frenchWaterTime, frenchBloomTime, frenchSteepTime, frenchFinishTime;
 @property (nonatomic) NSTimeInterval startGap;
 
 @property (nonatomic) int waterState, bloomState, steepState, finishState;

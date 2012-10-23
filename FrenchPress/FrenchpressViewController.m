@@ -102,11 +102,11 @@ BrewMethod brewMethod;
             //    NSLog(@"Stirtime: %f", cStirTime);
             //    NSLog(@"SteepTime: %f", cSteepTime);
             //    NSLog(@"FinishTime: %f", cFinishTime);
-                [self setWaterTime:cWaterTime];
-                [self setBloomTime:cStirTime];
-                [self setSteepTime:cSteepTime];
-                [self setFinishTime:cFinishTime];
-                [self setCountdownSeconds:[self steepTime] + [self bloomTime] + [self waterTime]];
+                [self setFrenchWaterTime:cWaterTime];
+                [self setFrenchBloomTime:cStirTime];
+                [self setFrenchSteepTime:cSteepTime];
+                [self setFrenchFinishTime:cFinishTime];
+                [self setCountdownSeconds:[self frenchSteepTime] + [self frenchBloomTime] + [self frenchWaterTime]];
             }
             break;
         case AeroPress:
@@ -423,8 +423,8 @@ BrewMethod brewMethod;
     }
     
     self.startDate = [[NSDate alloc] initWithTimeInterval:self.countdownSeconds sinceDate:self.startTime];
-    self.waterDate = [[NSDate alloc] initWithTimeInterval:self.waterTime sinceDate:self.startTime];
-    self.bloomDate = [[NSDate alloc] initWithTimeInterval:(self.waterTime + self.bloomTime)
+    self.waterDate = [[NSDate alloc] initWithTimeInterval:self.frenchWaterTime sinceDate:self.startTime];
+    self.bloomDate = [[NSDate alloc] initWithTimeInterval:(self.frenchWaterTime + self.frenchBloomTime)
                                                 sinceDate:self.startTime];
     
     // Get the system calendar
@@ -486,7 +486,7 @@ BrewMethod brewMethod;
                     [self.infoLabel setText:@"Add preboiled water"];
                     
                     [[self coffeeImageView] animImages:[self aeroPressBegin]];
-                    [[self coffeeImageView] setAnimDuration:[self waterTime]];
+                    [[self coffeeImageView] setAnimDuration:[self frenchWaterTime]];
                     [[self coffeeImageView] animRepeatCount: 1];
                     [[self coffeeImageView] startAnim];
                 }
@@ -503,7 +503,7 @@ BrewMethod brewMethod;
                     
                     [self.coffeeImageView stopAnim]; // Stop previus begin animation
                     [[self coffeeImageView] animImages:[self frenchPressStir]];
-                    [[self coffeeImageView] setAnimDuration:[self bloomTime] / 1]; //TODO should /2
+                    [[self coffeeImageView] setAnimDuration:[self frenchBloomTime] / 1]; //TODO should /2
                     [[self coffeeImageView] animRepeatCount: 1]; // TODO should 2
                     [[self coffeeImageView] startAnim];
                 }
@@ -518,7 +518,7 @@ BrewMethod brewMethod;
                     
                     [self.coffeeImageView stopAnim]; // Stop previus begin animation
                     [[self coffeeImageView] animImages:[self frenchPressSteep]];
-                    [[self coffeeImageView] setAnimDuration:[self steepTime]];
+                    [[self coffeeImageView] setAnimDuration:[self frenchSteepTime]];
                     [[self coffeeImageView] animRepeatCount: 1];
                     [[self coffeeImageView] startAnim];
                 }
@@ -541,7 +541,7 @@ BrewMethod brewMethod;
                     
                     [self.coffeeImageView stopAnim]; // Stop previus begin animation
                     [[self coffeeImageView] animImages:[self frenchPressFinish]];
-                    [[self coffeeImageView] setAnimDuration:[self finishTime]];
+                    [[self coffeeImageView] setAnimDuration:[self frenchFinishTime]];
                     [[self coffeeImageView] animRepeatCount: 1];
                     [[self coffeeImageView] startAnim];
                 }
@@ -596,7 +596,7 @@ BrewMethod brewMethod;
                     [self setWaterState:1];
                     [self.infoLabel setText:@"Add preboiled water"];
                     [[self coffeeImageView] animImages:[self frenchPressBegin]];
-                    [[self coffeeImageView] setAnimDuration:[self waterTime]];
+                    [[self coffeeImageView] setAnimDuration:[self frenchWaterTime ]];
                     [[self coffeeImageView] animRepeatCount: 1];
                     [[self coffeeImageView] startAnim];
                 }
@@ -613,7 +613,7 @@ BrewMethod brewMethod;
                     
                     [self.coffeeImageView stopAnim]; // Stop previus begin animation
                     [[self coffeeImageView] animImages:[self frenchPressStir]];
-                    [[self coffeeImageView] setAnimDuration:[self bloomTime] / 1]; //TODO should /2
+                    [[self coffeeImageView] setAnimDuration:[self frenchBloomTime] / 1]; //TODO should /2
                     [[self coffeeImageView] animRepeatCount: 1]; // TODO should 2
                     [[self coffeeImageView] startAnim];
                 }
@@ -628,7 +628,7 @@ BrewMethod brewMethod;
                     
                     [self.coffeeImageView stopAnim]; // Stop previus begin animation
                     [[self coffeeImageView] animImages:[self frenchPressSteep]];
-                    [[self coffeeImageView] setAnimDuration:[self steepTime]];
+                    [[self coffeeImageView] setAnimDuration:[self frenchSteepTime]];
                     [[self coffeeImageView] animRepeatCount: 1];
                     [[self coffeeImageView] startAnim];
                 }
@@ -651,7 +651,7 @@ BrewMethod brewMethod;
                     
                     [self.coffeeImageView stopAnim]; // Stop previus begin animation
                     [[self coffeeImageView] animImages:[self frenchPressFinish]];
-                    [[self coffeeImageView] setAnimDuration:[self finishTime]];
+                    [[self coffeeImageView] setAnimDuration:[self frenchFinishTime ]];
                     [[self coffeeImageView] animRepeatCount: 1];
                     [[self coffeeImageView] startAnim];
                 }
@@ -688,29 +688,29 @@ BrewMethod brewMethod;
     self.elapsedTime = [[NSDate date] timeIntervalSinceDate:self.startTime];
     // NSLog(@"Elapsed Time:%f", self.elapsedTime);
     
-    if (self.elapsedTime <= [self waterTime]) {
+    if (self.elapsedTime <= [self frenchWaterTime]) {
         coffeeState = FrenchWaterState;
         self.stateStartDate = [self.startTime dateByAddingTimeInterval:0];
         
-    } else if (self.elapsedTime >= [self waterTime] &&
-               self.elapsedTime < [self waterTime] + [self bloomTime]) {
+    } else if (self.elapsedTime >= [self frenchWaterTime] &&
+               self.elapsedTime < [self frenchWaterTime] + [self frenchBloomTime]) {
         coffeeState = FrenchStirState;
-        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self waterTime]];
+        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self frenchWaterTime]];
         
-    } else if (self.elapsedTime >= [self waterTime] + [self bloomTime] &&
+    } else if (self.elapsedTime >= [self frenchWaterTime] + [self frenchBloomTime] &&
                self.elapsedTime < [self countdownSeconds]) {
         coffeeState = FrenchSteepState;
-        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self waterTime] + [self bloomTime]];
+        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self frenchWaterTime] + [self frenchBloomTime]];
         
     } else if (self.elapsedTime >= [self countdownSeconds] &&
-               self.elapsedTime < [self countdownSeconds] + [self finishTime]) {
+               self.elapsedTime < [self countdownSeconds] + [self frenchFinishTime]) {
         coffeeState = FrenchFinishState;
         self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self countdownSeconds]];
         
-    }  else if (self.elapsedTime >= [self countdownSeconds] + [self finishTime]) {
+    }  else if (self.elapsedTime >= [self countdownSeconds] + [self frenchFinishTime]) {
         self.didEnded = YES;
         coffeeState = FrenchEnjoyState;
-        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self countdownSeconds] + [self finishTime]];
+        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self countdownSeconds] + [self frenchFinishTime]];
     }
 }
 
