@@ -19,7 +19,7 @@
 
 // Enum for each Coffee Step
 FrenchPressCoffeeState coffeeState;
-AeroPressCoffeeState aeroState;
+AeroPressCoffeeState aeroPressState;
 
 BrewMethod brewMethod;
 
@@ -44,7 +44,11 @@ BrewMethod brewMethod;
                                         @"frenchWaterTime" : kFrenchWaterTime,
                                         @"frenchStirTime" : kFrenchStirTime,
                                         @"frenchSteepTime" : kFrenchSteepTime,
-                                        @"frenchFinishTime" : kFrenchFinishTime};
+                                        @"frenchFinishTime" : kFrenchFinishTime,
+                                        @"aeroWaterTime" : kAeroWaterTime,
+                                        @"aeroStirTime" : kAeroStirTime,
+                                        @"aeroSteepTime" : kAeroSteepTime,
+                                        @"aeroFinishTime" : kAeroFinishTime};
     
         [defaults registerDefaults:appDefaults];
         [defaults synchronize];
@@ -52,7 +56,7 @@ BrewMethod brewMethod;
         // Set conversion to seconds and minutes
         [self setUnitFlags:NSSecondCalendarUnit | NSMinuteCalendarUnit];
         
-        [self loadAnimationImages];
+        [self loadFrenchPressAnimationImages];
         [self loadAeroPressAnimationImages];
         
         NSLog(@"FrenchpressViewController init method");
@@ -433,7 +437,7 @@ BrewMethod brewMethod;
             {
                 self.paintingTimer = [NSTimer scheduledTimerWithTimeInterval:0.05f
                                                      target:self
-                                                   selector:@selector (countdownUpdateMethod:)
+                                                   selector:@selector (beginFrenchPress:)
                                                    userInfo:nil
                                                     repeats:YES];
             }
@@ -473,9 +477,9 @@ BrewMethod brewMethod;
     [self getCurrentCoffeeState];
     
     switch (coffeeState) {
-        case BeginState:
+        case FrenchBeginState:
             break;
-        case WaterState:
+        case FrenchWaterState:
             {
                 [self.timerLabel setText:[NSString stringWithFormat:@"%d", [waterInfo second]]];
                 if (!self.waterState) {
@@ -490,7 +494,7 @@ BrewMethod brewMethod;
                 }
             }
             break;
-        case StirState:
+        case FrenchStirState:
             {
                 [self.timerLabel setText:[NSString stringWithFormat:@"%d", [bloomInfo second]]];
                 
@@ -507,7 +511,7 @@ BrewMethod brewMethod;
                 }
             }
             break;
-        case SteepState:
+        case FrenchSteepState:
             {
                 if (!self.steepState) {
                     NSLog(@"SteepState");
@@ -528,7 +532,7 @@ BrewMethod brewMethod;
                 }
             }
             break;
-        case FinishState:
+        case FrenchFinishState:
             {
                 if (!self.finishState) {
                     NSLog(@"FinishState");
@@ -545,7 +549,7 @@ BrewMethod brewMethod;
                 }
             }
             break;
-        case EnjoyState:
+        case FrenchEnjoyState:
             {
                 NSLog(@"EnjoyState");
                 self.didEnded = YES;
@@ -572,7 +576,7 @@ BrewMethod brewMethod;
     
 }
 
--(void)countdownUpdateMethod:(NSTimer*)theTimer {
+-(void)beginFrenchPress:(NSTimer*)theTimer {
     
     NSDateComponents *conversionInfo = [self.sysCalendar components:self.unitFlags
                                                            fromDate:[NSDate date]
@@ -594,9 +598,9 @@ BrewMethod brewMethod;
     [self getCurrentCoffeeState];
     
     switch (coffeeState) {
-        case BeginState:
+        case AeroBeginState:
             break;
-        case WaterState:
+        case AeroWaterState:
             {
                 [self.timerLabel setText:[NSString stringWithFormat:@"%d", [waterInfo second]]];
                 if (!self.waterState) {
@@ -611,7 +615,7 @@ BrewMethod brewMethod;
                 }
             }
             break;
-        case StirState:
+        case AeroStirState:
             {
                 [self.timerLabel setText:[NSString stringWithFormat:@"%d", [bloomInfo second]]];
                 
@@ -628,7 +632,7 @@ BrewMethod brewMethod;
                 }
             }
             break;
-        case SteepState:
+        case AeroSteepState:
             {
                 if (!self.steepState) {
                     NSLog(@"SteepState");
@@ -649,7 +653,7 @@ BrewMethod brewMethod;
                 }
             }
             break;
-        case FinishState:
+        case AeroFinishState:
             {
                 if (!self.finishState) {
                     NSLog(@"FinishState");
@@ -666,7 +670,7 @@ BrewMethod brewMethod;
                 }
             }
             break;
-        case EnjoyState:
+        case AeroEnjoyState:
             {
                 NSLog(@"EnjoyState");
                 self.didEnded = YES;
@@ -698,27 +702,27 @@ BrewMethod brewMethod;
     // NSLog(@"Elapsed Time:%f", self.elapsedTime);
     
     if (self.elapsedTime <= [self waterTime]) {
-        coffeeState = WaterState;
+        coffeeState = FrenchWaterState;
         self.stateStartDate = [self.startTime dateByAddingTimeInterval:0];
         
     } else if (self.elapsedTime >= [self waterTime] &&
                self.elapsedTime < [self waterTime] + [self bloomTime]) {
-        coffeeState = StirState;
+        coffeeState = FrenchStirState;
         self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self waterTime]];
         
     } else if (self.elapsedTime >= [self waterTime] + [self bloomTime] &&
                self.elapsedTime < [self countdownSeconds]) {
-        coffeeState = SteepState;
+        coffeeState = FrenchSteepState;
         self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self waterTime] + [self bloomTime]];
         
     } else if (self.elapsedTime >= [self countdownSeconds] &&
                self.elapsedTime < [self countdownSeconds] + [self finishTime]) {
-        coffeeState = FinishState;
+        coffeeState = FrenchFinishState;
         self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self countdownSeconds]];
         
     }  else if (self.elapsedTime >= [self countdownSeconds] + [self finishTime]) {
         self.didEnded = YES;
-        coffeeState = EnjoyState;
+        coffeeState = FrenchEnjoyState;
         self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self countdownSeconds] + [self finishTime]];
     }
 }
@@ -733,7 +737,7 @@ BrewMethod brewMethod;
     }
 }
 
--(void)loadAnimationImages
+-(void)loadFrenchPressAnimationImages
 {
     for (NSUInteger i = 25; i > 0 ; i--) {
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"animBegin%02u", i]];

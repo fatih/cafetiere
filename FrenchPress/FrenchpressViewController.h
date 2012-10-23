@@ -66,12 +66,12 @@
 
 
 typedef enum {
-    BeginState,
-    WaterState,
-    StirState,
-    SteepState,
-    FinishState,
-    EnjoyState
+    FrenchBeginState,
+    FrenchWaterState,
+    FrenchStirState,
+    FrenchSteepState,
+    FrenchFinishState,
+    FrenchEnjoyState
 } FrenchPressCoffeeState;
 
 typedef enum {
