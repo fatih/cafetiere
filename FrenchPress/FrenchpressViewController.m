@@ -511,7 +511,7 @@ BrewMethod brewMethod;
                     [self.infoLabel setText:@"Stir the coffee"];
                     
                     [self.coffeeImageView stopAnim]; // Stop previus begin animation
-                    [[self coffeeImageView] animImages:[self frenchPressStir]];
+                    [[self coffeeImageView] animImages:[self aeroPressStir]];
                     [[self coffeeImageView] setAnimDuration:[self frenchBloomTime] / 1]; //TODO should /2
                     [[self coffeeImageView] animRepeatCount: 1]; // TODO should 2
                     [[self coffeeImageView] startAnim];
@@ -526,7 +526,7 @@ BrewMethod brewMethod;
                     [self.infoLabel setText:@"Steeping Time"];
                     
                     [self.coffeeImageView stopAnim]; // Stop previus begin animation
-                    [[self coffeeImageView] animImages:[self frenchPressSteep]];
+                    [[self coffeeImageView] animImages:[self aeroPressSteep]];
                     [[self coffeeImageView] setAnimDuration:[self frenchSteepTime]];
                     [[self coffeeImageView] animRepeatCount: 1];
                     [[self coffeeImageView] startAnim];
@@ -729,6 +729,42 @@ BrewMethod brewMethod;
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"aeroPressBegin%02u", i]];
         if (image) {
             [self.aeroPressBegin addObject:image];
+        }
+    }
+    
+    // First stir anim
+    for (NSUInteger i = 0; i < 8; i++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"aeroPressStir%02u", i]];
+        if (image) {
+            [self.aeroPressStir addObject:image];
+        }
+    }
+    
+    for (NSUInteger i = 8; i > 0; i--) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"aeroPressStir%02u", i]];
+        if (image) {
+            [self.aeroPressStir addObject:image];
+        }
+    }
+    
+    for (NSUInteger i = 9; i <= 15; i++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"aeroPressStir%02u", i]];
+        if (image) {
+            [self.aeroPressStir addObject:image];
+        }
+    }
+    
+    for (NSUInteger i = 15; i > 9; i--) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"aeroPressStir%02u", i]];
+        if (image) {
+            [self.aeroPressStir addObject:image];
+        }
+    }
+    
+    for (NSUInteger i = 0; i <= 19; i++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"aeroPressSteep%02u", i]];
+        if (image) {
+            [self.aeroPressSteep addObject:image];
         }
     }
     

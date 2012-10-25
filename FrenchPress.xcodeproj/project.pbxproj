@@ -12,8 +12,44 @@
 		3D0CB30916091B3500BD9B98 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0CB30816091B3400BD9B98 /* CoreLocation.framework */; };
 		3D0CB31A16091EDD00BD9B98 /* libQuickDialog.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 3D0CB31716091ECB00BD9B98 /* libQuickDialog.a */; };
 		3D10ABBD160FB881002FE218 /* PickerValueParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D10ABBC160FB881002FE218 /* PickerValueParser.m */; };
+		3D16711F16395051009478AC /* aeroPressStir00.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D16710F16395051009478AC /* aeroPressStir00.png */; };
+		3D16712016395051009478AC /* aeroPressStir01.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D16711016395051009478AC /* aeroPressStir01.png */; };
+		3D16712116395051009478AC /* aeroPressStir02.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D16711116395051009478AC /* aeroPressStir02.png */; };
+		3D16712216395051009478AC /* aeroPressStir03.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D16711216395051009478AC /* aeroPressStir03.png */; };
+		3D16712316395051009478AC /* aeroPressStir04.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D16711316395051009478AC /* aeroPressStir04.png */; };
+		3D16712416395051009478AC /* aeroPressStir05.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D16711416395051009478AC /* aeroPressStir05.png */; };
+		3D16712516395051009478AC /* aeroPressStir06.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D16711516395051009478AC /* aeroPressStir06.png */; };
+		3D16712616395051009478AC /* aeroPressStir07.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D16711616395051009478AC /* aeroPressStir07.png */; };
+		3D16712716395051009478AC /* aeroPressStir08.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D16711716395051009478AC /* aeroPressStir08.png */; };
+		3D16712816395051009478AC /* aeroPressStir09.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D16711816395051009478AC /* aeroPressStir09.png */; };
+		3D16712916395051009478AC /* aeroPressStir10.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D16711916395051009478AC /* aeroPressStir10.png */; };
+		3D16712A16395051009478AC /* aeroPressStir11.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D16711A16395051009478AC /* aeroPressStir11.png */; };
+		3D16712B16395051009478AC /* aeroPressStir12.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D16711B16395051009478AC /* aeroPressStir12.png */; };
+		3D16712C16395051009478AC /* aeroPressStir13.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D16711C16395051009478AC /* aeroPressStir13.png */; };
+		3D16712D16395051009478AC /* aeroPressStir14.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D16711D16395051009478AC /* aeroPressStir14.png */; };
+		3D16712E16395051009478AC /* aeroPressStir15.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D16711E16395051009478AC /* aeroPressStir15.png */; };
 		3D29E7EB1601440700294250 /* Constants.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D29E7EA1601440700294250 /* Constants.m */; };
 		3D29E7EF16021FF800294250 /* settingsGear@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D29E7EE16021FF800294250 /* settingsGear@2x.png */; };
+		3D4D551E1639640E0096A52A /* aeroPressSteep00.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D550A1639640E0096A52A /* aeroPressSteep00.png */; };
+		3D4D551F1639640E0096A52A /* aeroPressSteep01.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D550B1639640E0096A52A /* aeroPressSteep01.png */; };
+		3D4D55201639640E0096A52A /* aeroPressSteep02.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D550C1639640E0096A52A /* aeroPressSteep02.png */; };
+		3D4D55211639640E0096A52A /* aeroPressSteep03.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D550D1639640E0096A52A /* aeroPressSteep03.png */; };
+		3D4D55221639640E0096A52A /* aeroPressSteep04.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D550E1639640E0096A52A /* aeroPressSteep04.png */; };
+		3D4D55231639640E0096A52A /* aeroPressSteep05.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D550F1639640E0096A52A /* aeroPressSteep05.png */; };
+		3D4D55241639640E0096A52A /* aeroPressSteep06.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D55101639640E0096A52A /* aeroPressSteep06.png */; };
+		3D4D55251639640E0096A52A /* aeroPressSteep07.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D55111639640E0096A52A /* aeroPressSteep07.png */; };
+		3D4D55261639640E0096A52A /* aeroPressSteep08.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D55121639640E0096A52A /* aeroPressSteep08.png */; };
+		3D4D55271639640E0096A52A /* aeroPressSteep09.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D55131639640E0096A52A /* aeroPressSteep09.png */; };
+		3D4D55281639640E0096A52A /* aeroPressSteep10.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D55141639640E0096A52A /* aeroPressSteep10.png */; };
+		3D4D55291639640E0096A52A /* aeroPressSteep11.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D55151639640E0096A52A /* aeroPressSteep11.png */; };
+		3D4D552A1639640E0096A52A /* aeroPressSteep12.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D55161639640E0096A52A /* aeroPressSteep12.png */; };
+		3D4D552B1639640E0096A52A /* aeroPressSteep13.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D55171639640E0096A52A /* aeroPressSteep13.png */; };
+		3D4D552C1639640E0096A52A /* aeroPressSteep14.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D55181639640E0096A52A /* aeroPressSteep14.png */; };
+		3D4D552D1639640E0096A52A /* aeroPressSteep15.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D55191639640E0096A52A /* aeroPressSteep15.png */; };
+		3D4D552E1639640E0096A52A /* aeroPressSteep16.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D551A1639640E0096A52A /* aeroPressSteep16.png */; };
+		3D4D552F1639640E0096A52A /* aeroPressSteep17.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D551B1639640E0096A52A /* aeroPressSteep17.png */; };
+		3D4D55301639640E0096A52A /* aeroPressSteep18.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D551C1639640E0096A52A /* aeroPressSteep18.png */; };
+		3D4D55311639640E0096A52A /* aeroPressSteep19.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D4D551D1639640E0096A52A /* aeroPressSteep19.png */; };
 		3D515297160390D20051F921 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D515294160390C00051F921 /* Default-568h@2x.png */; };
 		3D515298160391560051F921 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DD58F7A15F3A98C00FB9F3F /* Default.png */; };
 		3D5152991603915B0051F921 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 3DD58F7B15F3A98C00FB9F3F /* Default@2x.png */; };
@@ -227,9 +263,45 @@
 		3D0CB30B16091ECB00BD9B98 /* QuickDialog.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = QuickDialog.xcodeproj; path = QuickDialog/QuickDialog.xcodeproj; sourceTree = "<group>"; };
 		3D10ABBB160FB881002FE218 /* PickerValueParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PickerValueParser.h; sourceTree = "<group>"; };
 		3D10ABBC160FB881002FE218 /* PickerValueParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PickerValueParser.m; sourceTree = "<group>"; };
+		3D16710F16395051009478AC /* aeroPressStir00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressStir00.png; sourceTree = "<group>"; };
+		3D16711016395051009478AC /* aeroPressStir01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressStir01.png; sourceTree = "<group>"; };
+		3D16711116395051009478AC /* aeroPressStir02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressStir02.png; sourceTree = "<group>"; };
+		3D16711216395051009478AC /* aeroPressStir03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressStir03.png; sourceTree = "<group>"; };
+		3D16711316395051009478AC /* aeroPressStir04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressStir04.png; sourceTree = "<group>"; };
+		3D16711416395051009478AC /* aeroPressStir05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressStir05.png; sourceTree = "<group>"; };
+		3D16711516395051009478AC /* aeroPressStir06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressStir06.png; sourceTree = "<group>"; };
+		3D16711616395051009478AC /* aeroPressStir07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressStir07.png; sourceTree = "<group>"; };
+		3D16711716395051009478AC /* aeroPressStir08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressStir08.png; sourceTree = "<group>"; };
+		3D16711816395051009478AC /* aeroPressStir09.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressStir09.png; sourceTree = "<group>"; };
+		3D16711916395051009478AC /* aeroPressStir10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressStir10.png; sourceTree = "<group>"; };
+		3D16711A16395051009478AC /* aeroPressStir11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressStir11.png; sourceTree = "<group>"; };
+		3D16711B16395051009478AC /* aeroPressStir12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressStir12.png; sourceTree = "<group>"; };
+		3D16711C16395051009478AC /* aeroPressStir13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressStir13.png; sourceTree = "<group>"; };
+		3D16711D16395051009478AC /* aeroPressStir14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressStir14.png; sourceTree = "<group>"; };
+		3D16711E16395051009478AC /* aeroPressStir15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressStir15.png; sourceTree = "<group>"; };
 		3D29E7E91600EC2300294250 /* Constants.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
 		3D29E7EA1601440700294250 /* Constants.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Constants.m; sourceTree = "<group>"; };
 		3D29E7EE16021FF800294250 /* settingsGear@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "settingsGear@2x.png"; sourceTree = "<group>"; };
+		3D4D550A1639640E0096A52A /* aeroPressSteep00.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep00.png; sourceTree = "<group>"; };
+		3D4D550B1639640E0096A52A /* aeroPressSteep01.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep01.png; sourceTree = "<group>"; };
+		3D4D550C1639640E0096A52A /* aeroPressSteep02.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep02.png; sourceTree = "<group>"; };
+		3D4D550D1639640E0096A52A /* aeroPressSteep03.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep03.png; sourceTree = "<group>"; };
+		3D4D550E1639640E0096A52A /* aeroPressSteep04.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep04.png; sourceTree = "<group>"; };
+		3D4D550F1639640E0096A52A /* aeroPressSteep05.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep05.png; sourceTree = "<group>"; };
+		3D4D55101639640E0096A52A /* aeroPressSteep06.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep06.png; sourceTree = "<group>"; };
+		3D4D55111639640E0096A52A /* aeroPressSteep07.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep07.png; sourceTree = "<group>"; };
+		3D4D55121639640E0096A52A /* aeroPressSteep08.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep08.png; sourceTree = "<group>"; };
+		3D4D55131639640E0096A52A /* aeroPressSteep09.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep09.png; sourceTree = "<group>"; };
+		3D4D55141639640E0096A52A /* aeroPressSteep10.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep10.png; sourceTree = "<group>"; };
+		3D4D55151639640E0096A52A /* aeroPressSteep11.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep11.png; sourceTree = "<group>"; };
+		3D4D55161639640E0096A52A /* aeroPressSteep12.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep12.png; sourceTree = "<group>"; };
+		3D4D55171639640E0096A52A /* aeroPressSteep13.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep13.png; sourceTree = "<group>"; };
+		3D4D55181639640E0096A52A /* aeroPressSteep14.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep14.png; sourceTree = "<group>"; };
+		3D4D55191639640E0096A52A /* aeroPressSteep15.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep15.png; sourceTree = "<group>"; };
+		3D4D551A1639640E0096A52A /* aeroPressSteep16.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep16.png; sourceTree = "<group>"; };
+		3D4D551B1639640E0096A52A /* aeroPressSteep17.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep17.png; sourceTree = "<group>"; };
+		3D4D551C1639640E0096A52A /* aeroPressSteep18.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep18.png; sourceTree = "<group>"; };
+		3D4D551D1639640E0096A52A /* aeroPressSteep19.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressSteep19.png; sourceTree = "<group>"; };
 		3D515294160390C00051F921 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		3D51529A160397370051F921 /* UIDevice+Resolutions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIDevice+Resolutions.m"; sourceTree = "<group>"; };
 		3D51529C1603973D0051F921 /* UIDevice+Resolutions.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIDevice+Resolutions.h"; sourceTree = "<group>"; };
@@ -451,6 +523,29 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		3D16710E16395051009478AC /* aeroPressStir */ = {
+			isa = PBXGroup;
+			children = (
+				3D16710F16395051009478AC /* aeroPressStir00.png */,
+				3D16711016395051009478AC /* aeroPressStir01.png */,
+				3D16711116395051009478AC /* aeroPressStir02.png */,
+				3D16711216395051009478AC /* aeroPressStir03.png */,
+				3D16711316395051009478AC /* aeroPressStir04.png */,
+				3D16711416395051009478AC /* aeroPressStir05.png */,
+				3D16711516395051009478AC /* aeroPressStir06.png */,
+				3D16711616395051009478AC /* aeroPressStir07.png */,
+				3D16711716395051009478AC /* aeroPressStir08.png */,
+				3D16711816395051009478AC /* aeroPressStir09.png */,
+				3D16711916395051009478AC /* aeroPressStir10.png */,
+				3D16711A16395051009478AC /* aeroPressStir11.png */,
+				3D16711B16395051009478AC /* aeroPressStir12.png */,
+				3D16711C16395051009478AC /* aeroPressStir13.png */,
+				3D16711D16395051009478AC /* aeroPressStir14.png */,
+				3D16711E16395051009478AC /* aeroPressStir15.png */,
+			);
+			path = aeroPressStir;
+			sourceTree = "<group>";
+		};
 		3D44C2751636B94900ACF31B /* Helper */ = {
 			isa = PBXGroup;
 			children = (
@@ -471,6 +566,33 @@
 			name = Unused;
 			sourceTree = "<group>";
 		};
+		3D4D55091639640E0096A52A /* aeroPressSteep */ = {
+			isa = PBXGroup;
+			children = (
+				3D4D550A1639640E0096A52A /* aeroPressSteep00.png */,
+				3D4D550B1639640E0096A52A /* aeroPressSteep01.png */,
+				3D4D550C1639640E0096A52A /* aeroPressSteep02.png */,
+				3D4D550D1639640E0096A52A /* aeroPressSteep03.png */,
+				3D4D550E1639640E0096A52A /* aeroPressSteep04.png */,
+				3D4D550F1639640E0096A52A /* aeroPressSteep05.png */,
+				3D4D55101639640E0096A52A /* aeroPressSteep06.png */,
+				3D4D55111639640E0096A52A /* aeroPressSteep07.png */,
+				3D4D55121639640E0096A52A /* aeroPressSteep08.png */,
+				3D4D55131639640E0096A52A /* aeroPressSteep09.png */,
+				3D4D55141639640E0096A52A /* aeroPressSteep10.png */,
+				3D4D55151639640E0096A52A /* aeroPressSteep11.png */,
+				3D4D55161639640E0096A52A /* aeroPressSteep12.png */,
+				3D4D55171639640E0096A52A /* aeroPressSteep13.png */,
+				3D4D55181639640E0096A52A /* aeroPressSteep14.png */,
+				3D4D55191639640E0096A52A /* aeroPressSteep15.png */,
+				3D4D551A1639640E0096A52A /* aeroPressSteep16.png */,
+				3D4D551B1639640E0096A52A /* aeroPressSteep17.png */,
+				3D4D551C1639640E0096A52A /* aeroPressSteep18.png */,
+				3D4D551D1639640E0096A52A /* aeroPressSteep19.png */,
+			);
+			path = aeroPressSteep;
+			sourceTree = "<group>";
+		};
 		3D586340163691C70000B157 /* FrenchPressAnimations */ = {
 			isa = PBXGroup;
 			children = (
@@ -486,6 +608,8 @@
 			isa = PBXGroup;
 			children = (
 				3D58636916369DC10000B157 /* aeroPressBegin */,
+				3D16710E16395051009478AC /* aeroPressStir */,
+				3D4D55091639640E0096A52A /* aeroPressSteep */,
 				3DE8D7C2163939B9003C88BF /* aeroPressFinish */,
 			);
 			name = AeroPressAnimations;
@@ -1028,6 +1152,42 @@
 				3DE8D7F4163939B9003C88BF /* aeroPressFinish23.png in Resources */,
 				3DE8D7F5163939B9003C88BF /* aeroPressFinish24.png in Resources */,
 				3DE8D7F6163939B9003C88BF /* aeroPressFinish25.png in Resources */,
+				3D16711F16395051009478AC /* aeroPressStir00.png in Resources */,
+				3D16712016395051009478AC /* aeroPressStir01.png in Resources */,
+				3D16712116395051009478AC /* aeroPressStir02.png in Resources */,
+				3D16712216395051009478AC /* aeroPressStir03.png in Resources */,
+				3D16712316395051009478AC /* aeroPressStir04.png in Resources */,
+				3D16712416395051009478AC /* aeroPressStir05.png in Resources */,
+				3D16712516395051009478AC /* aeroPressStir06.png in Resources */,
+				3D16712616395051009478AC /* aeroPressStir07.png in Resources */,
+				3D16712716395051009478AC /* aeroPressStir08.png in Resources */,
+				3D16712816395051009478AC /* aeroPressStir09.png in Resources */,
+				3D16712916395051009478AC /* aeroPressStir10.png in Resources */,
+				3D16712A16395051009478AC /* aeroPressStir11.png in Resources */,
+				3D16712B16395051009478AC /* aeroPressStir12.png in Resources */,
+				3D16712C16395051009478AC /* aeroPressStir13.png in Resources */,
+				3D16712D16395051009478AC /* aeroPressStir14.png in Resources */,
+				3D16712E16395051009478AC /* aeroPressStir15.png in Resources */,
+				3D4D551E1639640E0096A52A /* aeroPressSteep00.png in Resources */,
+				3D4D551F1639640E0096A52A /* aeroPressSteep01.png in Resources */,
+				3D4D55201639640E0096A52A /* aeroPressSteep02.png in Resources */,
+				3D4D55211639640E0096A52A /* aeroPressSteep03.png in Resources */,
+				3D4D55221639640E0096A52A /* aeroPressSteep04.png in Resources */,
+				3D4D55231639640E0096A52A /* aeroPressSteep05.png in Resources */,
+				3D4D55241639640E0096A52A /* aeroPressSteep06.png in Resources */,
+				3D4D55251639640E0096A52A /* aeroPressSteep07.png in Resources */,
+				3D4D55261639640E0096A52A /* aeroPressSteep08.png in Resources */,
+				3D4D55271639640E0096A52A /* aeroPressSteep09.png in Resources */,
+				3D4D55281639640E0096A52A /* aeroPressSteep10.png in Resources */,
+				3D4D55291639640E0096A52A /* aeroPressSteep11.png in Resources */,
+				3D4D552A1639640E0096A52A /* aeroPressSteep12.png in Resources */,
+				3D4D552B1639640E0096A52A /* aeroPressSteep13.png in Resources */,
+				3D4D552C1639640E0096A52A /* aeroPressSteep14.png in Resources */,
+				3D4D552D1639640E0096A52A /* aeroPressSteep15.png in Resources */,
+				3D4D552E1639640E0096A52A /* aeroPressSteep16.png in Resources */,
+				3D4D552F1639640E0096A52A /* aeroPressSteep17.png in Resources */,
+				3D4D55301639640E0096A52A /* aeroPressSteep18.png in Resources */,
+				3D4D55311639640E0096A52A /* aeroPressSteep19.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
