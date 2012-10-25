@@ -86,6 +86,7 @@
 		3D79BD3C162C800C0012A051 /* gear248.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D79BD3B162C800C0012A051 /* gear248.png */; };
 		3D79BD3E162CB75A0012A051 /* gear48_yeni.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D79BD3D162CB75A0012A051 /* gear48_yeni.png */; };
 		3D79BD40162CB81A0012A051 /* settingsGear_yeni.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D79BD3F162CB81A0012A051 /* settingsGear_yeni.png */; };
+		3D8C07C816399E96008F2909 /* aeroPressCup.png in Resources */ = {isa = PBXBuildFile; fileRef = 3D8C07C716399E96008F2909 /* aeroPressCup.png */; };
 		3DD58EF115F3A66200FB9F3F /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD58EF015F3A66200FB9F3F /* UIKit.framework */; };
 		3DD58EF315F3A66200FB9F3F /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD58EF215F3A66200FB9F3F /* Foundation.framework */; };
 		3DD58EF515F3A66200FB9F3F /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3DD58EF415F3A66200FB9F3F /* CoreGraphics.framework */; };
@@ -341,6 +342,7 @@
 		3D79BD3B162C800C0012A051 /* gear248.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear248.png; sourceTree = "<group>"; };
 		3D79BD3D162CB75A0012A051 /* gear48_yeni.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = gear48_yeni.png; sourceTree = "<group>"; };
 		3D79BD3F162CB81A0012A051 /* settingsGear_yeni.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = settingsGear_yeni.png; sourceTree = "<group>"; };
+		3D8C07C716399E96008F2909 /* aeroPressCup.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = aeroPressCup.png; sourceTree = "<group>"; };
 		3DD58EEC15F3A66200FB9F3F /* FrenchPress.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FrenchPress.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		3DD58EF015F3A66200FB9F3F /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		3DD58EF215F3A66200FB9F3F /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -846,6 +848,7 @@
 				3D586340163691C70000B157 /* FrenchPressAnimations */,
 				3D586341163697720000B157 /* AeroPressAnimations */,
 				3DD58F7715F3A98C00FB9F3F /* backgroundPSD.png */,
+				3D8C07C716399E96008F2909 /* aeroPressCup.png */,
 				3DE213271635A00000CFE047 /* aeropress.png */,
 				3D29E7EE16021FF800294250 /* settingsGear@2x.png */,
 				3D79BD3F162CB81A0012A051 /* settingsGear_yeni.png */,
@@ -1188,6 +1191,7 @@
 				3D4D552F1639640E0096A52A /* aeroPressSteep17.png in Resources */,
 				3D4D55301639640E0096A52A /* aeroPressSteep18.png in Resources */,
 				3D4D55311639640E0096A52A /* aeroPressSteep19.png in Resources */,
+				3D8C07C816399E96008F2909 /* aeroPressCup.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

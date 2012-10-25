@@ -8,13 +8,13 @@ NSTimeInterval const kStartTime = 1.5f;
 NSString *const kFrenchWaterTime = @"15";
 NSString *const kFrenchStirTime = @"5";
 NSString *const kFrenchSteepTime = @"240";
-NSString *const kFrenchFinishTime = @"5";
+NSString *const kFrenchFinishTime = @"1";
 
 // AeroPress
-NSString *const kAeroWaterTime = @"10";
+NSString *const kAeroWaterTime = @"5";
 NSString *const kAeroStirTime = @"10";
-NSString *const kAeroSteepTime = @"30";
-NSString *const kAeroFinishTime = @"4";
+NSString *const kAeroSteepTime = @"10";
+NSString *const kAeroFinishTime = @"20";
 
 // Coffee step states in boolean
 NSString *const kStartAtLaunch = @"startAtLaunch";

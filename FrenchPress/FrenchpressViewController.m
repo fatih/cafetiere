@@ -300,6 +300,7 @@ BrewMethod brewMethod;
                 [aeroTimeSection addElement:[self timePickerElementWithTitle:@"Adding water" DefaultKeyValue:@"aeroWaterTime"]];
                 [aeroTimeSection addElement:[self timePickerElementWithTitle:@"Stir coffee" DefaultKeyValue:@"aeroStirTime"]];
                 [aeroTimeSection addElement:[self timePickerElementWithTitle:@"Steeping" DefaultKeyValue:@"aeroSteepTime"]];
+                [aeroTimeSection addElement:[self timePickerElementWithTitle:@"Press down" DefaultKeyValue:@"aeroFinishTime"]];
                 [root addSection:aeroTimeSection];
             }
             break;
@@ -383,26 +384,50 @@ BrewMethod brewMethod;
     [self cleanForNewStart];
     
     NSLog(@"Cafetiere has Started");
-    self.infoLabel.text = @"Starting";
     self.didCoffeeStarted = 1;
-    
-    CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
-    crossFade.duration = kStartTime - 1.0f;
-    crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"fempty_0"].CGImage);
     
     switch (brewMethod) {
         case FrenchPress:
             {
+                self.infoLabel.text = @"Starting";
+                CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
+                crossFade.duration = kStartTime - 1.0f;
+                crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"fempty_0"].CGImage);
                 crossFade.toValue = (__bridge id)([UIImage imageNamed:@"animBegin25"].CGImage);
                 [self.coffeeImageView.layer addAnimation:crossFade forKey:@"animateContents"];
                 [self.coffeeImageView setImage:[UIImage imageNamed:@"animBegin25"]];
+                
+                self.coffeeImageView.image = [UIImage imageNamed:@"animBegin25"];
+                CATransition *animation = [CATransition animation];
+                [animation setDuration:1];
+                [animation setType:kCATransitionPush];
+                [animation setSubtype:kCATransitionFromBottom];
+                [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+                [[self.coffeeImageView layer] addAnimation:animation forKey:@"SlideOutandInImagek"];
             }
             break;
         case AeroPress:
             {
-                crossFade.toValue = (__bridge id)([UIImage imageNamed:@"aeroPressBegin18"].CGImage);
-                [self.coffeeImageView.layer addAnimation:crossFade forKey:@"animateContents"];
-                [self.coffeeImageView setImage:[UIImage imageNamed:@"aeroPressBegin18"]];
+                self.infoLabel.text = @"Stand chamber on a cup";
+                self.coffeeImageView.image = [UIImage imageNamed:@"aeroPressBegin18.png"];
+                CATransition *animation = [CATransition animation];
+                [animation setDuration:1.0];
+                [animation setType:kCATransitionPush];
+                [animation setSubtype:kCATransitionFromBottom];
+                [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+                [[self.coffeeImageView layer] addAnimation:animation forKey:@"SlideOutandInImagek"];
+                self.coffeeImageView.image = [UIImage imageNamed:@"aeroPressBegin18.png"];
+                
+                UIImage *toImage = [UIImage imageNamed:@"aeroPressBegin18.png"];
+                [UIView transitionWithView:self.view
+                                  duration:1.0f
+                                   options:UIViewAnimationCurveEaseIn | UIv
+                                animations:^{
+                                    self.coffeeImageView.image = toImage;
+                                } completion:NULL];
+//
+                
+                
             }
         default:
             break;
@@ -554,7 +579,7 @@ BrewMethod brewMethod;
                 if (!self.finishState) {
                     NSLog(@"FinishState");
                     [self setFinishState:1];
-                    [self.infoLabel setText:@"Push plunger down"];
+                    [self.infoLabel setText:@"Gently press down"];
                     [self.timerLabel setText:@"Ready"];
                     [self playSoundWithName:@"coffeeFinished" type:@"wav"];
                     
@@ -574,7 +599,7 @@ BrewMethod brewMethod;
                 [self.coffeeImageView stopAnim]; // Stop previus begin animation
                 [self.infoLabel setText:@""];
                 [self.timerLabel setText:@"Enjoy"];
-                [self.coffeeImageView setImage:[UIImage imageNamed:@"fpour_5"]];
+                [self.coffeeImageView setImage:[UIImage imageNamed:@"aeropress"]];
             }
             break;
         default:
@@ -686,14 +711,24 @@ BrewMethod brewMethod;
 //                [self.infoLabel setText:@"Hold on the lid and pour"];
                 [self.infoLabel setText:@""];
                 [self.timerLabel setText:@"Enjoy"];
-                [self.coffeeImageView setImage:[UIImage imageNamed:@"animFinish25"]];
+//                [self.coffeeImageView setImage:[UIImage imageNamed:@"animFinish25"]];
+//                
+//                CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
+//                crossFade.duration = 1.0;
+//                crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"animFinish25"].CGImage);
+//                crossFade.toValue = (__bridge id)([UIImage imageNamed:@"fpour_5"].CGImage);
+//                [self.coffeeImageView.layer addAnimation:crossFade forKey:@"animateContents"];
+//                [self.coffeeImageView setImage:[UIImage imageNamed:@"fpour_5"]];
                 
-                CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
-                crossFade.duration = 1.0;
-                crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"animFinish25"].CGImage);
-                crossFade.toValue = (__bridge id)([UIImage imageNamed:@"fpour_5"].CGImage);
-                [self.coffeeImageView.layer addAnimation:crossFade forKey:@"animateContents"];
-                [self.coffeeImageView setImage:[UIImage imageNamed:@"fpour_5"]];
+                
+                self.coffeeImageView.image = [UIImage imageNamed:@"fpour_5"];
+                CATransition *animation = [CATransition animation];
+                [animation setDuration:1];
+                [animation setType:kCATransitionPush];
+                [animation setSubtype:kCATransitionFromBottom];
+                [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+                [[self.coffeeImageView layer] addAnimation:animation forKey:@"SlideOutandInImagek"];
+                
                 
             }
             break;
@@ -797,6 +832,37 @@ BrewMethod brewMethod;
             [self.aeroPressStir addObject:image];
         }
     }
+    //first end
+    
+    // Second stir anim
+    for (NSUInteger i = 0; i < 8; i++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"aeroPressStir%02u", i]];
+        if (image) {
+            [self.aeroPressStir addObject:image];
+        }
+    }
+    
+    for (NSUInteger i = 8; i > 0; i--) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"aeroPressStir%02u", i]];
+        if (image) {
+            [self.aeroPressStir addObject:image];
+        }
+    }
+    
+    for (NSUInteger i = 9; i <= 15; i++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"aeroPressStir%02u", i]];
+        if (image) {
+            [self.aeroPressStir addObject:image];
+        }
+    }
+    
+    for (NSUInteger i = 15; i > 9; i--) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"aeroPressStir%02u", i]];
+        if (image) {
+            [self.aeroPressStir addObject:image];
+        }
+    }
+    // second end
     
     for (NSUInteger i = 0; i <= 19; i++) {
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"aeroPressSteep%02u", i]];

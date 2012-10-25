@@ -100,8 +100,7 @@
         BOOL enabled = [defaults boolForKey:kStartAtLaunch];
         
         [self.viewController.infoLabel setText:@"Slide to start"];
-        [self.viewController.timerLabel setText:@"Cafetière"];
-        [self.viewController.coffeeImageView setImage:nil];
+        [self.viewController setupBrewMethod];
         
         if (enabled) {
             [self.viewController startCoffee];

@@ -90,6 +90,7 @@ typedef enum {
 -(void)stopTimers;
 -(void)startCountdown:(NSTimeInterval)timeGap;
 -(void)getCurrentCoffeeState;
+-(void)setupBrewMethod;
 -(void)selectBrewMethod:(NSString *)method;
 
 @end
