@@ -14,10 +14,9 @@ NSString *const kFrenchFinishTime = @"5";
 NSString *const kAeroWaterTime = @"10";
 NSString *const kAeroStirTime = @"10";
 NSString *const kAeroSteepTime = @"30";
-NSString *const kAeroFinishTime = @"30";
+NSString *const kAeroFinishTime = @"4";
 
 // Coffee step states in boolean
 NSString *const kStartAtLaunch = @"startAtLaunch";
 BOOL const kAddWaterStep = YES;
 BOOL const kAddStirStep = YES;
-

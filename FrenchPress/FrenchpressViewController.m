@@ -98,10 +98,6 @@ BrewMethod brewMethod;
                 NSTimeInterval cFrenchStirTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchStirTime"] floatValue];
                 NSTimeInterval cFrenchSteepTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchSteepTime"] floatValue];
                 NSTimeInterval cFrenchFinishTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchFinishTime"] floatValue];
-            //    NSLog(@"Watertime: %f", cWaterTime);
-            //    NSLog(@"Stirtime: %f", cStirTime);
-            //    NSLog(@"SteepTime: %f", cSteepTime);
-            //    NSLog(@"FinishTime: %f", cFinishTime);
                 [self setFrenchWaterTime:cFrenchWaterTime];
                 [self setFrenchBloomTime:cFrenchStirTime];
                 [self setFrenchSteepTime:cFrenchSteepTime];
@@ -122,6 +118,7 @@ BrewMethod brewMethod;
                 [self setAeroBloomTime:cAeroStirTime];
                 [self setAeroSteepTime:cAeroSteepTime];
                 [self setAeroFinishTime:cAeroFinishTime];
+                [self setAeroTotalTime:[self aeroSteepTime] + [self aeroBloomTime] + [self aeroWaterTime]];
             }
             break;
         default:
@@ -290,7 +287,7 @@ BrewMethod brewMethod;
     switch (brewMethod) {
         case FrenchPress:
             {
-                QSection *timeSection = [[QSection alloc] initWithTitle:@"Timer Settings"];
+                QSection *timeSection = [[QSection alloc] initWithTitle:@"Timer Settings (French Press)"];
                 [timeSection addElement:[self timePickerElementWithTitle:@"Adding water" DefaultKeyValue:@"frenchWaterTime"]];
                 [timeSection addElement:[self timePickerElementWithTitle:@"Stir coffee" DefaultKeyValue:@"frenchStirTime"]];
                 [timeSection addElement:[self timePickerElementWithTitle:@"Steeping" DefaultKeyValue:@"frenchSteepTime"]];
@@ -298,6 +295,13 @@ BrewMethod brewMethod;
             }
             break;
         case AeroPress:
+            {
+                QSection *aeroTimeSection = [[QSection alloc] initWithTitle:@"Timer Settings (AeroPress)"];
+                [aeroTimeSection addElement:[self timePickerElementWithTitle:@"Adding water" DefaultKeyValue:@"aeroWaterTime"]];
+                [aeroTimeSection addElement:[self timePickerElementWithTitle:@"Stir coffee" DefaultKeyValue:@"aeroStirTime"]];
+                [aeroTimeSection addElement:[self timePickerElementWithTitle:@"Steeping" DefaultKeyValue:@"aeroSteepTime"]];
+                [root addSection:aeroTimeSection];
+            }
             break;
         default:
             break;
@@ -431,10 +435,6 @@ BrewMethod brewMethod;
         [defaults synchronize];
     }
     
-    self.startDate = [[NSDate alloc] initWithTimeInterval:self.frenchTotalTime sinceDate:self.startTime];
-    self.waterDate = [[NSDate alloc] initWithTimeInterval:self.frenchWaterTime sinceDate:self.startTime];
-    self.bloomDate = [[NSDate alloc] initWithTimeInterval:(self.frenchWaterTime + self.frenchBloomTime)
-                                                sinceDate:self.startTime];
     
     // Get the system calendar
     self.sysCalendar = [NSCalendar currentCalendar];
@@ -442,6 +442,11 @@ BrewMethod brewMethod;
     switch (brewMethod) {
         case FrenchPress:
             {
+                self.startDate = [[NSDate alloc] initWithTimeInterval:self.frenchTotalTime sinceDate:self.startTime];
+                self.waterDate = [[NSDate alloc] initWithTimeInterval:self.frenchWaterTime sinceDate:self.startTime];
+                self.bloomDate = [[NSDate alloc] initWithTimeInterval:(self.frenchWaterTime + self.frenchBloomTime)
+                                                            sinceDate:self.startTime];
+                
                 self.paintingTimer = [NSTimer scheduledTimerWithTimeInterval:0.05f
                                                      target:self
                                                    selector:@selector (beginFrenchPress:)
@@ -451,6 +456,11 @@ BrewMethod brewMethod;
             break;
         case AeroPress:
             {
+                self.startDate = [[NSDate alloc] initWithTimeInterval:self.aeroTotalTime sinceDate:self.startTime];
+                self.waterDate = [[NSDate alloc] initWithTimeInterval:self.aeroWaterTime sinceDate:self.startTime];
+                self.bloomDate = [[NSDate alloc] initWithTimeInterval:(self.aeroWaterTime + self.aeroBloomTime)
+                                                            sinceDate:self.startTime];
+                
                 self.paintingTimer = [NSTimer scheduledTimerWithTimeInterval:0.05f
                                                      target:self
                                                    selector:@selector (beginAeroPress:)
@@ -495,7 +505,7 @@ BrewMethod brewMethod;
                     [self.infoLabel setText:@"Add preboiled water"];
                     
                     [[self coffeeImageView] animImages:[self aeroPressBegin]];
-                    [[self coffeeImageView] setAnimDuration:[self frenchWaterTime]];
+                    [[self coffeeImageView] setAnimDuration:[self aeroWaterTime]];
                     [[self coffeeImageView] animRepeatCount: 1];
                     [[self coffeeImageView] startAnim];
                 }
@@ -512,7 +522,7 @@ BrewMethod brewMethod;
                     
                     [self.coffeeImageView stopAnim]; // Stop previus begin animation
                     [[self coffeeImageView] animImages:[self aeroPressStir]];
-                    [[self coffeeImageView] setAnimDuration:[self frenchBloomTime] / 1]; //TODO should /2
+                    [[self coffeeImageView] setAnimDuration:[self aeroBloomTime] / 1]; //TODO should /2
                     [[self coffeeImageView] animRepeatCount: 1]; // TODO should 2
                     [[self coffeeImageView] startAnim];
                 }
@@ -527,7 +537,7 @@ BrewMethod brewMethod;
                     
                     [self.coffeeImageView stopAnim]; // Stop previus begin animation
                     [[self coffeeImageView] animImages:[self aeroPressSteep]];
-                    [[self coffeeImageView] setAnimDuration:[self frenchSteepTime]];
+                    [[self coffeeImageView] setAnimDuration:[self aeroSteepTime]];
                     [[self coffeeImageView] animRepeatCount: 1];
                     [[self coffeeImageView] startAnim];
                 }
@@ -550,7 +560,7 @@ BrewMethod brewMethod;
                     
                     [self.coffeeImageView stopAnim]; // Stop previus begin animation
                     [[self coffeeImageView] animImages:[self aeroPressFinish]];
-                    [[self coffeeImageView] setAnimDuration:[self frenchFinishTime]];
+                    [[self coffeeImageView] setAnimDuration:[self aeroFinishTime]];
                     [[self coffeeImageView] animRepeatCount: 1];
                     [[self coffeeImageView] startAnim];
                 }
@@ -694,32 +704,59 @@ BrewMethod brewMethod;
 
 -(void)getCurrentCoffeeState
 {
+    NSTimeInterval waterTime;
+    NSTimeInterval bloomTime;
+    NSTimeInterval totalTime;
+    NSTimeInterval finishTime;
+    
+    switch (brewMethod) {
+        case FrenchPress:
+            {
+                waterTime = self.frenchWaterTime;
+                bloomTime = self.frenchBloomTime;
+                totalTime = self.frenchTotalTime;
+                finishTime = self.frenchFinishTime;
+            }
+            break;
+        case AeroPress:
+            {
+                waterTime = self.aeroWaterTime;
+                bloomTime = self.aeroBloomTime;
+                totalTime = self.aeroTotalTime;
+                finishTime = self.aeroFinishTime;
+            }
+            break;
+        default:
+            break;
+    }
+    
+    
     self.elapsedTime = [[NSDate date] timeIntervalSinceDate:self.startTime];
     // NSLog(@"Elapsed Time:%f", self.elapsedTime);
     
-    if (self.elapsedTime <= [self frenchWaterTime]) {
+    if (self.elapsedTime <= waterTime) {
         coffeeState = FrenchWaterState;
         self.stateStartDate = [self.startTime dateByAddingTimeInterval:0];
         
-    } else if (self.elapsedTime >= [self frenchWaterTime] &&
-               self.elapsedTime < [self frenchWaterTime] + [self frenchBloomTime]) {
+    } else if (self.elapsedTime >= waterTime &&
+               self.elapsedTime < waterTime + bloomTime) {
         coffeeState = FrenchStirState;
-        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self frenchWaterTime]];
+        self.stateStartDate = [self.startTime dateByAddingTimeInterval:waterTime];
         
-    } else if (self.elapsedTime >= [self frenchWaterTime] + [self frenchBloomTime] &&
-               self.elapsedTime < [self frenchTotalTime]) {
+    } else if (self.elapsedTime >= waterTime + bloomTime &&
+               self.elapsedTime < totalTime) {
         coffeeState = FrenchSteepState;
-        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self frenchWaterTime] + [self frenchBloomTime]];
+        self.stateStartDate = [self.startTime dateByAddingTimeInterval:waterTime + bloomTime];
         
-    } else if (self.elapsedTime >= [self frenchTotalTime] &&
-               self.elapsedTime < [self frenchTotalTime] + [self frenchFinishTime]) {
+    } else if (self.elapsedTime >= totalTime &&
+               self.elapsedTime < totalTime + finishTime) {
         coffeeState = FrenchFinishState;
-        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self frenchTotalTime]];
+        self.stateStartDate = [self.startTime dateByAddingTimeInterval:totalTime];
         
-    }  else if (self.elapsedTime >= [self frenchTotalTime] + [self frenchFinishTime]) {
+    }  else if (self.elapsedTime >= totalTime + finishTime) {
         self.didEnded = YES;
         coffeeState = FrenchEnjoyState;
-        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self frenchTotalTime] + [self frenchFinishTime]];
+        self.stateStartDate = [self.startTime dateByAddingTimeInterval:totalTime + finishTime];
     }
 }
 

@@ -30,7 +30,7 @@
 
 @property (nonatomic, strong) NSCalendar *sysCalendar;
 
-@property (nonatomic) NSTimeInterval frenchTotalTime, elapsedTime;
+@property (nonatomic) NSTimeInterval frenchTotalTime, aeroTotalTime, elapsedTime;
 
 // Each step has a different time
 @property (nonatomic) NSTimeInterval frenchWaterTime, frenchBloomTime, frenchSteepTime, frenchFinishTime;
