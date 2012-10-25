@@ -210,7 +210,7 @@
     [self.viewDeckController closeLeftViewBouncing:^(IIViewDeckController *controller) {
         if ([controller.centerController isKindOfClass:[UINavigationController class]]) {
             UITableViewController* cc = (UITableViewController*)((UINavigationController*)controller.centerController).topViewController;
-//            cc.navigationItem.title = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
+            cc.navigationItem.title = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
             
             FrenchpressViewController *ff = (FrenchpressViewController *)((UINavigationController*)controller.centerController).topViewController;
             [ff selectBrewMethod:[tableView cellForRowAtIndexPath:indexPath].textLabel.text];

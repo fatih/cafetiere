@@ -94,25 +94,34 @@ BrewMethod brewMethod;
                 self.timerLabel.text = @"French Press";
                 [self.coffeeImageView setImage:[UIImage imageNamed:@"animSteep20.png"]];
                 // Get default values from settings
-                NSTimeInterval cWaterTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchWaterTime"] floatValue];
-                NSTimeInterval cStirTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchStirTime"] floatValue];
-                NSTimeInterval cSteepTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchSteepTime"] floatValue];
-                NSTimeInterval cFinishTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchFinishTime"] floatValue];
+                NSTimeInterval cFrenchWaterTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchWaterTime"] floatValue];
+                NSTimeInterval cFrenchStirTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchStirTime"] floatValue];
+                NSTimeInterval cFrenchSteepTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchSteepTime"] floatValue];
+                NSTimeInterval cFrenchFinishTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchFinishTime"] floatValue];
             //    NSLog(@"Watertime: %f", cWaterTime);
             //    NSLog(@"Stirtime: %f", cStirTime);
             //    NSLog(@"SteepTime: %f", cSteepTime);
             //    NSLog(@"FinishTime: %f", cFinishTime);
-                [self setFrenchWaterTime:cWaterTime];
-                [self setFrenchBloomTime:cStirTime];
-                [self setFrenchSteepTime:cSteepTime];
-                [self setFrenchFinishTime:cFinishTime];
-                [self setCountdownSeconds:[self frenchSteepTime] + [self frenchBloomTime] + [self frenchWaterTime]];
+                [self setFrenchWaterTime:cFrenchWaterTime];
+                [self setFrenchBloomTime:cFrenchStirTime];
+                [self setFrenchSteepTime:cFrenchSteepTime];
+                [self setFrenchFinishTime:cFrenchFinishTime];
+                [self setFrenchTotalTime:[self frenchSteepTime] + [self frenchBloomTime] + [self frenchWaterTime]];
+                
             }
             break;
         case AeroPress:
             {
                 self.timerLabel.text = @"AeroPress";
                 [self.coffeeImageView setImage:[UIImage imageNamed:@"aeropress.png"]];
+                NSTimeInterval cAeroWaterTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"aeroWaterTime"] floatValue];
+                NSTimeInterval cAeroStirTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"aeroStirTime"] floatValue];
+                NSTimeInterval cAeroSteepTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"aeroSteepTime"] floatValue];
+                NSTimeInterval cAeroFinishTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"aeroFinishTime"] floatValue];
+                [self setAeroWaterTime:cAeroWaterTime];
+                [self setAeroBloomTime:cAeroStirTime];
+                [self setAeroSteepTime:cAeroSteepTime];
+                [self setAeroFinishTime:cAeroFinishTime];
             }
             break;
         default:
@@ -422,7 +431,7 @@ BrewMethod brewMethod;
         [defaults synchronize];
     }
     
-    self.startDate = [[NSDate alloc] initWithTimeInterval:self.countdownSeconds sinceDate:self.startTime];
+    self.startDate = [[NSDate alloc] initWithTimeInterval:self.frenchTotalTime sinceDate:self.startTime];
     self.waterDate = [[NSDate alloc] initWithTimeInterval:self.frenchWaterTime sinceDate:self.startTime];
     self.bloomDate = [[NSDate alloc] initWithTimeInterval:(self.frenchWaterTime + self.frenchBloomTime)
                                                 sinceDate:self.startTime];
@@ -540,7 +549,7 @@ BrewMethod brewMethod;
                     [self playSoundWithName:@"coffeeFinished" type:@"wav"];
                     
                     [self.coffeeImageView stopAnim]; // Stop previus begin animation
-                    [[self coffeeImageView] animImages:[self frenchPressFinish]];
+                    [[self coffeeImageView] animImages:[self aeroPressFinish]];
                     [[self coffeeImageView] setAnimDuration:[self frenchFinishTime]];
                     [[self coffeeImageView] animRepeatCount: 1];
                     [[self coffeeImageView] startAnim];
@@ -698,19 +707,19 @@ BrewMethod brewMethod;
         self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self frenchWaterTime]];
         
     } else if (self.elapsedTime >= [self frenchWaterTime] + [self frenchBloomTime] &&
-               self.elapsedTime < [self countdownSeconds]) {
+               self.elapsedTime < [self frenchTotalTime]) {
         coffeeState = FrenchSteepState;
         self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self frenchWaterTime] + [self frenchBloomTime]];
         
-    } else if (self.elapsedTime >= [self countdownSeconds] &&
-               self.elapsedTime < [self countdownSeconds] + [self frenchFinishTime]) {
+    } else if (self.elapsedTime >= [self frenchTotalTime] &&
+               self.elapsedTime < [self frenchTotalTime] + [self frenchFinishTime]) {
         coffeeState = FrenchFinishState;
-        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self countdownSeconds]];
+        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self frenchTotalTime]];
         
-    }  else if (self.elapsedTime >= [self countdownSeconds] + [self frenchFinishTime]) {
+    }  else if (self.elapsedTime >= [self frenchTotalTime] + [self frenchFinishTime]) {
         self.didEnded = YES;
         coffeeState = FrenchEnjoyState;
-        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self countdownSeconds] + [self frenchFinishTime]];
+        self.stateStartDate = [self.startTime dateByAddingTimeInterval:[self frenchTotalTime] + [self frenchFinishTime]];
     }
 }
 
@@ -720,6 +729,13 @@ BrewMethod brewMethod;
         UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"aeroPressBegin%02u", i]];
         if (image) {
             [self.aeroPressBegin addObject:image];
+        }
+    }
+    
+    for (NSUInteger i = 0; i <= 25; i++) {
+        UIImage *image = [UIImage imageNamed:[NSString stringWithFormat:@"aeroPressFinish%02u", i]];
+        if (image) {
+            [self.aeroPressFinish addObject:image];
         }
     }
 }

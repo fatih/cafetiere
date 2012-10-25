@@ -21,7 +21,6 @@
 @property (nonatomic, strong) UIImage *infoBackgroundImage;
 @property (nonatomic, strong) UIImage *defaultBackgroundImage;
 
-
 @property (nonatomic, strong) NSMutableString *timerString;
 
 @property (nonatomic, strong) NSTimer *paintingTimer, *coffeeTimer;
@@ -31,10 +30,12 @@
 
 @property (nonatomic, strong) NSCalendar *sysCalendar;
 
-@property (nonatomic) NSTimeInterval countdownSeconds, elapsedTime;
+@property (nonatomic) NSTimeInterval frenchTotalTime, elapsedTime;
 
-// Each step has a different time , FrenchPress
+// Each step has a different time
 @property (nonatomic) NSTimeInterval frenchWaterTime, frenchBloomTime, frenchSteepTime, frenchFinishTime;
+@property (nonatomic) NSTimeInterval aeroWaterTime, aeroBloomTime, aeroSteepTime, aeroFinishTime;
+
 @property (nonatomic) NSTimeInterval startGap;
 
 @property (nonatomic) int waterState, bloomState, steepState, finishState;
