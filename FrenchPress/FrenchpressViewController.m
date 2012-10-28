@@ -38,7 +38,7 @@ BrewMethod brewMethod;
         
         // Set the application defaults
         NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
-        NSDictionary *appDefaults = @{@"startAtLaunch" : @"YES",
+        NSDictionary *appDefaults = @{@"startAtLaunch" : @"NO",
                                         @"frenchWaterTime" : kFrenchWaterTime,
                                         @"frenchStirTime" : kFrenchStirTime,
                                         @"frenchSteepTime" : kFrenchSteepTime,
