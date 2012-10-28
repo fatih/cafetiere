@@ -604,11 +604,7 @@ BrewMethod brewMethod;
                 [self.coffeeImageView stopAnim]; // Stop previus begin animation
                 [self.infoLabel setText:@""];
                 [self.timerLabel setText:@"Enjoy"];
-                
-                [self.coffeeImageView stopAnim]; // Stop previus begin animation
-                [self.infoLabel setText:@""];
-                [self.timerLabel setText:@"Enjoy"];
-                
+              
                 self.coffeeImageView.image = [UIImage imageNamed:@"aeroPressReady.png"];
                 CATransition *animation = [CATransition animation];
                 [animation setDuration:1];
