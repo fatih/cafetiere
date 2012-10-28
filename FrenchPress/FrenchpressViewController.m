@@ -124,19 +124,16 @@ BrewMethod brewMethod;
         case AeroPress:
             {
                 self.title = @"AeroPress"; // NavigationBar title
-//                self.timerLabel.text = @"Slide to start";
-//                self.infoLabel.text = nil;
                 self.infoLabel.text = @"Slide to start";
                 self.timerLabel.text = nil;
                 
-//                self.coffeeImageView.image = [UIImage imageNamed:@"aeroPressCup.png"];
-                self.coffeeImageView.image = [UIImage imageNamed:@"aeroPress.png"];
+                self.coffeeImageView.image = [UIImage imageNamed:@"aeropress.png"];
                 CATransition *animation = [CATransition animation];
                 [animation setDuration:1.0];
                 [animation setType:kCATransitionPush];
                 [animation setSubtype:kCATransitionFromBottom];
                 [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-                [[self.coffeeImageView layer] addAnimation:animation forKey:@"SlideOutandInImagekCup"];
+                [[self.coffeeImageView layer] addAnimation:animation forKey:@"AeroPressBegin"];
  
                 
                 NSTimeInterval cAeroWaterTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"aeroWaterTime"] floatValue];
