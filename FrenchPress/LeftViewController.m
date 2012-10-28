@@ -1,13 +1,9 @@
-//
-//  LeftViewController.m
-//  ViewDeckExample
-//
-
-
 #import "LeftViewController.h"
 #import "IIViewDeckController.h"
 #import "FrenchpressViewController.h"
 #import "Constants.h"
+#import <QuartzCore/QuartzCore.h>
+
 
 
 @implementation LeftViewController
@@ -213,7 +209,10 @@
             cc.navigationItem.title = [tableView cellForRowAtIndexPath:indexPath].textLabel.text;
             
             FrenchpressViewController *ff = (FrenchpressViewController *)((UINavigationController*)controller.centerController).topViewController;
+            BrewMethod brewMethod;
+            
             [ff selectBrewMethod:[tableView cellForRowAtIndexPath:indexPath].textLabel.text];
+            brewMethod = [ff getBrewMethod];
             
             NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
             BOOL enabled = [defaults boolForKey:kStartAtLaunch];
@@ -222,6 +221,36 @@
                 [ff startCoffee];
             } else {
                 [ff cleanForNewStart];
+                
+//                switch (brewMethod) {
+//                    case FrenchPress:
+//                        {
+//                            ff.infoLabel.text = @"Put grounds into the pot";
+//                            ff.coffeeImageView.image = [UIImage imageNamed:@"animBegin25"];
+//                            CATransition *animation = [CATransition animation];
+//                            [animation setDuration:1.0];
+//                            [animation setType:kCATransitionPush];
+//                            [animation setSubtype:kCATransitionFromBottom];
+//                            [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+//                            [[ff.coffeeImageView layer] addAnimation:animation forKey:@"SlideOutandInImagekCup"];
+//                            
+//                        }
+//                        break;
+//                    case AeroPress:
+//                        {
+//                            ff.infoLabel.text = @"Put grounds into chamber";
+//                            ff.coffeeImageView.image = [UIImage imageNamed:@"aeroPressChamber.png"];
+//                            CATransition *animation = [CATransition animation];
+//                            [animation setDuration:1.0];
+//                            [animation setType:kCATransitionPush];
+//                            [animation setSubtype:kCATransitionFromBottom];
+//                            [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+//                            [[ff.coffeeImageView layer] addAnimation:animation forKey:@"SlideOutandInImagekCup"];
+//                        }
+//                        break;
+//                    default:
+//                        break;
+//                }
             }
             
             if ([cc respondsToSelector:@selector(tableView)]) {

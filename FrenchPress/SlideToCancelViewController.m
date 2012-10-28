@@ -32,7 +32,7 @@
 
 - (void) setEnabled:(BOOL)enabled{
 	slider.enabled = enabled;
-	label.enabled = enabled;
+    label.enabled = enabled;
 	if (enabled) {
 		slider.value = 0.0;
 		label.alpha = 1.0;

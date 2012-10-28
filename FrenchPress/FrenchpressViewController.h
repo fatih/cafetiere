@@ -92,5 +92,6 @@ typedef enum {
 -(void)getCurrentCoffeeState;
 -(void)setupBrewMethod;
 -(void)selectBrewMethod:(NSString *)method;
+-(BrewMethod)getBrewMethod;
 
 @end

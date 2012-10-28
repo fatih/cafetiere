@@ -78,12 +78,14 @@ BrewMethod brewMethod;
 {
     if ([method isEqualToString:@"French Press"]) {
         brewMethod = FrenchPress;
-        NSLog(@"French Press selected");
     } else if ([method isEqualToString:@"AeroPress"]) {
         brewMethod = AeroPress;
-        NSLog(@"AeroPress selected");
     };
-    
+}
+
+-(BrewMethod)getBrewMethod
+{
+    return brewMethod;
 }
 
 -(void)setupBrewMethod
@@ -91,8 +93,21 @@ BrewMethod brewMethod;
     switch (brewMethod) {
         case FrenchPress:
             {
-                self.timerLabel.text = @"French Press";
-                [self.coffeeImageView setImage:[UIImage imageNamed:@"animSteep20.png"]];
+                self.title = @"French Press"; // NavigationBar title
+//                self.infoLabel.text = nil;
+//                self.timerLabel.text = @"Slide to start";
+                self.infoLabel.text = @"Slide to start";
+                self.timerLabel.text = nil;
+                
+//                self.coffeeImageView.image = [UIImage imageNamed:@"animBegin25"];
+                self.coffeeImageView.image = [UIImage imageNamed:@"animSteep20"];
+                CATransition *animation = [CATransition animation];
+                [animation setDuration:1.0];
+                [animation setType:kCATransitionPush];
+                [animation setSubtype:kCATransitionFromBottom];
+                [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+                [[self.coffeeImageView layer] addAnimation:animation forKey:@"SlideOutandInImagekCup"];
+                
                 // Get default values from settings
                 NSTimeInterval cFrenchWaterTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchWaterTime"] floatValue];
                 NSTimeInterval cFrenchStirTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"frenchStirTime"] floatValue];
@@ -108,8 +123,22 @@ BrewMethod brewMethod;
             break;
         case AeroPress:
             {
-                self.timerLabel.text = @"AeroPress";
-                [self.coffeeImageView setImage:[UIImage imageNamed:@"aeropress.png"]];
+                self.title = @"AeroPress"; // NavigationBar title
+//                self.timerLabel.text = @"Slide to start";
+//                self.infoLabel.text = nil;
+                self.infoLabel.text = @"Slide to start";
+                self.timerLabel.text = nil;
+                
+//                self.coffeeImageView.image = [UIImage imageNamed:@"aeroPressCup.png"];
+                self.coffeeImageView.image = [UIImage imageNamed:@"aeroPress.png"];
+                CATransition *animation = [CATransition animation];
+                [animation setDuration:1.0];
+                [animation setType:kCATransitionPush];
+                [animation setSubtype:kCATransitionFromBottom];
+                [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+                [[self.coffeeImageView layer] addAnimation:animation forKey:@"SlideOutandInImagekCup"];
+ 
+                
                 NSTimeInterval cAeroWaterTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"aeroWaterTime"] floatValue];
                 NSTimeInterval cAeroStirTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"aeroStirTime"] floatValue];
                 NSTimeInterval cAeroSteepTime = [[[NSUserDefaults standardUserDefaults] stringForKey:@"aeroSteepTime"] floatValue];
@@ -130,8 +159,6 @@ BrewMethod brewMethod;
 {
 //    NSLog(@"ViewDidLoad");
     [super viewDidLoad];
-    
-    self.title = @"Cafetière"; // NavigationBar title
     
     
     UIButton *settingsView = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, 30, 30)];
@@ -300,7 +327,7 @@ BrewMethod brewMethod;
                 [aeroTimeSection addElement:[self timePickerElementWithTitle:@"Adding water" DefaultKeyValue:@"aeroWaterTime"]];
                 [aeroTimeSection addElement:[self timePickerElementWithTitle:@"Stir coffee" DefaultKeyValue:@"aeroStirTime"]];
                 [aeroTimeSection addElement:[self timePickerElementWithTitle:@"Steeping" DefaultKeyValue:@"aeroSteepTime"]];
-                [aeroTimeSection addElement:[self timePickerElementWithTitle:@"Press down" DefaultKeyValue:@"aeroFinishTime"]];
+                [aeroTimeSection addElement:[self timePickerElementWithTitle:@"Pressing down" DefaultKeyValue:@"aeroFinishTime"]];
                 [root addSection:aeroTimeSection];
             }
             break;
@@ -355,16 +382,15 @@ BrewMethod brewMethod;
     
     [self.coffeeImageView setHasAnim:1];
     [self.coffeeImageView stopAnim];
+    [self.coffeeImageView setImage:nil];
     
     [self setWaterState:0];
     [self setBloomState:0];
     [self setSteepState:0];
     [self setFinishState:0];
-    [self.coffeeImageView setImage:nil];
     
-    // self.timerLabel and self.frenchpress is set in the method below
+    // self.timerLabel, self.infolabel and self.frenchpress is set in the method below
     [self setupBrewMethod];
-    [self.infoLabel setText:@"Slide to start"];
 }
 
 -(void)stopTimers
@@ -390,16 +416,9 @@ BrewMethod brewMethod;
         case FrenchPress:
             {
                 self.infoLabel.text = @"Starting";
-                CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
-                crossFade.duration = kStartTime - 1.0f;
-                crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"fempty_0"].CGImage);
-                crossFade.toValue = (__bridge id)([UIImage imageNamed:@"animBegin25"].CGImage);
-                [self.coffeeImageView.layer addAnimation:crossFade forKey:@"animateContents"];
-                [self.coffeeImageView setImage:[UIImage imageNamed:@"animBegin25"]];
-                
                 self.coffeeImageView.image = [UIImage imageNamed:@"animBegin25"];
                 CATransition *animation = [CATransition animation];
-                [animation setDuration:1];
+                [animation setDuration:1.0];
                 [animation setType:kCATransitionPush];
                 [animation setSubtype:kCATransitionFromBottom];
                 [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
@@ -408,7 +427,7 @@ BrewMethod brewMethod;
             break;
         case AeroPress:
             {
-                self.infoLabel.text = @"Stand chamber on a cup";
+                self.infoLabel.text = @"Starting";
                 self.coffeeImageView.image = [UIImage imageNamed:@"aeroPressBegin18.png"];
                 CATransition *animation = [CATransition animation];
                 [animation setDuration:1.0];
@@ -416,18 +435,6 @@ BrewMethod brewMethod;
                 [animation setSubtype:kCATransitionFromBottom];
                 [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
                 [[self.coffeeImageView layer] addAnimation:animation forKey:@"SlideOutandInImagek"];
-                self.coffeeImageView.image = [UIImage imageNamed:@"aeroPressBegin18.png"];
-                
-                UIImage *toImage = [UIImage imageNamed:@"aeroPressBegin18.png"];
-                [UIView transitionWithView:self.view
-                                  duration:1.0f
-                                   options:UIViewAnimationCurveEaseIn | UIv
-                                animations:^{
-                                    self.coffeeImageView.image = toImage;
-                                } completion:NULL];
-//
-                
-                
             }
         default:
             break;
@@ -440,8 +447,6 @@ BrewMethod brewMethod;
                                                    userInfo:nil
                                                     repeats:NO];
 
-    
-    
 }
 
 -(void)startCountdown:(NSTimeInterval)timeGap
@@ -599,7 +604,20 @@ BrewMethod brewMethod;
                 [self.coffeeImageView stopAnim]; // Stop previus begin animation
                 [self.infoLabel setText:@""];
                 [self.timerLabel setText:@"Enjoy"];
-                [self.coffeeImageView setImage:[UIImage imageNamed:@"aeropress"]];
+                
+                [self.coffeeImageView stopAnim]; // Stop previus begin animation
+                [self.infoLabel setText:@""];
+                [self.timerLabel setText:@"Enjoy"];
+                
+                self.coffeeImageView.image = [UIImage imageNamed:@"aeroPressReady.png"];
+                CATransition *animation = [CATransition animation];
+                [animation setDuration:1];
+                [animation setType:kCATransitionPush];
+                [animation setSubtype:kCATransitionFromBottom];
+                [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+                [[self.coffeeImageView layer] addAnimation:animation forKey:@"SlideOutandInImagek"];
+                
+                
             }
             break;
         default:
@@ -650,8 +668,19 @@ BrewMethod brewMethod;
             {
                 [self.timerLabel setText:[NSString stringWithFormat:@"%d", [bloomInfo second]]];
                 
+
+                
                 if (!self.bloomState) {
                     NSLog(@"StirState");
+                    
+//                self.coffeeImageView.image = [UIImage imageNamed:@"animStir07.png"];
+//                CATransition *animation = [CATransition animation];
+//                [animation setDuration:1.0];
+//                [animation setType:kCATransitionPush];
+//                [animation setSubtype:kCATransitionFromBottom];
+//                [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
+//                [[self.coffeeImageView layer] addAnimation:animation forKey:@"SlideOutandInImagek"];
+                    
                     [self setBloomState:1];
                     [self.infoLabel setText:@"Stir the coffee"];
                     
@@ -708,18 +737,8 @@ BrewMethod brewMethod;
                 [theTimer invalidate]; // Ok end this timer function, never come back
                 
                 [self.coffeeImageView stopAnim]; // Stop previus begin animation
-//                [self.infoLabel setText:@"Hold on the lid and pour"];
                 [self.infoLabel setText:@""];
                 [self.timerLabel setText:@"Enjoy"];
-//                [self.coffeeImageView setImage:[UIImage imageNamed:@"animFinish25"]];
-//                
-//                CABasicAnimation *crossFade = [CABasicAnimation animationWithKeyPath:@"contents"];
-//                crossFade.duration = 1.0;
-//                crossFade.fromValue = (__bridge id)([UIImage imageNamed:@"animFinish25"].CGImage);
-//                crossFade.toValue = (__bridge id)([UIImage imageNamed:@"fpour_5"].CGImage);
-//                [self.coffeeImageView.layer addAnimation:crossFade forKey:@"animateContents"];
-//                [self.coffeeImageView setImage:[UIImage imageNamed:@"fpour_5"]];
-                
                 
                 self.coffeeImageView.image = [UIImage imageNamed:@"fpour_5"];
                 CATransition *animation = [CATransition animation];
