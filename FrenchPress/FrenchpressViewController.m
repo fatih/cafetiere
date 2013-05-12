@@ -16,6 +16,7 @@
 
 @implementation FrenchpressViewController
 
+
 // Typedefs ...
 FrenchPressCoffeeState coffeeState;
 AeroPressCoffeeState aeroPressState;
@@ -95,7 +96,6 @@ BrewMethod brewMethod;
             {
                 self.title = @"French Press"; // NavigationBar title
 //                self.infoLabel.text = nil;
-//                self.timerLabel.text = @"Slide to start";
                 self.infoLabel.text = @"Slide to start";
                 self.timerLabel.text = nil;
                 
@@ -665,14 +665,6 @@ BrewMethod brewMethod;
                 
                 if (!self.bloomState) {
                     NSLog(@"StirState");
-                    
-//                self.coffeeImageView.image = [UIImage imageNamed:@"animStir07.png"];
-//                CATransition *animation = [CATransition animation];
-//                [animation setDuration:1.0];
-//                [animation setType:kCATransitionPush];
-//                [animation setSubtype:kCATransitionFromBottom];
-//                [animation setTimingFunction:[CAMediaTimingFunction functionWithName:kCAMediaTimingFunctionEaseInEaseOut]];
-//                [[self.coffeeImageView layer] addAnimation:animation forKey:@"SlideOutandInImagek"];
                     
                     [self setBloomState:1];
                     [self.infoLabel setText:@"Stir the coffee"];
