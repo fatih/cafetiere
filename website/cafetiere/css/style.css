@@ -1,0 +1,390 @@
+/* Common Styles */
+
+body {
+	/*background: #000 url('../img/bg_pat.png') repeat;*/
+	background: #000 url('../img/patterns/d4.png') repeat;
+	display: block;
+	overflow: auto; 
+	font-family: "Helvetica Neue", helvetica, arial, sans-serif;
+	font-size: 14px;
+	color: #5f5f5f;
+	margin: 0;
+}
+
+@font-face {
+	font-family: 'nevisBold';
+	src: url('../fonts/nevis-webfont.eot');
+	src: url('../fonts/nevis-webfont.eot?#iefix') format('embedded-opentype'),
+	     url('../fonts/nevis-webfont.woff') format('woff'),
+	     url('../fonts/nevis-webfont.ttf') format('truetype'),
+	     url('../fonts/nevis-webfont.svg#nevisBold') format('svg');
+	font-weight: bold;
+	font-style: normal;
+}
+
+#wrap {
+	width: 960px;
+	margin: 0 auto;
+	overflow: hidden;
+}
+
+.heading {
+	font-family: nevisBold;
+	/*color: #000;*/
+	/*color: #d00c01;*/
+	/*text-transform: uppercase;*/
+	font-size: 18px;
+	margin: 0px;
+	padding: 0px;
+}
+
+ul {
+	margin: 0px;
+	padding: 0px;
+	list-style: none;
+}
+
+.twitter_btn, .facebook_btn {
+	width: 32px;
+	height: 32px;
+	display: block;
+	background-image: url('../img/social_sprite.png');
+	background-position: 0px 0px;
+}
+
+.twitter_btn span.hover, .facebook_btn span.hover {
+	width: 32px;
+	height: 32px;
+	display: block;
+	background-image: url('../img/social_sprite.png');
+	background-position: 0px -32px;
+}
+
+.facebook_btn {
+	background-position: -32px 0px;
+}
+
+.facebook_btn span.hover {
+	background-position: -32px -32px;
+}
+
+h1, h2, p, blockquote { margin: 0; padding: 0; text-rendering: optimizeLegibility; }
+img { border: 0; -ms-interpolation-mode: bicubic; vertical-align: middle; }
+svg:not(:root) { overflow: hidden; }
+a {text-decoration: none;color: #33a8c5;}
+a:visited {color: #33a8c5;}
+a:hover {text-decoration: underline;}
+a:hover, a:active { outline: 0; }
+::selection {background: #33a8c5;}
+::-moz-selection {background: #33a8c5;}
+
+/* Masthead */
+
+#phones {
+	float: left;
+	display: block;
+	/*background: url('../img/phone.png') no-repeat;*/
+	/*background: url('../img/phone_single_350.png') no-repeat;*/
+	background: url('../img/iphone5_350.png') no-repeat;
+	/*background: url('../img/iphone5_white_350.png') no-repeat;*/
+	width: 350px;
+	height: 634px;
+	margin-top: 52px;
+}
+
+#description {
+	float: left;
+	display: block;
+	margin-left: 35px;
+	padding-top: 75px;
+	width: 500px;
+	font-size: 15px;
+}
+
+#logo {
+	float: left;
+	display: block;
+	text-indent: -9999px;
+	background: url('../img/logo_400.png') no-repeat;
+	width: 366px;
+	height: 72px;
+	margin-top: 60px;
+}
+
+#links {
+	float: right;
+}
+
+#links li {
+	display: inline-block;
+	padding-right: 16px;
+}
+
+#links li:last-child {
+	padding-right: 48px;
+}
+
+#description .heading {
+	clear: both;
+	padding-top: 35px;
+	font-size: 22px;
+}
+
+#description p {
+	padding-top: 15px;
+	line-height: 170%;
+}
+
+.stores li {
+	display: inline-block;
+	padding-right: 16px;
+	padding-top: 25px;
+	width: 500px;
+	
+}
+
+.stores li:last-child {
+	padding-right: 0px;
+	padding-right: 0px;
+}
+
+/* App Info */
+
+#app_info {
+	background: url('../img/line.png') no-repeat top;
+	width: 960px;
+	clear: both;
+	float: left;
+	display: block;
+	margin-top: 50px;
+}
+
+.screenshots {
+	float: left;
+	width: 425px;
+	padding-left: 55px;
+	margin-top: 15px;
+	margin-bottom: 25px;
+	background: url('../img/line_vertical.png') no-repeat center right;
+}
+
+.screenshots li {
+	padding-right: 25px;
+	padding-top: 25px;
+	float: left;
+	display: inline;
+}
+
+.screen_roll {
+	 background:url('../img/zoom.png') no-repeat center center;
+	 width: 181px;
+	 height: 133px;
+	 z-index: 10;
+	 position: absolute;	
+}
+
+#features {
+	float: left;
+	padding-top: 50px;
+	padding-left: 25px;
+	line-height: 170%;
+	width: 455px;
+}
+
+#features h2 {
+	padding-top: 15px;
+	padding-bottom: 10px;
+}
+
+#features li {
+	/*background: url('../img/feat_bullet.png') no-repeat center left;*/
+	background: url('../img/bullet_red.png') no-repeat center left;
+	text-indent: 25px;
+}
+
+/* Ratings */
+
+#ratings {
+	clear: both;
+	float: left;
+	line-height: 0px;
+	margin-top: 50px;
+	margin-bottom: 0px;
+	background: url('../img/line.png') no-repeat top;
+	display: block;
+}
+
+#ratings li {
+	display: inline;
+	float: left;
+}
+
+.rate1, .rate2, .rate3, .rate4 {
+	width: 240px;
+	height: 159px;
+	display: block;
+	background-position: 0px 0px;
+}
+
+.rate1 {
+	background: url('../img/rate1.png') no-repeat;
+}
+
+.rate2 {
+	background: url('../img/rate2.png') no-repeat;
+}
+
+.rate3 {
+	background: url('../img/rate3.png') no-repeat;
+}
+
+.rate4 {
+	background: url('../img/rate4.png') no-repeat;
+}
+
+.rate1 span.hover, .rate2 span.hover, .rate3 span.hover, .rate4 span.hover {
+	width: 240px;
+	height: 159px;
+	display: block;
+}
+
+.rate1 span.hover {
+	background: url('../img/rate1.png') no-repeat;
+	background-position: 0px -159px;
+}
+
+.rate2 span.hover {
+	background: url('../img/rate2.png') no-repeat;
+	background-position: 0px -159px;
+}
+
+.rate3 span.hover {
+	background: url('../img/rate3.png') no-repeat;
+	background-position: 0px -159px;
+}
+
+.rate4 span.hover {
+	background: url('../img/rate4.png') no-repeat;
+	background-position: 0px -159px;
+}
+
+/* Social */
+
+#social {
+	clear: both;
+	display: block;
+	width: 960px;
+	overflow: hidden;
+	font-size: 12px;
+	line-height: 150%;
+	background: url('../img/line.png') no-repeat top;	
+}
+
+#social .heading {
+	font-size: 16px;
+}
+
+#quotes, #tweets {
+	float: left;
+	width: 455px;
+	margin-top: 50px;
+}
+
+#quotes {
+	padding-right: 25px;
+}
+
+#tweets {
+	background: url('../img/line_vertical2.png') no-repeat center left;
+	padding-left: 25px;
+}
+
+#quote_list blockquote {
+	background: url('../img/quote.png') no-repeat top left;
+	padding-left: 50px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+}
+
+.quote_by {
+	float: right;
+	font-weight: bold;
+}
+
+#tweets p {
+	padding-top: 10px;
+}
+
+#tweets small {
+	font-weight: bold;
+	color: #33a8c5;
+}
+
+/* Footer */
+
+#footer {
+	display: block;
+	overflow: hidden;
+	width: 960px;
+	background: url('../img/line.png') no-repeat center top;
+	margin-top: 50px;
+	padding-top: 25px;
+	padding-bottom: 25px;
+}
+
+#footer li {
+	float: left;
+	display: inline-block;
+	width: 240px;
+	height: 32px;
+}
+
+#footer li a {
+	background: url('../img/icons.png') no-repeat;
+	padding-left: 45px;
+	display: block;
+	overflow: hidden;
+	color: #5f5f5f;
+	font-size: 12px;
+	text-align: center;
+	line-height: 32px;
+	float: left;
+}
+
+#footer li a:hover {
+	color: #000;
+	text-decoration: none;
+	background-position: 0px -32px;
+}
+
+#footer .facebook a {
+	background-position: 0 -64px;
+}
+
+#footer .facebook a:hover {
+	background-position: 0 -96px;
+}
+
+#footer .contact a {
+	background-position: 0 -128px;
+}
+
+#footer .contact a:hover {
+	background-position: 0 -160px;
+}
+
+#footer li span {
+	/*color: #33a8c5;*/
+	color: #af0a01;
+}
+
+#footer .copyright {
+	background: url('../img/icons.png') no-repeat;
+	background-position: 0 -192px;
+	padding-top: 5px;
+}
+
+.copyright img {
+	padding-left: 45px;
+}
+
